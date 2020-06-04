@@ -10,5 +10,9 @@ namespace Ex03.GarageLogic
     {
         readonly bool r_HazardousMaterials;
         readonly float r_CargoVolume;
+
+        internal Truck(string i_SerialNumber, uint i_NumOfWheels, float io_MaxAirPressure, object i_EnergyType) :
+        base(i_SerialNumber, i_NumOfWheels, io_MaxAirPressure, i_EnergyType)
+        { }
     }
 }

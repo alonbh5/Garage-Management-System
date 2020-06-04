@@ -6,10 +6,17 @@ using System.Threading.Tasks;
 
 namespace Ex03.GarageLogic
 {
-    class Electric
+    internal class Electric
     {
         float m_HoursLeftInBattery;
         readonly float r_MaxHoursInBattery;
+
+        internal Electric(float i_MaxHours)
+        {
+            r_MaxHoursInBattery = i_MaxHours;
+            m_HoursLeftInBattery = 0f;
+        }
+            
 
         public void ChargeBattery (float io_HoursToAdd)
         { }

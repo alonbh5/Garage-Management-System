@@ -22,9 +22,13 @@ namespace Ex03.GarageLogic
     }
 
 
-    class Car : Vehicle
+    internal class Car : Vehicle
     {
-        readonly eColor r_Color;
-        readonly eDoors r_Doors; 
+        eColor m_Color;
+        eDoors m_Doors;
+
+        internal Car(string i_SerialNumber, uint i_NumOfWheels, float io_MaxAirPressure, object i_EnergyType) :
+        base(i_SerialNumber, i_NumOfWheels, io_MaxAirPressure, i_EnergyType)
+        { }
     }
 }

@@ -19,6 +19,13 @@ namespace Ex03.GarageLogic
         readonly eFuelType r_FuelType;
         readonly float r_MaxFuelTank;
         float m_CurrentFuelTank;
+        
+        internal Fuel (eFuelType i_FuelType,float i_MaxFuel)
+        {
+            r_FuelType = i_FuelType;
+            r_MaxFuelTank = i_MaxFuel;
+            m_CurrentFuelTank = 0f;
+        }
 
         public void FillTank (float i_AmountToAdd, eFuelType i_FuelType)
         {
