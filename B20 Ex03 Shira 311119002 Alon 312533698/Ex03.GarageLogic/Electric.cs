@@ -18,7 +18,9 @@ namespace Ex03.GarageLogic
         }
             
 
-        public void ChargeBattery (float io_HoursToAdd)
-        { }
+        public bool ChargeBattery (float io_HoursToAdd)
+        {
+            return true;
+        }
     }
 }

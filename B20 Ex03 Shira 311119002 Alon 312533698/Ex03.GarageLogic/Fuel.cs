@@ -27,7 +27,17 @@ namespace Ex03.GarageLogic
             m_CurrentFuelTank = 0f;
         }
 
-        public void FillTank (float i_AmountToAdd, eFuelType i_FuelType)
+        internal eFuelType FuelType
+        {
+            get { return r_FuelType; }
+        }
+
+        internal float MaxTank
+        {
+            get { return r_MaxFuelTank; }
+        }
+
+        public bool FillTank (float i_AmountToAdd, eFuelType i_FuelType)
         {
 
         }

@@ -45,7 +45,7 @@
     <Compile Include="Customer.cs" />
     <Compile Include="Electric.cs" />
     <Compile Include="Fuel.cs" />
-    <Compile Include="Grage.cs" />
+    <Compile Include="Garage.cs" />
     <Compile Include="Motorcycle.cs" />
     <Compile Include="Truck.cs" />
     <Compile Include="Vehicle.cs" />

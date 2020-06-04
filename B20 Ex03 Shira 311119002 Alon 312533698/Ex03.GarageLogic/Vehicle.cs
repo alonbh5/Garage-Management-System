@@ -14,6 +14,16 @@ namespace Ex03.GarageLogic
         readonly Wheel[] r_Wheels;
         object r_EnergyType;
 
+        internal Wheel[] Wheels
+        {
+            get { return r_Wheels; }
+        }
+
+        internal object EnergyType
+        {
+            get { return r_EnergyType; }
+        }
+
         protected Vehicle(string i_SerialNumber, uint i_NumOfWheels, float io_MaxAirPressure, object i_EnergyType)
         {
             m_PercentagesOfEnergyRemaining = 0f;
