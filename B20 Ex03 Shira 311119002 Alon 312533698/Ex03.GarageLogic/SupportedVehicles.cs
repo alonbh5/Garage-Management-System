@@ -17,7 +17,9 @@ namespace Ex03.GarageLogic
 
     public class SupportedVehicles
     {
-        internal static Vehicle CreateVehicle(eSupportVehicles i_Choice, string io_SerialNumber)
+        public static readonly string[] r_supportedVehicles = { "Regular Motorycle", "Electric Motorcycle", "Regular Car", "Electric Car", "Truck" };
+
+        internal static Vehicle CreateVehicle(eSupportVehicles i_Choice, string io_LicenseNumber)
         {
             Vehicle res = null;
 
@@ -25,31 +27,31 @@ namespace Ex03.GarageLogic
             {
                 case eSupportVehicles.ElectricMotorcycle:
                     {
-                        res = CreateElectricMotorcycle(io_SerialNumber);
+                        res = CreateElectricMotorcycle(io_LicenseNumber);
                         break;
                     }
 
                 case eSupportVehicles.ElectricCar:
                     {
-                        res = CreateElectricCar(io_SerialNumber);
+                        res = CreateElectricCar(io_LicenseNumber);
                         break;
                     }
 
                 case eSupportVehicles.Truck:
                     {
-                        res = CreateTruck(io_SerialNumber);
+                        res = CreateTruck(io_LicenseNumber);
                         break;
                     }
 
                 case eSupportVehicles.RegularMotorcycle:
                     {
-                        res = CreateRrgularMotorcycle(io_SerialNumber);
+                        res = CreateRrgularMotorcycle(io_LicenseNumber);
                         break;
                     }
 
                 case eSupportVehicles.RegularCar:
                     {
-                        res = CreateRrgularCar(io_SerialNumber);
+                        res = CreateRrgularCar(io_LicenseNumber);
                         break;
                     }
             }
@@ -57,34 +59,34 @@ namespace Ex03.GarageLogic
             return res;
         }
 
-        private static Vehicle CreateElectricMotorcycle(string io_SerialNumber)
+        private static Vehicle CreateElectricMotorcycle(string io_LicenseNumber)
         {
             Electric engine = new Electric(1.2f);
-            return new Motorcycle(io_SerialNumber, 2, 30, engine);
+            return new Motorcycle(io_LicenseNumber, 2, 30, engine);
         }
 
-        private static Vehicle CreateRrgularMotorcycle(string io_SerialNumber)
+        private static Vehicle CreateRrgularMotorcycle(string io_LicenseNumber)
         {
             Fuel engine = new Fuel(eFuelType.Octan95, 7);
-            return new Motorcycle(io_SerialNumber, 2, 30, engine);
+            return new Motorcycle(io_LicenseNumber, 2, 30, engine);
         }
 
-        private static Vehicle CreateElectricCar(string io_SerialNumber)
+        private static Vehicle CreateElectricCar(string io_LicenseNumber)
         {
             Electric engine = new Electric(2.1f);
-            return new Car(io_SerialNumber, 4, 32, engine);
+            return new Car(io_LicenseNumber, 4, 32, engine);
         }
 
-        private static Vehicle CreateRrgularCar(string io_SerialNumber)
+        private static Vehicle CreateRrgularCar(string io_LicenseNumber)
         {
             Fuel engine = new Fuel(eFuelType.Octan96, 60);
-            return new Car(io_SerialNumber, 4, 32, engine);
+            return new Car(io_LicenseNumber, 4, 32, engine);
         }
 
-        private static Vehicle CreateTruck(string io_SerialNumber)
+        private static Vehicle CreateTruck(string io_LicenseNumber)
         {
             Fuel engine = new Fuel(eFuelType.Soler, 120);
-            return new Truck(io_SerialNumber, 16, 28, engine);
+            return new Truck(io_LicenseNumber, 16, 28, engine);
         }
     }
 }

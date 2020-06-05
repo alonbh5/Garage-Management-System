@@ -27,8 +27,8 @@ namespace Ex03.GarageLogic
         private eColor m_Color;
         private eDoors m_Doors;
 
-        internal Car(string i_SerialNumber, uint i_NumOfWheels, float io_MaxAirPressure, object i_EnergyType) :
-        base(i_SerialNumber, i_NumOfWheels, io_MaxAirPressure, i_EnergyType)
+        internal Car(string i_LicenseNumber, uint i_NumOfWheels, float io_MaxAirPressure, object i_EnergyType) :
+        base(i_LicenseNumber, i_NumOfWheels, io_MaxAirPressure, i_EnergyType)
         {
         }
 

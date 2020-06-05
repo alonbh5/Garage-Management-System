@@ -11,9 +11,7 @@ namespace Ex03.ConsoleUI
     {
         public static void Main()
         {
-            int x = 4;  
-            if ((int)eSupportVehicles.RegularCar==x)
-            Console.WriteLine(eServiceStatus.Fixed.ToString());
+            ConsoleUI myaf = new ConsoleUI();
             
         }
     }

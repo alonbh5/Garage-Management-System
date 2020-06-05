@@ -9,20 +9,29 @@ namespace Ex03.GarageLogic
     public class Garage
     {
         private readonly Dictionary<string, Customer> r_Vehicles = new Dictionary<string, Customer>();
+
+        public  bool IsExist (string io_LicenseNumber)
+        {
+            return (r_Vehicles.ContainsKey(io_LicenseNumber));            
+        }
         
-        public bool AddNewVehicle(string io_CustomerName, string io_CustomerPhoneNumber, eSupportVehicles io_Choice, string io_SerialNumber)
+        public int NumOfSupportedVehicles()
+        {
+            return SupportedVehicles.r_supportedVehicles.Length;
+        }
+        public bool AddNewVehicle(string io_CustomerName, string io_CustomerPhoneNumber, eSupportVehicles io_Choice, string io_LicenseNumber)
         { //function 1
             bool isAdded = false;
 
-            if (r_Vehicles.ContainsKey(io_SerialNumber))
+            if (r_Vehicles.ContainsKey(io_LicenseNumber))
             {
-                r_Vehicles[io_SerialNumber].VehicleStatus = eServiceStatus.InRepair;
+                r_Vehicles[io_LicenseNumber].VehicleStatus = eServiceStatus.InRepair;
             }
             else
             {
-                Vehicle newVehicle = SupportedVehicles.CreateVehicle(io_Choice, io_SerialNumber);
+                Vehicle newVehicle = SupportedVehicles.CreateVehicle(io_Choice, io_LicenseNumber);
                 Customer newCustomer = new Customer(io_CustomerName, io_CustomerPhoneNumber, eServiceStatus.InRepair, newVehicle);
-                r_Vehicles.Add(io_SerialNumber, newCustomer);
+                r_Vehicles.Add(io_LicenseNumber, newCustomer);
                 isAdded = true;
             }
 
@@ -55,27 +64,27 @@ namespace Ex03.GarageLogic
             return vehicleList;
         }
 
-        public bool ChangeServiceStatus(string i_SerialNumber, eServiceStatus i_NewStatus)
+        public bool ChangeServiceStatus(string i_LicenseNumber, eServiceStatus i_NewStatus)
         {//function 3
             bool isChanged = false;
 
-            if (r_Vehicles.ContainsKey(i_SerialNumber))
+            if (r_Vehicles.ContainsKey(i_LicenseNumber))
             {
-                r_Vehicles[i_SerialNumber].VehicleStatus = i_NewStatus;
+                r_Vehicles[i_LicenseNumber].VehicleStatus = i_NewStatus;
                 isChanged = true;
             }
 
             return isChanged;
         }
 
-        public bool InflateWheels(string i_SerialNumber)
+        public bool InflateWheels(string i_LicenseNumber)
         {//function 4
             bool isInflated = false;
             float amountToAdd = 0f;
 
-            if (r_Vehicles.ContainsKey(i_SerialNumber))
+            if (r_Vehicles.ContainsKey(i_LicenseNumber))
             {
-                Wheel[] currentWheels = r_Vehicles[i_SerialNumber].Vehicle.Wheels;
+                Wheel[] currentWheels = r_Vehicles[i_LicenseNumber].Vehicle.Wheels;
 
                 for (int i = 0; i <= currentWheels.Length; i++) 
                 {
@@ -89,46 +98,63 @@ namespace Ex03.GarageLogic
             return isInflated;
         }
 
-        public bool FillGasTank(string i_SerialNumber, eFuelType io_FuelType, float io_AmountToAdd)
+        public bool FillGasTank(string i_LicenseNumber, eFuelType io_FuelType, float io_AmountToAdd)
         {//function 5
             bool isFilled = false;
 
-            if (r_Vehicles.ContainsKey(i_SerialNumber))
+            if (r_Vehicles.ContainsKey(i_LicenseNumber))
             {
-                if (r_Vehicles[i_SerialNumber].Vehicle.EnergyType is Fuel)
+                if (r_Vehicles[i_LicenseNumber].Vehicle.EnergyType is Fuel)
                 {
-                    isFilled = (r_Vehicles[i_SerialNumber].Vehicle.EnergyType as Fuel).FillTank(io_AmountToAdd, io_FuelType);
+                    isFilled = (r_Vehicles[i_LicenseNumber].Vehicle.EnergyType as Fuel).FillTank(io_AmountToAdd, io_FuelType);
                 }
             }
 
             return isFilled;
         }
 
-        public bool FillCharge(string i_SerialNumber, float io_MinutesToAdd)
+        public bool FillCharge(string i_LicenseNumber, float io_MinutesToAdd)
         {//function 6
             bool isFilled = false;
 
-            if (r_Vehicles.ContainsKey(i_SerialNumber))
+            if (r_Vehicles.ContainsKey(i_LicenseNumber))
             {
-                if (r_Vehicles[i_SerialNumber].Vehicle.EnergyType is Electric)
+                if (r_Vehicles[i_LicenseNumber].Vehicle.EnergyType is Electric)
                 {
-                    isFilled = (r_Vehicles[i_SerialNumber].Vehicle.EnergyType as Electric).ChargeBattery(io_MinutesToAdd / 60f);
+                    isFilled = (r_Vehicles[i_LicenseNumber].Vehicle.EnergyType as Electric).ChargeBattery(io_MinutesToAdd / 60f);
                 }
             }
 
             return isFilled;
         }
 
-        public StringBuilder VehicleInfo(string i_SerialNumber)
+        public bool VehicleInfo(string i_LicenseNumber, out string io_VehicleInfo)
         {//function 7
+            bool found = false;
+
             StringBuilder vehicleInfo = new StringBuilder();
 
-            if (r_Vehicles.ContainsKey(i_SerialNumber))
+            if (r_Vehicles.ContainsKey(i_LicenseNumber))
             {
-                vehicleInfo.Append(r_Vehicles[i_SerialNumber].ToString()); //check
+                vehicleInfo.Append(r_Vehicles[i_LicenseNumber].ToString()); //check
+                found = true;
             }
 
-            return vehicleInfo;
+            io_VehicleInfo = vehicleInfo.ToString();
+            return found;
+        }
+
+        public string ShowSupportedVehicles()
+        {
+            int index = 1;
+            StringBuilder supportedVehicle = new StringBuilder();
+
+            foreach (string currentVehicle in SupportedVehicles.r_supportedVehicles) 
+            {
+                supportedVehicle.Append(string.Format("{0}. {1}{2}",index++, currentVehicle, Environment.NewLine));
+            }
+
+            return supportedVehicle.ToString();
         }
     }
 }
