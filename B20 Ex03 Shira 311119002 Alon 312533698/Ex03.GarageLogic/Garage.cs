@@ -11,7 +11,7 @@ namespace Ex03.GarageLogic
         private readonly Dictionary<string, Customer> r_Vehicles = new Dictionary<string, Customer>();
         
         public bool AddNewVehicle(string io_CustomerName, string io_CustomerPhoneNumber, eSupportVehicles io_Choice, string io_SerialNumber)
-        {
+        { //function 1
             bool isAdded = false;
 
             if (r_Vehicles.ContainsKey(io_SerialNumber))
@@ -30,7 +30,7 @@ namespace Ex03.GarageLogic
         } 
         
         public StringBuilder VehicleStringByFilter(bool i_InRepair, bool i_Fixed, bool i_Paid)
-        {
+        {//function 2
             int index = 1;
             StringBuilder vehicleList = new StringBuilder();
 
@@ -56,7 +56,7 @@ namespace Ex03.GarageLogic
         }
 
         public bool ChangeServiceStatus(string i_SerialNumber, eServiceStatus i_NewStatus)
-        {
+        {//function 3
             bool isChanged = false;
 
             if (r_Vehicles.ContainsKey(i_SerialNumber))
@@ -69,7 +69,7 @@ namespace Ex03.GarageLogic
         }
 
         public bool InflateWheels(string i_SerialNumber)
-        {
+        {//function 4
             bool isInflated = false;
             float amountToAdd = 0f;
 
@@ -90,7 +90,7 @@ namespace Ex03.GarageLogic
         }
 
         public bool FillGasTank(string i_SerialNumber, eFuelType io_FuelType, float io_AmountToAdd)
-        {
+        {//function 5
             bool isFilled = false;
 
             if (r_Vehicles.ContainsKey(i_SerialNumber))
@@ -105,7 +105,7 @@ namespace Ex03.GarageLogic
         }
 
         public bool FillCharge(string i_SerialNumber, float io_MinutesToAdd)
-        {
+        {//function 6
             bool isFilled = false;
 
             if (r_Vehicles.ContainsKey(i_SerialNumber))
@@ -120,7 +120,7 @@ namespace Ex03.GarageLogic
         }
 
         public StringBuilder VehicleInfo(string i_SerialNumber)
-        {
+        {//function 7
             StringBuilder vehicleInfo = new StringBuilder();
 
             if (r_Vehicles.ContainsKey(i_SerialNumber))

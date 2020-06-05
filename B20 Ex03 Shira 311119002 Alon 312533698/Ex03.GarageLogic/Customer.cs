@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Configuration;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -8,7 +9,7 @@ namespace Ex03.GarageLogic
 {
     public enum eServiceStatus
     {
-        InRepair,
+        InRepair = 1,
         Fixed,
         Paid
     }
@@ -47,6 +48,16 @@ namespace Ex03.GarageLogic
         public Vehicle Vehicle
         {
             get { return r_Vehicle; }
+        }
+
+        public override string ToString()
+        {
+            StringBuilder msg = new StringBuilder();
+
+            msg.Append(string.Format("The owner is {0} and his phone number is {1}{2}", Name, PhoneNumber, Environment.NewLine));
+            msg.Append(r_Vehicle.ToString());
+            msg.Append(m_VehicleStatus.ToString());
+            return msg.ToString();
         }
     }
 }

@@ -8,7 +8,7 @@ namespace Ex03.GarageLogic
 {
     public enum eSupportVehicles
     {
-        RegularMotorcycle,
+        RegularMotorcycle = 1,
         ElectricMotorcycle,
         RegularCar,
         ElectricCar,
@@ -17,11 +17,11 @@ namespace Ex03.GarageLogic
 
     public class SupportedVehicles
     {
-        public static Vehicle CreateVehicle(eSupportVehicles i_choice, string io_SerialNumber)
+        internal static Vehicle CreateVehicle(eSupportVehicles i_Choice, string io_SerialNumber)
         {
             Vehicle res = null;
 
-            switch (i_choice)
+            switch (i_Choice)
             {
                 case eSupportVehicles.ElectricMotorcycle:
                     {

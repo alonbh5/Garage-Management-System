@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Ex03.GarageLogic
 {
-    public class Vehicle
+    internal class Vehicle
     {
         private readonly string r_SerialNumber;
         private readonly Wheel[] r_Wheels;
@@ -14,7 +14,7 @@ namespace Ex03.GarageLogic
         private string m_ModelName;
         private float m_PercentagesOfEnergyRemaining;
 
-        protected Vehicle(string i_SerialNumber, uint i_NumOfWheels, float io_MaxAirPressure, object i_EnergyType) //// protected?
+        protected Vehicle(string i_SerialNumber, uint i_NumOfWheels, float io_MaxAirPressure, object i_EnergyType) 
         {
             m_PercentagesOfEnergyRemaining = 0f;
             m_ModelName = string.Empty;
@@ -53,6 +53,23 @@ namespace Ex03.GarageLogic
         {
             get { return m_PercentagesOfEnergyRemaining; }
             set { m_PercentagesOfEnergyRemaining = value; }
+        }
+
+        public override string ToString()
+        {
+            StringBuilder msg = new StringBuilder();
+            int index = 1;
+            
+            msg.Append(string.Format("License Number is: {0}{1}Model Name is: {2}{1}", SerialNumber, Environment.NewLine, ModelName));
+            foreach (Wheel currentWheel in Wheels)
+            {
+                msg.Append(string.Format("{0}. {1}", index++, currentWheel.ToString()));
+            }
+
+            msg.Append(r_EnergyType.ToString());
+
+            return msg.ToString();
+
         }
     }
 }

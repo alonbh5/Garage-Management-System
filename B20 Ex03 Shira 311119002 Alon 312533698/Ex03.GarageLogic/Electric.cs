@@ -32,5 +32,15 @@ namespace Ex03.GarageLogic
         {
             return true;
         }
+
+        public override string ToString()
+        {
+            StringBuilder msg = new StringBuilder();
+
+            msg.Append(string.Format("The battay has {0} hours left out of {1} hours{2}", HoursLeftInBattery, MaxHoursInBattery, Environment.NewLine));
+
+
+            return msg.ToString();
+        }
     }
 }

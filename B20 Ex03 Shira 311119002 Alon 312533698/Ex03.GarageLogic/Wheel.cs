@@ -37,5 +37,15 @@ namespace Ex03.GarageLogic
         public void InflatingAirPressure(float io_AddPressure)
         {
         }
+
+        public override string ToString()
+        {
+            StringBuilder msg = new StringBuilder();
+
+            msg.Append(string.Format("Manufacturer is {0}, current air pressure is {1} out of {2}{3}", Manufacturer, CurrentAirPressure,MaxAirPressure, Environment.NewLine));
+
+
+            return msg.ToString();
+        }
     }
 }
