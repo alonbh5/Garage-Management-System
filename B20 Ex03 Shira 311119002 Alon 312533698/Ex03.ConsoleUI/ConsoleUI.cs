@@ -78,33 +78,24 @@ namespace Ex03.ConsoleUI
         public void AddNewVehicleInput()
         {
             string name, phoneNumber, licenseNumber;
-            int vehicleChoice = 0;
+            int vehicleChoice;
 
-            Console.WriteLine("Please enter your name");
-            name = Console.ReadLine();  //// check name
-            Console.WriteLine("Please enter your phone number");
-            phoneNumber = Console.ReadLine();  //// check number
+            getNameAndPhone(out name, out phoneNumber);
 
-            Console.Write("Choose one of our supported vehicles:{0}{1}", Environment.NewLine, r_MyGarage.ShowSupportedVehicles());
-            int.TryParse(Console.ReadLine(), out vehicleChoice);
-            while (vehicleChoice < 1 || vehicleChoice > r_MyGarage.NumOfSupportedVehicles())
-            {
-                Console.WriteLine(string.Format("Wrong input.{0}Must be one of these options (1-{1})", Environment.NewLine, r_MyGarage.NumOfSupportedVehicles()));
-                int.TryParse(Console.ReadLine(), out vehicleChoice);
-            }
+            getSupportedVehicles(out vehicleChoice);
 
             getLicenseNumber(out licenseNumber);
             
             bool added = r_MyGarage.AddNewVehicle(name, phoneNumber, (eSupportVehicles)vehicleChoice, licenseNumber);
 
-            if (!added) 
+            if (r_MyGarage.AddNewVehicle(name, phoneNumber, (eSupportVehicles)vehicleChoice, licenseNumber)) 
             {
-                Console.WriteLine("This vehicle is already in THE BEST GARAGE IN TOWN! BIATCH");
+                updateInfo();
+                Console.WriteLine("This vehicle added successfuly to THE BEST GARAGE IN TOWN! HAVE FUN");                
             }
             else
             {
-                //// need other info about car call moreinfo
-                Console.WriteLine("This vehicle added successfuly to THE BEST GARAGE IN TOWN! HAVE FUN");
+                Console.WriteLine("This vehicle is already in THE BEST GARAGE IN TOWN! BIATCH");
             }            
         }
 
@@ -136,6 +127,41 @@ namespace Ex03.ConsoleUI
             }
 
             io_LicenseNumber = input;
+        }
+        private void getNameAndPhone(out string io_Name, out string io_Phone)
+        {
+            Console.WriteLine("Please enter customer name");
+            io_Name = Console.ReadLine();  //// check name
+
+            while (io_Name.Length<3)  
+            {
+                Console.WriteLine("Name Should be at least 3 letters, Try agian:");
+                io_Phone = Console.ReadLine();  //// check number
+            }
+
+            Console.WriteLine("Please enter customer phone number");
+            io_Phone = Console.ReadLine();  //// check number
+
+            while (!int.TryParse(io_Phone,out int check) || io_Phone.Length != 9 || io_Phone[0] != '0' || io_Phone[1]!='5')
+            {
+                Console.WriteLine("Phone number Invalid (9 digit's in the form 05xxxxxxx)");
+                io_Phone = Console.ReadLine();  //// check number
+            }
+        }
+        private void getSupportedVehicles(out int vehicleChoice)
+        {
+            vehicleChoice = 0;
+            Console.Write("Choose one of our supported vehicles:{0}{1}", Environment.NewLine, r_MyGarage.ShowSupportedVehicles());
+            int.TryParse(Console.ReadLine(), out vehicleChoice);
+            while (vehicleChoice < 1 || vehicleChoice > r_MyGarage.NumOfSupportedVehicles())
+            {
+                Console.WriteLine(string.Format("Wrong input.{0}Must be one of these options (1-{1})", Environment.NewLine, r_MyGarage.NumOfSupportedVehicles()));
+                int.TryParse(Console.ReadLine(), out vehicleChoice);
+            }
+        }
+        private void updateInfo ()
+        {
+
         }
     }
 }

@@ -157,5 +157,10 @@ namespace Ex03.GarageLogic
 
             return supportedVehicle.ToString();
         }
+
+        internal bool UpdateVehicleInfo(string i_LicenseNumber)
+        {
+
+        }
     }
 }
