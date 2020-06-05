@@ -11,8 +11,7 @@ namespace Ex03.ConsoleUI
     {
         public static void Main()
         {
-            ConsoleUI myaf = new ConsoleUI();
-            
+            ConsoleUI myaf = new ConsoleUI();            
         }
     }
 }

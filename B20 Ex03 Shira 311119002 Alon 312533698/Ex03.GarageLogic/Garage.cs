@@ -10,17 +10,18 @@ namespace Ex03.GarageLogic
     {
         private readonly Dictionary<string, Customer> r_Vehicles = new Dictionary<string, Customer>();
 
-        public  bool IsExist (string io_LicenseNumber)
+        public bool IsExist(string io_LicenseNumber)
         {
-            return (r_Vehicles.ContainsKey(io_LicenseNumber));            
+            return r_Vehicles.ContainsKey(io_LicenseNumber);
         }
-        
+
         public int NumOfSupportedVehicles()
         {
-            return SupportedVehicles.r_supportedVehicles.Length;
+            return SupportedVehicles.sr_SupportedVehicles.Length;
         }
+
         public bool AddNewVehicle(string io_CustomerName, string io_CustomerPhoneNumber, eSupportVehicles io_Choice, string io_LicenseNumber)
-        { //function 1
+        { // function 1
             bool isAdded = false;
 
             if (r_Vehicles.ContainsKey(io_LicenseNumber))
@@ -36,10 +37,10 @@ namespace Ex03.GarageLogic
             }
 
             return isAdded;
-        } 
-        
+        }
+
         public StringBuilder VehicleStringByFilter(bool i_InRepair, bool i_Fixed, bool i_Paid)
-        {//function 2
+        { // function 2
             int index = 1;
             StringBuilder vehicleList = new StringBuilder();
 
@@ -65,10 +66,10 @@ namespace Ex03.GarageLogic
         }
 
         public bool ChangeServiceStatus(string i_LicenseNumber, eServiceStatus i_NewStatus)
-        {//function 3
+        { // function 3
             bool isChanged = false;
 
-            if (r_Vehicles.ContainsKey(i_LicenseNumber))
+            if (r_Vehicles.ContainsKey(i_LicenseNumber)) 
             {
                 r_Vehicles[i_LicenseNumber].VehicleStatus = i_NewStatus;
                 isChanged = true;
@@ -78,7 +79,7 @@ namespace Ex03.GarageLogic
         }
 
         public bool InflateWheels(string i_LicenseNumber)
-        {//function 4
+        { // function 4
             bool isInflated = false;
             float amountToAdd = 0f;
 
@@ -99,7 +100,7 @@ namespace Ex03.GarageLogic
         }
 
         public bool FillGasTank(string i_LicenseNumber, eFuelType io_FuelType, float io_AmountToAdd)
-        {//function 5
+        { // function 5
             bool isFilled = false;
 
             if (r_Vehicles.ContainsKey(i_LicenseNumber))
@@ -114,7 +115,7 @@ namespace Ex03.GarageLogic
         }
 
         public bool FillCharge(string i_LicenseNumber, float io_MinutesToAdd)
-        {//function 6
+        { // function 6
             bool isFilled = false;
 
             if (r_Vehicles.ContainsKey(i_LicenseNumber))
@@ -129,14 +130,14 @@ namespace Ex03.GarageLogic
         }
 
         public bool VehicleInfo(string i_LicenseNumber, out string io_VehicleInfo)
-        {//function 7
+        { // function 7
             bool found = false;
 
             StringBuilder vehicleInfo = new StringBuilder();
 
             if (r_Vehicles.ContainsKey(i_LicenseNumber))
             {
-                vehicleInfo.Append(r_Vehicles[i_LicenseNumber].ToString()); //check
+                vehicleInfo.Append(r_Vehicles[i_LicenseNumber].ToString());
                 found = true;
             }
 
@@ -149,9 +150,9 @@ namespace Ex03.GarageLogic
             int index = 1;
             StringBuilder supportedVehicle = new StringBuilder();
 
-            foreach (string currentVehicle in SupportedVehicles.r_supportedVehicles) 
+            foreach (string currentVehicle in SupportedVehicles.sr_SupportedVehicles)
             {
-                supportedVehicle.Append(string.Format("{0}. {1}{2}",index++, currentVehicle, Environment.NewLine));
+                supportedVehicle.Append(string.Format("{0}. {1}{2}", index++, currentVehicle, Environment.NewLine));
             }
 
             return supportedVehicle.ToString();

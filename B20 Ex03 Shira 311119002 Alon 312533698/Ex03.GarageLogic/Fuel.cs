@@ -55,17 +55,20 @@ namespace Ex03.GarageLogic
                     filled = true;
                 }
             }
+
             return filled;
         }
 
         public override string ToString()
         {
-            StringBuilder msg = new StringBuilder();
+            string fuel = string.Format(
+                "Fuel type is {0}, it has {1} amount of gas left out of {2}{3}",
+                FuelType.ToString(),
+                CurrentFuelTank,
+                MaxTank,
+                Environment.NewLine);           
 
-            msg.Append(string.Format("Fuel type is {0}, it has {1} amount of gas left out of {2}{3}",FuelType.ToString(),CurrentFuelTank,MaxTank,Environment.NewLine));
-            
-
-            return msg.ToString();
+            return fuel;
         }
     }
 }

@@ -32,22 +32,24 @@ namespace Ex03.GarageLogic
         {
             bool charged = false;
 
-            if (io_HoursToAdd+HoursLeftInBattery <= MaxHoursInBattery)
+            if (io_HoursToAdd + HoursLeftInBattery <= MaxHoursInBattery)
             {
                 HoursLeftInBattery += io_HoursToAdd;
                 charged = true;
             }
+
             return charged;
         }
 
         public override string ToString()
         {
-            StringBuilder msg = new StringBuilder();
+            string electric = string.Format(
+                "The battay has {0} hours left out of {1} hours{2}",
+                HoursLeftInBattery,
+                MaxHoursInBattery,
+                Environment.NewLine);
 
-            msg.Append(string.Format("The battay has {0} hours left out of {1} hours{2}", HoursLeftInBattery, MaxHoursInBattery, Environment.NewLine));
-
-
-            return msg.ToString();
+            return electric;
         }
     }
 }

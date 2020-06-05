@@ -38,11 +38,14 @@ namespace Ex03.GarageLogic
 
         public override string ToString()
         {
-            StringBuilder msg = new StringBuilder();
+            string motorcycle = string.Format(
+                "{0}The motorcycle license type is {1} and his engine capacity is {2} CC{3}",
+                base.ToString(),
+                LicenseType.ToString(),
+                EngineCapacityInCC,
+                Environment.NewLine);
 
-            msg.Append(string.Format("{0} The motorcycle license type is {1} and is engine capacity is {2} CC {3}", base.ToString(), LicenseType.ToString(),EngineCapacityInCC, Environment.NewLine));
-
-            return msg.ToString();
+            return motorcycle;
         }
     }
 }

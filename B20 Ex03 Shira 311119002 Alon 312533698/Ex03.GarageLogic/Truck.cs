@@ -30,7 +30,6 @@ namespace Ex03.GarageLogic
 
         public override string ToString()
         {
-            StringBuilder msg = new StringBuilder();
             string hazardousMsg = string.Empty;
 
             if (HazardousMaterials)
@@ -41,9 +40,15 @@ namespace Ex03.GarageLogic
             {
                 hazardousMsg = "does not";
             }
-            msg.Append(string.Format("{0} The truck {1} contains hazardous materials and it's cargo capacity is {2} {3}", base.ToString(), hazardousMsg,CargoVolume, Environment.NewLine));
 
-            return msg.ToString();
+            string truck = string.Format(
+                "{0}The truck {1} contains hazardous materials and his cargo capacity is {2}{3}",
+                base.ToString(),
+                hazardousMsg,
+                CargoVolume,
+                Environment.NewLine);
+
+            return truck;
         }
     }
 }

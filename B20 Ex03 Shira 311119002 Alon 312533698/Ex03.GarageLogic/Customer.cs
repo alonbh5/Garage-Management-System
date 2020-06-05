@@ -52,12 +52,15 @@ namespace Ex03.GarageLogic
 
         public override string ToString()
         {
-            StringBuilder msg = new StringBuilder();
+            string customer = string.Format(
+                "The owner is {0} and his phone number is {1}{2}{3}{4}",
+                Name,
+                PhoneNumber,
+                Environment.NewLine,
+                Vehicle.ToString(),
+                VehicleStatus.ToString());
 
-            msg.Append(string.Format("The owner is {0} and his phone number is {1}{2}", Name, PhoneNumber, Environment.NewLine));
-            msg.Append(r_Vehicle.ToString());
-            msg.Append(m_VehicleStatus.ToString());
-            return msg.ToString();
+            return customer;
         }
     }
 }

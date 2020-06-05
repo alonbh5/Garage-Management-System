@@ -36,7 +36,7 @@ namespace Ex03.GarageLogic
 
         public void InflatingAirPressure(float io_AddPressure)
         {
-            if (io_AddPressure+CurrentAirPressure <= MaxAirPressure)
+            if (io_AddPressure + CurrentAirPressure <= MaxAirPressure)
             {
                 CurrentAirPressure += io_AddPressure;
             }
@@ -44,12 +44,14 @@ namespace Ex03.GarageLogic
 
         public override string ToString()
         {
-            StringBuilder msg = new StringBuilder();
+            string wheel = string.Format(
+                "Manufacturer is {0}, current air pressure is {1} out of {2}{3}",
+                Manufacturer,
+                CurrentAirPressure,
+                MaxAirPressure,
+                Environment.NewLine);
 
-            msg.Append(string.Format("Manufacturer is {0}, current air pressure is {1} out of {2}{3}", Manufacturer, CurrentAirPressure,MaxAirPressure, Environment.NewLine));
-
-
-            return msg.ToString();
+            return wheel;
         }
     }
 }

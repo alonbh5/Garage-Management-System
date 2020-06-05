@@ -17,7 +17,7 @@ namespace Ex03.GarageLogic
 
     public class SupportedVehicles
     {
-        public static readonly string[] r_supportedVehicles = { "Regular Motorycle", "Electric Motorcycle", "Regular Car", "Electric Car", "Truck" };
+        public static readonly string[] sr_SupportedVehicles = new string[] { "Regular Motorycle", "Electric Motorcycle", "Regular Car", "Electric Car", "Truck" };
 
         internal static Vehicle CreateVehicle(eSupportVehicles i_Choice, string io_LicenseNumber)
         {
