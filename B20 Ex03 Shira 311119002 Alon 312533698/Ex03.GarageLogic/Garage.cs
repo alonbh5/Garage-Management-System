@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Ex03.GarageLogic
 {
-    class Garage
+    public class Garage
     {
-        readonly Dictionary<string, Customer> r_Vehicles = new Dictionary<string, Customer>();
+        private readonly Dictionary<string, Customer> r_Vehicles = new Dictionary<string, Customer>();
         
         public bool AddNewVehicle(string io_CustomerName, string io_CustomerPhoneNumber, eSupportVehicles io_Choice, string io_SerialNumber)
         {
@@ -20,7 +20,7 @@ namespace Ex03.GarageLogic
             }
             else
             {
-                Vehicle newVehicle = VehicleObjectCreator.CreateVehicle(io_Choice, io_SerialNumber);
+                Vehicle newVehicle = SupportedVehicles.CreateVehicle(io_Choice, io_SerialNumber);
                 Customer newCustomer = new Customer(io_CustomerName, io_CustomerPhoneNumber, eServiceStatus.InRepair, newVehicle);
                 r_Vehicles.Add(io_SerialNumber, newCustomer);
                 isAdded = true;
@@ -45,6 +45,7 @@ namespace Ex03.GarageLogic
                 {                
                     vehicleList.Append(string.Format("{0}. {1}{2}", index++, entry.Key, Environment.NewLine));
                 }
+
                 if (i_Paid && entry.Value.VehicleStatus.Equals(eServiceStatus.Paid))
                 {
                     vehicleList.Append(string.Format("{0}. {1}{2}", index++, entry.Key, Environment.NewLine));
@@ -103,7 +104,7 @@ namespace Ex03.GarageLogic
             return isFilled;
         }
 
-        public bool FillCharge(string i_SerialNumber, , float io_MinutesToAdd)
+        public bool FillCharge(string i_SerialNumber, float io_MinutesToAdd)
         {
             bool isFilled = false;
 
@@ -116,6 +117,18 @@ namespace Ex03.GarageLogic
             }
 
             return isFilled;
+        }
+
+        public StringBuilder VehicleInfo(string i_SerialNumber)
+        {
+            StringBuilder vehicleInfo = new StringBuilder();
+
+            if (r_Vehicles.ContainsKey(i_SerialNumber))
+            {
+                vehicleInfo.Append(r_Vehicles[i_SerialNumber].ToString());
+            }
+
+            return vehicleInfo;
         }
     }
 }

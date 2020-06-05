@@ -14,16 +14,26 @@ namespace Ex03.GarageLogic
         B
     }
 
-    class Motorcycle : Vehicle
+    internal class Motorcycle : Vehicle
     {
-         eLicenseType m_LiccenseType;
-         int m_EngineCapacityInCC;
+         private eLicenseType m_LiccenseType;
+         private int m_EngineCapacityInCC;
 
         internal Motorcycle(string i_SerialNumber, uint i_NumOfWheels, float io_MaxAirPressure, object i_EnergyType) :
         base(i_SerialNumber, i_NumOfWheels, io_MaxAirPressure, i_EnergyType)
         {           
         }
 
+        internal eLicenseType LiccenseType
+        {
+            get { return m_LiccenseType; }
+            set { m_LiccenseType = value; }
+        }
 
+        internal int EngineCapacityInCC
+        {
+            get { return m_EngineCapacityInCC; }
+            set { m_EngineCapacityInCC = value; }
+        }
     }
 }

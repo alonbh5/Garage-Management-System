@@ -15,40 +15,45 @@ namespace Ex03.GarageLogic
         Truck
     }
 
-    public class VehicleObjectCreator
-    {       
-        public static Vehicle CreateVehicle (eSupportVehicles i_choice, string io_SerialNumber)
+    public class SupportedVehicles
+    {
+        public static Vehicle CreateVehicle(eSupportVehicles i_choice, string io_SerialNumber)
         {
             Vehicle res = null;
 
             switch (i_choice)
             {
-                case (eSupportVehicles.ElectricMotorcycle):
+                case eSupportVehicles.ElectricMotorcycle:
                     {
                         res = CreateElectricMotorcycle(io_SerialNumber);
                         break;
                     }
-                case (eSupportVehicles.ElectricCar):
+
+                case eSupportVehicles.ElectricCar:
                     {
                         res = CreateElectricCar(io_SerialNumber);
                         break;
                     }
-                case (eSupportVehicles.Truck):
+
+                case eSupportVehicles.Truck:
                     {
                         res = CreateTruck(io_SerialNumber);
                         break;
                     }
-                case (eSupportVehicles.RegularMotorcycle):
+
+                case eSupportVehicles.RegularMotorcycle:
                     {
                         res = CreateRrgularMotorcycle(io_SerialNumber);
                         break;
                     }
-                case (eSupportVehicles.RegularCar):
+
+                case eSupportVehicles.RegularCar:
                     {
                         res = CreateRrgularCar(io_SerialNumber);
                         break;
                     }
             }
+
             return res;
         }
 
@@ -72,13 +77,13 @@ namespace Ex03.GarageLogic
 
         private static Vehicle CreateRrgularCar(string io_SerialNumber)
         {
-            Fuel engine = new Fuel(eFuelType.Octan96,60);
+            Fuel engine = new Fuel(eFuelType.Octan96, 60);
             return new Car(io_SerialNumber, 4, 32, engine);
         }
 
         private static Vehicle CreateTruck(string io_SerialNumber)
         {
-            Fuel engine = new Fuel(eFuelType.Soler,120);
+            Fuel engine = new Fuel(eFuelType.Soler, 120);
             return new Truck(io_SerialNumber, 16, 28, engine);
         }
     }

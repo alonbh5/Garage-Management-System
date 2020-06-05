@@ -14,13 +14,13 @@ namespace Ex03.GarageLogic
         Soler
     }
 
-    class Fuel
+    internal class Fuel
     {
-        readonly eFuelType r_FuelType;
-        readonly float r_MaxFuelTank;
-        float m_CurrentFuelTank;
-        
-        internal Fuel (eFuelType i_FuelType,float i_MaxFuel)
+        private readonly eFuelType r_FuelType;
+        private readonly float r_MaxFuelTank;
+        private float m_CurrentFuelTank;
+
+        internal Fuel(eFuelType i_FuelType, float i_MaxFuel)
         {
             r_FuelType = i_FuelType;
             r_MaxFuelTank = i_MaxFuel;
@@ -37,10 +37,15 @@ namespace Ex03.GarageLogic
             get { return r_MaxFuelTank; }
         }
 
-        public bool FillTank (float i_AmountToAdd, eFuelType i_FuelType)
+        internal float CurrentFuelTank
         {
-
+            get { return m_CurrentFuelTank; }
+            set { m_CurrentFuelTank = value; }
         }
 
+        public bool FillTank(float i_AmountToAdd, eFuelType i_FuelType)
+        {
+            return true;
+        }
     }
 }

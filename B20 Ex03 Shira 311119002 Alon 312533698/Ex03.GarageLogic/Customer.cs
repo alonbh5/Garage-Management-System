@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 
 namespace Ex03.GarageLogic
 {
-
     public enum eServiceStatus
     {
         InRepair,
@@ -16,10 +15,10 @@ namespace Ex03.GarageLogic
 
     internal class Customer
     {
-        readonly string r_Name;
-        readonly string r_PhoneNumber;
-        eServiceStatus m_VehicleStatus;
-        readonly Vehicle r_Vehicle;
+        private readonly string r_Name;
+        private readonly string r_PhoneNumber;
+        private readonly Vehicle r_Vehicle;
+        private eServiceStatus m_VehicleStatus;
 
         internal Customer(string i_Name, string i_PhoneNumber, eServiceStatus i_VehicleStatus, Vehicle i_Vehicle)
         {
