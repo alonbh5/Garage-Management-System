@@ -60,10 +60,10 @@ namespace Ex03.GarageLogic
             StringBuilder msg = new StringBuilder();
             int index = 1;
             
-            msg.Append(string.Format("License Number is: {0}{1}Model Name is: {2}{1}", LicenseNumber, Environment.NewLine, ModelName));
+            msg.Append(string.Format("License Number is: {0}{1}Model Name is: {2}{1}Wheels info: {1}", LicenseNumber, Environment.NewLine, ModelName));
             foreach (Wheel currentWheel in Wheels)
             {
-                msg.Append(string.Format("{0}. {1}", index++, currentWheel.ToString()));
+                msg.Append(string.Format("Wheel #{0}. {1}", index++, currentWheel.ToString()));
             }
 
             msg.Append(r_EnergyType.ToString()); //check

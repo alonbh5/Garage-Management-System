@@ -54,15 +54,14 @@ namespace Ex03.ConsoleUI
         public void PrintOptions(out int io_Choice)
         {                    
             io_Choice = 0;            
-            string error = "Invalid input.\nThe input must be an option between 1-7.\n";
+            string error = "Invalid input.\nThe input must be an option between 1-8.\n";
             string menu = string.Format(@"Welcome to THE BEST GARAGE IN TOWN
-            1. Enter new vehicle to the garage.
-            2. Show license number of vehicles by filter.
-            3. Change status of vehicle.
-            4. Inflating air in wheels.
-            5. Fill gas tank.
-            6. Charge battery.
-            7. Show vehicle details.
+1. Enter new vehicle to the garage.
+2. Show license number of vehicles by filter.
+3. Change status of vehicle.
+4. Inflating air in wheels.
+5. Fill gas tank.
+7. Show vehicle details.
 8.Exit THE BEST GARAGE IN TOWN");
             
             Console.WriteLine(menu);
@@ -85,11 +84,11 @@ namespace Ex03.ConsoleUI
             Console.WriteLine("Please enter your phone number");
             phoneNumber = Console.ReadLine();  //check number
 
-            Console.WriteLine("Choose one of our supported vehicles:{0}{1}", Environment.NewLine, m_myGarage.ShowSupportedVehicles());
+            Console.Write("Choose one of our supported vehicles:{0}{1}", Environment.NewLine, m_myGarage.ShowSupportedVehicles());
             int.TryParse(Console.ReadLine(), out vehicleChoice);
-            while (vehicleChoice < 1 || vehicleChoice < m_myGarage.NumOfSupportedVehicles())
+            while (vehicleChoice < 1 || vehicleChoice > m_myGarage.NumOfSupportedVehicles())
             {
-                Console.WriteLine(string.Format("Wrong input.{0}Must be one of these options (1-{1})", Environment.NewLine, m_myGarage.NumOfSupportedVehicles());
+                Console.WriteLine(string.Format("Wrong input.{0}Must be one of these options (1-{1})", Environment.NewLine, m_myGarage.NumOfSupportedVehicles()));
                 int.TryParse(Console.ReadLine(), out vehicleChoice);
             }
 
@@ -104,8 +103,10 @@ namespace Ex03.ConsoleUI
             }
             else
             {
+                // need other info about car call moreinfo
                 Console.WriteLine("This vehicle added successfuly to THE BEST GARAGE IN TOWN! HAVE FUN");
             }
+            
         }
         public void PrintByLicense ()
         {
@@ -118,7 +119,7 @@ namespace Ex03.ConsoleUI
             }
             else 
             {
-                Console.WriteLine("Vehicle did not found")
+                Console.WriteLine("Vehicle did not found");
             }
         }
 
