@@ -36,6 +36,10 @@ namespace Ex03.GarageLogic
 
         public void InflatingAirPressure(float io_AddPressure)
         {
+            if (io_AddPressure+CurrentAirPressure <= MaxAirPressure)
+            {
+                CurrentAirPressure += io_AddPressure;
+            }
         }
 
         public override string ToString()

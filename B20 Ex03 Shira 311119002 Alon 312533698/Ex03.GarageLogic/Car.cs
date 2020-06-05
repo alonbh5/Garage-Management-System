@@ -43,5 +43,14 @@ namespace Ex03.GarageLogic
             get { return m_Doors; }
             set { m_Doors = value; }
         }
+
+        public override string ToString()
+        {
+            StringBuilder msg = new StringBuilder();
+            
+            msg.Append(string.Format("{0} The car is {1} and has {2} doors {3}", base.ToString(), Color.ToString(),Doors.ToString(), Environment.NewLine));
+            
+            return msg.ToString();
+        }
     }
 }

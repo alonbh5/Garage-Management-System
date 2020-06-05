@@ -66,7 +66,7 @@ namespace Ex03.GarageLogic
                 msg.Append(string.Format("{0}. {1}", index++, currentWheel.ToString()));
             }
 
-            msg.Append(r_EnergyType.ToString());
+            msg.Append(r_EnergyType.ToString()); //check
 
             return msg.ToString();
 

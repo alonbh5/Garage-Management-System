@@ -30,7 +30,14 @@ namespace Ex03.GarageLogic
 
         public bool ChargeBattery(float io_HoursToAdd)
         {
-            return true;
+            bool charged = false;
+
+            if (io_HoursToAdd+HoursLeftInBattery <= MaxHoursInBattery)
+            {
+                HoursLeftInBattery += io_HoursToAdd;
+                charged = true;
+            }
+            return charged;
         }
 
         public override string ToString()

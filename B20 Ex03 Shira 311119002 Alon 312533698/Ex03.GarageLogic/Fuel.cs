@@ -45,7 +45,17 @@ namespace Ex03.GarageLogic
 
         public bool FillTank(float i_AmountToAdd, eFuelType i_FuelType)
         {
-            return true;
+            bool filled = false;
+
+            if (i_FuelType.Equals(FuelType))
+            {
+                if (i_AmountToAdd + CurrentFuelTank <= MaxTank)
+                {
+                    CurrentFuelTank += i_AmountToAdd;
+                    filled = true;
+                }
+            }
+            return filled;
         }
 
         public override string ToString()

@@ -16,7 +16,7 @@ namespace Ex03.GarageLogic
 
     internal class Motorcycle : Vehicle
     {
-         private eLicenseType m_LiccenseType;
+         private eLicenseType m_LicenseType;
          private int m_EngineCapacityInCC;
 
         internal Motorcycle(string i_SerialNumber, uint i_NumOfWheels, float io_MaxAirPressure, object i_EnergyType) :
@@ -24,16 +24,25 @@ namespace Ex03.GarageLogic
         {           
         }
 
-        internal eLicenseType LiccenseType
+        internal eLicenseType LicenseType
         {
-            get { return m_LiccenseType; }
-            set { m_LiccenseType = value; }
+            get { return m_LicenseType; }
+            set { m_LicenseType = value; }
         }
 
         internal int EngineCapacityInCC
         {
             get { return m_EngineCapacityInCC; }
             set { m_EngineCapacityInCC = value; }
+        }
+
+        public override string ToString()
+        {
+            StringBuilder msg = new StringBuilder();
+
+            msg.Append(string.Format("{0} The motorcycle license type is {1} and is engine capacity is {2} CC {3}", base.ToString(), LicenseType.ToString(),EngineCapacityInCC, Environment.NewLine));
+
+            return msg.ToString();
         }
     }
 }

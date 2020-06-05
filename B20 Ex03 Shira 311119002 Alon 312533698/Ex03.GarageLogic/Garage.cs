@@ -125,7 +125,7 @@ namespace Ex03.GarageLogic
 
             if (r_Vehicles.ContainsKey(i_SerialNumber))
             {
-                vehicleInfo.Append(r_Vehicles[i_SerialNumber].ToString());
+                vehicleInfo.Append(r_Vehicles[i_SerialNumber].ToString()); //check
             }
 
             return vehicleInfo;

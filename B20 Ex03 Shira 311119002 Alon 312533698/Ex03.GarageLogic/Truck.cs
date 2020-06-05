@@ -27,5 +27,23 @@ namespace Ex03.GarageLogic
             get { return m_CargoVolume; }
             set { m_CargoVolume = value; }
         }
+
+        public override string ToString()
+        {
+            StringBuilder msg = new StringBuilder();
+            string hazardousMsg = string.Empty;
+
+            if (HazardousMaterials)
+            {
+                hazardousMsg = "does";
+            }
+            else
+            {
+                hazardousMsg = "does not";
+            }
+            msg.Append(string.Format("{0} The truck {1} contains hazardous materials and it's cargo capacity is {2} {3}", base.ToString(), hazardousMsg,CargoVolume, Environment.NewLine));
+
+            return msg.ToString();
+        }
     }
 }
