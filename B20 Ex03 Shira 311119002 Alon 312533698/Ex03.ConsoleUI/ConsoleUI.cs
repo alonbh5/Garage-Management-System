@@ -10,7 +10,7 @@ namespace Ex03.ConsoleUI
     public class ConsoleUI
     {
         private const int k_LicenseLength = 9; //// check valid by guy
-
+ 
         private readonly Garage r_MyGarage = new Garage();
 
         internal ConsoleUI()
@@ -27,26 +27,26 @@ namespace Ex03.ConsoleUI
                         AddNewVehicleInput();
                         break;
                     case 2:
-                        //// fun 2 with input
+                        printByFilter();
                         break;
                     case 3:
-                        //// fun 3 with input
+                        changeState();
                         break;
                     case 4:
-                        //// fun 4 with input
+                        inflateToMax();
                         break;
                     case 5:
-                        //// fun 5 with input
+                        fillGas();
                         break;
                     case 6:
-                        //// fun 6 with input
+                        chargeBattery();
                         break;
                     case 7:
-                        PrintByLicense();
+                        printByLicense();
                         break;
                 }
 
-                Console.Clear();
+                //Console.Clear();
                 PrintOptions(out choice);
             }
         }      
@@ -61,8 +61,9 @@ namespace Ex03.ConsoleUI
 3. Change status of vehicle.
 4. Inflating air in wheels.
 5. Fill gas tank.
+6. Charge battery.
 7. Show vehicle details.
-8.Exit THE BEST GARAGE IN TOWN");
+8. Exit THE BEST GARAGE IN TOWN");
             
             Console.WriteLine(menu);
 
@@ -85,12 +86,10 @@ namespace Ex03.ConsoleUI
             getSupportedVehicles(out vehicleChoice);
 
             getLicenseNumber(out licenseNumber);
-            
-            bool added = r_MyGarage.AddNewVehicle(name, phoneNumber, (eSupportVehicles)vehicleChoice, licenseNumber);
 
-            if (r_MyGarage.AddNewVehicle(name, phoneNumber, (eSupportVehicles)vehicleChoice, licenseNumber)) 
+            if (r_MyGarage.AddNewVehicle(name, phoneNumber, vehicleChoice, licenseNumber)) 
             {
-                updateInfo();
+                //addInfo(vehicleChoice);
                 Console.WriteLine("This vehicle added successfuly to THE BEST GARAGE IN TOWN! HAVE FUN");                
             }
             else
@@ -99,7 +98,161 @@ namespace Ex03.ConsoleUI
             }            
         }
 
-        public void PrintByLicense()
+        private void printByFilter ()
+        {
+            bool seeInReapir, seePaid, seePrepared,seeAll;
+
+            Console.WriteLine("Do you want to see all vehicle (without filter) (Y/N)?");
+            getYesOrNO(out seeAll);
+            if (!seeAll)
+            {
+                Console.WriteLine("Do you want to see vehicle in-reapir? (Y/N)");
+                getYesOrNO(out seeInReapir);
+                Console.WriteLine("Do you want to see vehicle prepared? (Y/N)");
+                getYesOrNO(out seePrepared);
+                Console.WriteLine("Do you want to see vehicle paid? (Y/N)");
+                getYesOrNO(out seePaid);
+            }
+            else
+            {
+                seeInReapir = true;
+                seePrepared = true;
+                seePaid = true;
+            }
+
+            Console.WriteLine(r_MyGarage.VehicleStringByFilter(seeInReapir, seePrepared, seePaid));
+        }
+
+        private void getYesOrNO (out bool io_Choice)
+        {
+            string input = Console.ReadLine();
+
+            while (input != "Y" && input != "N")
+            {
+                Console.WriteLine("Worng input - Enter Y/N");
+                input = Console.ReadLine();
+            }
+
+            if (input == "Y")
+            {
+                io_Choice = true;
+            }
+            else
+            {
+                io_Choice = false;
+            }
+        }
+
+        private void changeState ()
+        {
+            string  lincenseInput;
+            int input;
+            getLicenseNumber(out lincenseInput);
+
+            Console.WriteLine("Enter new state : 1 - In Repair 2 - Fixed 3 - Paid");
+            int.TryParse(Console.ReadLine(),out input);
+
+            while (input != 1 && input != 2 && input !=3)
+            {
+                Console.WriteLine("Wrong Input!  1 - In Repair | 2 - Fixed | 3 - Paid");
+                int.TryParse(Console.ReadLine(), out input);
+            }
+
+            if(r_MyGarage.ChangeServiceStatus(lincenseInput,input))
+            {
+                Console.WriteLine("Status Updated!");
+            }
+            else
+            {
+                Console.WriteLine("Lincense does not exsit in THE BEST GARAGE IN TOWN");
+            }
+
+
+        }
+
+        private void inflateToMax ()
+        {
+            string licensenumber;
+
+            getLicenseNumber(out licensenumber);
+
+            if (r_MyGarage.InflateWheels(licensenumber))
+            {
+                Console.WriteLine("The wheels are now full");
+            }
+            else
+            {
+                Console.WriteLine("Lincense does not exsit in THE BEST GARAGE IN TOWN");
+            }
+        }
+
+        private void fillGas()
+        {
+            string licensenumber;
+
+            getLicenseNumber(out licensenumber);
+            int gasType=-1;
+            float amountToadd=-1f;
+
+            Console.WriteLine("Which type of gas to you wish to add?");
+            Console.WriteLine(r_MyGarage.GetFuelTypes());
+
+            int.TryParse(Console.ReadLine(), out gasType);
+
+            while (gasType < 1 || gasType > 4)
+            {
+                Console.WriteLine("Wrong input - try agian");
+                int.TryParse(Console.ReadLine(), out gasType);
+            }
+
+            Console.WriteLine("how much do you want to add?");
+            
+            float.TryParse(Console.ReadLine(), out amountToadd);
+
+            while (amountToadd < 0f)
+            {
+                Console.WriteLine("Wrong input - please enter positive amount");
+                float.TryParse(Console.ReadLine(), out amountToadd);
+            }
+
+            if (r_MyGarage.FillGasTank(licensenumber,gasType,amountToadd))
+            {
+                Console.WriteLine("Tank Filled");
+            }
+            else
+            {
+                Console.WriteLine("Tank did NOT filled"); //exeption !@#!@$!@!@%!@%!@%!@%!@%!@%!@%!@
+            }
+
+        }
+
+        private void chargeBattery()
+        {
+            string licenseNumber;
+            float amountToAdd=-1f;
+
+            getLicenseNumber(out licenseNumber);
+
+            Console.WriteLine("how many minutes do you want to add?");
+            float.TryParse(Console.ReadLine(), out amountToAdd);
+            while (amountToAdd <= 0)
+            {
+                Console.WriteLine("Wrong input! enter postive number");
+                float.TryParse(Console.ReadLine(), out amountToAdd);
+            }
+
+            if (r_MyGarage.FillCharge(licenseNumber,amountToAdd))
+            {
+                Console.WriteLine("Battery Charged!");
+            }
+            else
+            {
+                Console.WriteLine("Fail"); // exepetion !31311313^#$#$%#$%#$%#$%
+            }
+
+        }
+
+        private void printByLicense()
         { // function 7
             string msg;
 
@@ -159,9 +312,12 @@ namespace Ex03.ConsoleUI
                 int.TryParse(Console.ReadLine(), out vehicleChoice);
             }
         }
-        private void updateInfo ()
+        private void addInfo (int io_Choice)
         {
-
+            List<object> infoList = r_MyGarage.GetExtraInfo(io_Choice);
+            object i = infoList.First();
+        
+           // while()
         }
     }
 }

@@ -8,9 +8,9 @@ namespace Ex03.GarageLogic
 {
     public enum eFuelType
     {
-        Octan95 = 95,
-        Octan96 = 96,
-        Octan98 = 98,
+        Octan95 = 1,
+        Octan96,
+        Octan98, 
         Soler
     }
 
@@ -57,6 +57,19 @@ namespace Ex03.GarageLogic
             }
 
             return filled;
+        }
+
+        public static string GetFuelTypes()
+        {
+            int index = 1;
+            StringBuilder fuelTypes = new StringBuilder();
+
+            foreach (eFuelType fuelType in Enum.GetValues(typeof(eFuelType)))
+            {
+                fuelTypes.Append(string.Format("{0}. {1}{2}", index++, fuelType.ToString(), Environment.NewLine));
+            }
+
+            return fuelTypes.ToString();
         }
 
         public override string ToString()
