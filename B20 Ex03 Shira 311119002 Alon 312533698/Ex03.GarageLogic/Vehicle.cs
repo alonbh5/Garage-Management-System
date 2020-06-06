@@ -71,7 +71,7 @@ namespace Ex03.GarageLogic
                 vehicle.Append(string.Format("Wheel #{0}. {1}", index++, currentWheel.ToString()));
             }
 
-            vehicle.Append(string.Format("Enregy is ({0})% full. {1}", PercentagesOfEnergyRemaining, r_EnergyType.ToString());
+            vehicle.Append(string.Format("Enregy is ({0})% full. {1}", PercentagesOfEnergyRemaining, r_EnergyType.ToString()));
 
             return vehicle.ToString();
         }

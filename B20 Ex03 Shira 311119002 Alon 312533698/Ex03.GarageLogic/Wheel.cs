@@ -40,6 +40,10 @@ namespace Ex03.GarageLogic
             {
                 CurrentAirPressure += io_AddPressure;
             }
+            else
+            {
+                throw new ValueOutOfRangeException((MaxAirPressure - CurrentAirPressure), 0f);
+            }
         }
 
         public override string ToString()

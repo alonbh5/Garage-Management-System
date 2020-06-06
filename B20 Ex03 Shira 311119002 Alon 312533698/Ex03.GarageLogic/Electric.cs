@@ -37,6 +37,10 @@ namespace Ex03.GarageLogic
                 HoursLeftInBattery += io_HoursToAdd;
                 charged = true;
             }
+            else
+            {
+                throw new ValueOutOfRangeException((MaxHoursInBattery - HoursLeftInBattery) * 60f, 0f);
+            }
 
             return charged;
         }

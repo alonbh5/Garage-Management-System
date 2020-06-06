@@ -21,29 +21,36 @@ namespace Ex03.ConsoleUI
 
             while (choice != 8)
             {
-                switch (choice)
+                try
                 {
-                    case 1:
-                        AddNewVehicleInput();
-                        break;
-                    case 2:
-                        printByFilter();
-                        break;
-                    case 3:
-                        changeState();
-                        break;
-                    case 4:
-                        inflateToMax();
-                        break;
-                    case 5:
-                        fillGas();
-                        break;
-                    case 6:
-                        chargeBattery();
-                        break;
-                    case 7:
-                        printByLicense();
-                        break;
+                    switch (choice)
+                    {
+                        case 1:
+                            AddNewVehicleInput();
+                            break;
+                        case 2:
+                            printByFilter();
+                            break;
+                        case 3:
+                            changeState();
+                            break;
+                        case 4:
+                            inflateToMax();
+                            break;
+                        case 5:
+                            fillGas();
+                            break;
+                        case 6:
+                            chargeBattery();
+                            break;
+                        case 7:
+                            printByLicense();
+                            break;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
                 }
 
                 //Console.Clear();
@@ -87,15 +94,16 @@ namespace Ex03.ConsoleUI
 
             getLicenseNumber(out licenseNumber);
 
-            if (r_MyGarage.AddNewVehicle(name, phoneNumber, vehicleChoice, licenseNumber)) 
+            if (r_MyGarage.AddNewVehicle(name, phoneNumber, vehicleChoice, licenseNumber))
             {
                 //addInfo(vehicleChoice);
-                Console.WriteLine("This vehicle added successfuly to THE BEST GARAGE IN TOWN! HAVE FUN");                
+                Console.WriteLine("This vehicle added successfuly to THE BEST GARAGE IN TOWN! HAVE FUN");
             }
             else
             {
                 Console.WriteLine("This vehicle is already in THE BEST GARAGE IN TOWN! BIATCH");
-            }            
+            }
+        
         }
 
         private void printByFilter ()
@@ -295,9 +303,9 @@ namespace Ex03.ConsoleUI
             Console.WriteLine("Please enter customer phone number");
             io_Phone = Console.ReadLine();  //// check number
 
-            while (!int.TryParse(io_Phone,out int check) || io_Phone.Length != 9 || io_Phone[0] != '0' || io_Phone[1]!='5')
+            while (!int.TryParse(io_Phone,out int check) || io_Phone.Length != 10 || io_Phone[0] != '0' || io_Phone[1]!='5')
             {
-                Console.WriteLine("Phone number Invalid (9 digit's in the form 05xxxxxxx)");
+                Console.WriteLine("Phone number Invalid (10 digit's in the form 05xxxxxxxx)");
                 io_Phone = Console.ReadLine();  //// check number
             }
         }

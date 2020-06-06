@@ -49,12 +49,21 @@ namespace Ex03.GarageLogic
 
             if (i_FuelType.Equals(FuelType))
             {
+
                 if (i_AmountToAdd + CurrentFuelTank <= MaxTank)
                 {
                     CurrentFuelTank += i_AmountToAdd;
                     filled = true;
                 }
+                else
+                {
+                    throw new ValueOutOfRangeException((MaxTank - CurrentFuelTank), 0f);
+                }
             }
+            else
+            {
+                throw new ArgumentException("Fuel Type does not match");
+            }            
 
             return filled;
         }
