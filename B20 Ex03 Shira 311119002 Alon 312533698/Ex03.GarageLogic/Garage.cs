@@ -327,14 +327,15 @@ namespace Ex03.GarageLogic
             {
                 if (float.TryParse(i_FilledDictionary[eQuestions.CurrentFuel].ToString(), out float curFuel))
                 {
-                    (r_Vehicles[io_LicenseNumber].Vehicle.EnergyType as Fuel).CurrentFuelTank = curFuel;
+                    int send = (int)(r_Vehicles[io_LicenseNumber].Vehicle.EnergyType as Fuel).FuelType;
+                    FillGasTank(io_LicenseNumber, send, curFuel);
                 }
             }
             if (i_FilledDictionary.ContainsKey(eQuestions.CurrentHours))
             {
-                if (float.TryParse(i_FilledDictionary[eQuestions.CurrentHours].ToString(), out float curHours))
+                if (float.TryParse(i_FilledDictionary[eQuestions.CurrentHours].ToString(), out float curMin))
                 {
-                    (r_Vehicles[io_LicenseNumber].Vehicle.EnergyType as Electric).HoursLeftInBattery = curHours;
+                    FillCharge(io_LicenseNumber, curMin);
                 }
             }
             if (i_FilledDictionary.ContainsKey(eQuestions.CurentWheelAirPressure))
