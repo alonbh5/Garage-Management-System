@@ -96,7 +96,7 @@ namespace Ex03.ConsoleUI
 
             if (r_MyGarage.AddNewVehicle(name, phoneNumber, vehicleChoice, licenseNumber))
             {
-                addInfo(vehicleChoice);
+                addInfo(vehicleChoice, licenseNumber);
                 Console.WriteLine("This vehicle added successfuly to THE BEST GARAGE IN TOWN! HAVE FUN");
             }
             else
