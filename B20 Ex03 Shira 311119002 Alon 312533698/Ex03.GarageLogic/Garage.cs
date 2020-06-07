@@ -317,9 +317,73 @@ namespace Ex03.GarageLogic
             return DicToFill;
         }
 
-        public void UpdateInfo(Dictionary<eQuestions, object> i_FilledDictionary)
+        public void UpdateInfo(Dictionary<eQuestions, object> i_FilledDictionary, string io_LicenseNumber)
         {
-
+            if (i_FilledDictionary.ContainsKey(eQuestions.ModelName))
+            {
+                r_Vehicles[io_LicenseNumber].Vehicle.ModelName = i_FilledDictionary[eQuestions.ModelName].ToString();
+            }
+            if (i_FilledDictionary.ContainsKey(eQuestions.CurrentFuel))
+            {
+                if (float.TryParse(i_FilledDictionary[eQuestions.CurrentFuel].ToString(), out float curFuel))
+                {
+                    (r_Vehicles[io_LicenseNumber].Vehicle.EnergyType as Fuel).CurrentFuelTank = curFuel;
+                }
+            }
+            if (i_FilledDictionary.ContainsKey(eQuestions.CurrentHours))
+            {
+                if (float.TryParse(i_FilledDictionary[eQuestions.CurrentHours].ToString(), out float curHours))
+                {
+                    (r_Vehicles[io_LicenseNumber].Vehicle.EnergyType as Electric).HoursLeftInBattery = curHours;
+                }
+            }
+            if (i_FilledDictionary.ContainsKey(eQuestions.CurentWheelAirPressure))
+            {
+                if (float.TryParse(i_FilledDictionary[eQuestions.CurentWheelAirPressure].ToString(), out float curAirPressure))
+                {
+                    for (int i=0; i< r_Vehicles[io_LicenseNumber].Vehicle.Wheels.Length;i++)
+                    {
+                        r_Vehicles[io_LicenseNumber].Vehicle.Wheels[i].CurrentAirPressure = curAirPressure;
+                    }
+                }                
+            }
+            if (i_FilledDictionary.ContainsKey(eQuestions.WheelManufacturer))
+            {
+                for (int i = 0; i < r_Vehicles[io_LicenseNumber].Vehicle.Wheels.Length; i++)
+                {
+                    r_Vehicles[io_LicenseNumber].Vehicle.Wheels[i].Manufacturer = i_FilledDictionary[eQuestions.WheelManufacturer].ToString();
+                }
+            }
+            if (i_FilledDictionary.ContainsKey(eQuestions.Doors))
+            {
+                (r_Vehicles[io_LicenseNumber].Vehicle as Car).Doors = (eDoors)i_FilledDictionary[eQuestions.Doors];
+            }
+            if (i_FilledDictionary.ContainsKey(eQuestions.LicenseType))
+            {
+                (r_Vehicles[io_LicenseNumber].Vehicle as Motorcycle).LicenseType = (eLicenseType)i_FilledDictionary[eQuestions.LicenseType];
+            }
+            if (i_FilledDictionary.ContainsKey(eQuestions.Color))
+            {
+                (r_Vehicles[io_LicenseNumber].Vehicle as Car).Color = (eColor)i_FilledDictionary[eQuestions.Color];
+            }
+            if (i_FilledDictionary.ContainsKey(eQuestions.HazardousMaterials))
+            {
+                (r_Vehicles[io_LicenseNumber].Vehicle as Truck ).HazardousMaterials = (bool)i_FilledDictionary[eQuestions.HazardousMaterials];
+            }
+            if (i_FilledDictionary.ContainsKey(eQuestions.CargoCpacity))
+            {
+                if(float.TryParse(i_FilledDictionary[eQuestions.CargoCpacity].ToString(), out float cargo))
+                {
+                    (r_Vehicles[io_LicenseNumber].Vehicle as Truck).CargoVolume = cargo;
+                }
+            }
+            if (i_FilledDictionary.ContainsKey(eQuestions.EngineCC))
+            {
+                if (int.TryParse(i_FilledDictionary[eQuestions.EngineCC].ToString(), out int engienCC))
+                {
+                    (r_Vehicles[io_LicenseNumber].Vehicle as Motorcycle).EngineCapacityInCC = engienCC;
+                }
+            }
         }
 
         /* public List<object> GetExtraInfo(int io_Choice)

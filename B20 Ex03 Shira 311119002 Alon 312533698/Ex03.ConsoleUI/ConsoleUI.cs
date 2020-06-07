@@ -323,7 +323,7 @@ namespace Ex03.ConsoleUI
             }
         }
 
-        private void addInfo (int io_Choice)
+        private void addInfo (int io_Choice, string io_LicenseNumber)
         {   
             Dictionary<eQuestions, object> infoDicToFill = r_MyGarage.GetExtraInfo(io_Choice);
 
@@ -385,7 +385,7 @@ namespace Ex03.ConsoleUI
             }
 
 
-            r_MyGarage.UpdateInfo(infoDicToFill);
+            r_MyGarage.UpdateInfo(infoDicToFill, io_LicenseNumber);
         }
 
         

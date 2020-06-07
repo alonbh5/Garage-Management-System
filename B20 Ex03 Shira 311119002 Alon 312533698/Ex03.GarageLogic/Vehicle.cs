@@ -55,6 +55,8 @@ namespace Ex03.GarageLogic
             set { m_PercentagesOfEnergyRemaining = value; }
         }
 
+        
+
         public override string ToString()
         {
             StringBuilder vehicle = new StringBuilder();
