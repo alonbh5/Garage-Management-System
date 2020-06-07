@@ -21,7 +21,7 @@ namespace Ex03.GarageLogic
         EngineCC
     }
 
-    internal struct Info<T>
+    public struct Info<T>
     {
         private eQuestions m_NumOfInfo;
         private T m_InfoVehicle;
@@ -40,9 +40,7 @@ namespace Ex03.GarageLogic
 
     public class Garage
     {
-        private readonly Dictionary<string, Customer> r_Vehicles = new Dictionary<string, Customer>();
-
-        
+        private readonly Dictionary<string, Customer> r_Vehicles = new Dictionary<string, Customer>();           
 
         public bool AddNewVehicle(string io_CustomerName, string io_CustomerPhoneNumber, int io_Choice, string io_LicenseNumber)
         { // function 1
@@ -275,14 +273,58 @@ namespace Ex03.GarageLogic
             return Fuel.GetFuelTypes();
         }
 
-        public List<object> GetExtraInfo(int io_Choice)
+        public Dictionary<eQuestions, object> GetExtraInfo2(int io_Choice)
+        {
+            Dictionary<eQuestions, object> DicToFill = new Dictionary<eQuestions, object>();
+
+            if (io_Choice > 0 && io_Choice <= NumOfSupportedVehicles())
+            {
+                eSupportVehicles currentVehicle = (eSupportVehicles)io_Choice;
+
+                DicToFill.Add(eQuestions.WheelManufacturer, string.Empty);
+                DicToFill.Add(eQuestions.CurentWheelAirPressure, string.Empty);
+                DicToFill.Add(eQuestions.ModelName, string.Empty);
+                               
+
+                if (currentVehicle.Equals(eSupportVehicles.ElectricMotorcycle) || currentVehicle.Equals(eSupportVehicles.ElectricCar))
+                { // Hours left in elecrtic engien
+                    DicToFill.Add(eQuestions.CurrentHours, string.Empty);                    
+                }
+                else
+                { // Fuel left
+                    DicToFill.Add(eQuestions.CurrentFuel, string.Empty); 
+                }
+
+                if (currentVehicle.Equals(eSupportVehicles.RegularMotorcycle) || currentVehicle.Equals(eSupportVehicles.ElectricMotorcycle))
+                { // Case of motorcycle
+                    DicToFill.Add(eQuestions.LicenseType, string.Empty);
+                    DicToFill.Add(eQuestions.EngineCC, string.Empty);                    
+                }
+
+                if (currentVehicle.Equals(eSupportVehicles.ElectricCar) || currentVehicle.Equals(eSupportVehicles.RegularCar))
+                { // Case of car  
+                    DicToFill.Add(eQuestions.Color, string.Empty);
+                    DicToFill.Add(eQuestions.Doors, string.Empty);                    
+                }
+
+                if (currentVehicle.Equals(eSupportVehicles.Truck))
+                { // Case of truck  
+                    DicToFill.Add(eQuestions.HazardousMaterials, false);
+                    DicToFill.Add(eQuestions.CargoCpacity, string.Empty);                    
+                }
+            }
+
+            return DicToFill;
+        }
+
+       /* public List<object> GetExtraInfo(int io_Choice)
         {
             List<object> listToFill = new List<object>();            
 
             if (io_Choice > 0 && io_Choice < NumOfSupportedVehicles())
             {
                 eSupportVehicles currentVehicle = (eSupportVehicles)io_Choice;
-
+                
                 listToFill.Add(new Info<string>(eQuestions.WheelManufacturer, string.Empty));
                 listToFill.Add(new Info<float>(eQuestions.CurentWheelAirPressure, 0f));
                 listToFill.Add(new Info<string>(eQuestions.ModelName, string.Empty));
@@ -314,9 +356,8 @@ namespace Ex03.GarageLogic
                     listToFill.Add(new Info<float>(eQuestions.CargoCpacity, 0f));
                 }
             }
-
-            return listToFill;
-        }
+            
+        }*/
 
         internal bool UpdateVehicleInfo(string i_LicenseNumber)
         {

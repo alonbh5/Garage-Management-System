@@ -96,7 +96,7 @@ namespace Ex03.ConsoleUI
 
             if (r_MyGarage.AddNewVehicle(name, phoneNumber, vehicleChoice, licenseNumber))
             {
-                //addInfo(vehicleChoice);
+                addInfo(vehicleChoice);
                 Console.WriteLine("This vehicle added successfuly to THE BEST GARAGE IN TOWN! HAVE FUN");
             }
             else
@@ -321,11 +321,68 @@ namespace Ex03.ConsoleUI
             }
         }
         private void addInfo (int io_Choice)
-        {
-            List<object> infoList = r_MyGarage.GetExtraInfo(io_Choice);
-            object i = infoList.First();
-        
-           // while()
+        {   
+            Dictionary<eQuestions, object> infoDicToFill = r_MyGarage.GetExtraInfo2(io_Choice);
+
+            if (infoDicToFill.ContainsKey(eQuestions.ModelName))
+            {
+                Console.WriteLine("Please enter Model Name");
+                infoDicToFill[eQuestions.ModelName] = Console.ReadLine();
+            }
+            if (infoDicToFill.ContainsKey(eQuestions.CurrentFuel))
+            {
+                Console.WriteLine("Please enter Current Fuel");
+                infoDicToFill[eQuestions.CurrentFuel] = Console.ReadLine();
+            }
+            if (infoDicToFill.ContainsKey(eQuestions.CurrentHours))
+            {
+                Console.WriteLine("Please enter Current Hours in battery");
+                infoDicToFill[eQuestions.CurrentHours] = Console.ReadLine();
+            }
+            if (infoDicToFill.ContainsKey(eQuestions.CurentWheelAirPressure))
+            {
+                Console.WriteLine("Please enter Current Wheels Air Pressure");
+                infoDicToFill[eQuestions.CurentWheelAirPressure] = Console.ReadLine();
+            }
+            if (infoDicToFill.ContainsKey(eQuestions.WheelManufacturer))
+            {
+                Console.WriteLine("Please enter Wheels Manufacturer");
+                infoDicToFill[eQuestions.WheelManufacturer] = Console.ReadLine();
+            }
+            if (infoDicToFill.ContainsKey(eQuestions.Doors))
+            {
+                Console.WriteLine("Please enter Number of Car Doors");
+                infoDicToFill[eQuestions.Doors] = Console.ReadLine();
+            }
+            if (infoDicToFill.ContainsKey(eQuestions.LicenseType))
+            {
+                Console.WriteLine("Please enter License Type of Bike");
+                infoDicToFill[eQuestions.LicenseType] = Console.ReadLine();
+            }
+            if (infoDicToFill.ContainsKey(eQuestions.Color))
+            {
+                Console.WriteLine("Please enter Car Color");
+                infoDicToFill[eQuestions.Color] = Console.ReadLine();
+            }
+            if (infoDicToFill.ContainsKey(eQuestions.HazardousMaterials))
+            {
+                Console.WriteLine("Does the Truck Contain Hazardous Materials (Y/N)");
+                getYesOrNO(out bool answer);
+                infoDicToFill[eQuestions.HazardousMaterials] = answer;
+            }
+            if (infoDicToFill.ContainsKey(eQuestions.CargoCpacity))
+            {
+                Console.WriteLine("What is the Truck Cargo Cpacity?");                
+                infoDicToFill[eQuestions.CargoCpacity] = Console.ReadLine();
+            }
+            if (infoDicToFill.ContainsKey(eQuestions.EngineCC))
+            {
+                Console.WriteLine("Please enter Engine in CC");
+                infoDicToFill[eQuestions.EngineCC] = Console.ReadLine();
+            }
+
+
+
         }
     }
 }
