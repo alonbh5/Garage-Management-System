@@ -273,7 +273,7 @@ namespace Ex03.GarageLogic
             return Fuel.GetFuelTypes();
         }
 
-        public Dictionary<eQuestions, object> GetExtraInfo2(int io_Choice)
+        public Dictionary<eQuestions, object> GetExtraInfo(int io_Choice)
         {
             Dictionary<eQuestions, object> DicToFill = new Dictionary<eQuestions, object>();
 
@@ -317,47 +317,52 @@ namespace Ex03.GarageLogic
             return DicToFill;
         }
 
-       /* public List<object> GetExtraInfo(int io_Choice)
+        public void UpdateInfo(Dictionary<eQuestions, object> i_FilledDictionary)
         {
-            List<object> listToFill = new List<object>();            
 
-            if (io_Choice > 0 && io_Choice < NumOfSupportedVehicles())
-            {
-                eSupportVehicles currentVehicle = (eSupportVehicles)io_Choice;
-                
-                listToFill.Add(new Info<string>(eQuestions.WheelManufacturer, string.Empty));
-                listToFill.Add(new Info<float>(eQuestions.CurentWheelAirPressure, 0f));
-                listToFill.Add(new Info<string>(eQuestions.ModelName, string.Empty));
+        }
 
-                if (currentVehicle.Equals(eSupportVehicles.ElectricMotorcycle) || currentVehicle.Equals(eSupportVehicles.ElectricCar))
-                { // Hours left in elecrtic engien
-                    listToFill.Add(new Info<float>(eQuestions.CurrentHours, 0f));
-                }
-                else
-                { // Fuel left
-                    listToFill.Add(new Info<float>(eQuestions.CurrentFuel, 0f));
-                }
+        /* public List<object> GetExtraInfo(int io_Choice)
+         {
+             List<object> listToFill = new List<object>();            
 
-                if (currentVehicle.Equals(eSupportVehicles.RegularMotorcycle) || currentVehicle.Equals(eSupportVehicles.ElectricMotorcycle))
-                { // Case of motorcycle
-                    listToFill.Add(new Info<int>(eQuestions.LicenseType, 0));
-                    listToFill.Add(new Info<int>(eQuestions.EngineCC, 0));
-                }
+             if (io_Choice > 0 && io_Choice < NumOfSupportedVehicles())
+             {
+                 eSupportVehicles currentVehicle = (eSupportVehicles)io_Choice;
 
-                if (currentVehicle.Equals(eSupportVehicles.ElectricCar) || currentVehicle.Equals(eSupportVehicles.RegularCar))
-                { // Case of car  
-                    listToFill.Add(new Info<int>(eQuestions.Color, 0));
-                    listToFill.Add(new Info<int>(eQuestions.Doors, 0));
-                }
+                 listToFill.Add(new Info<string>(eQuestions.WheelManufacturer, string.Empty));
+                 listToFill.Add(new Info<float>(eQuestions.CurentWheelAirPressure, 0f));
+                 listToFill.Add(new Info<string>(eQuestions.ModelName, string.Empty));
 
-                if (currentVehicle.Equals(eSupportVehicles.Truck))
-                { // Case of truck  
-                    listToFill.Add(new Info<bool>(eQuestions.HazardousMaterials, false));
-                    listToFill.Add(new Info<float>(eQuestions.CargoCpacity, 0f));
-                }
-            }
-            
-        }*/
+                 if (currentVehicle.Equals(eSupportVehicles.ElectricMotorcycle) || currentVehicle.Equals(eSupportVehicles.ElectricCar))
+                 { // Hours left in elecrtic engien
+                     listToFill.Add(new Info<float>(eQuestions.CurrentHours, 0f));
+                 }
+                 else
+                 { // Fuel left
+                     listToFill.Add(new Info<float>(eQuestions.CurrentFuel, 0f));
+                 }
+
+                 if (currentVehicle.Equals(eSupportVehicles.RegularMotorcycle) || currentVehicle.Equals(eSupportVehicles.ElectricMotorcycle))
+                 { // Case of motorcycle
+                     listToFill.Add(new Info<int>(eQuestions.LicenseType, 0));
+                     listToFill.Add(new Info<int>(eQuestions.EngineCC, 0));
+                 }
+
+                 if (currentVehicle.Equals(eSupportVehicles.ElectricCar) || currentVehicle.Equals(eSupportVehicles.RegularCar))
+                 { // Case of car  
+                     listToFill.Add(new Info<int>(eQuestions.Color, 0));
+                     listToFill.Add(new Info<int>(eQuestions.Doors, 0));
+                 }
+
+                 if (currentVehicle.Equals(eSupportVehicles.Truck))
+                 { // Case of truck  
+                     listToFill.Add(new Info<bool>(eQuestions.HazardousMaterials, false));
+                     listToFill.Add(new Info<float>(eQuestions.CargoCpacity, 0f));
+                 }
+             }
+
+         }*/
 
         internal bool UpdateVehicleInfo(string i_LicenseNumber)
         {

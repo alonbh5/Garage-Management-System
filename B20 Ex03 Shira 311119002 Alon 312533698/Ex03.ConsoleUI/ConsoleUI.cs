@@ -289,6 +289,7 @@ namespace Ex03.ConsoleUI
 
             io_LicenseNumber = input;
         }
+
         private void getNameAndPhone(out string io_Name, out string io_Phone)
         {
             Console.WriteLine("Please enter customer name");
@@ -309,6 +310,7 @@ namespace Ex03.ConsoleUI
                 io_Phone = Console.ReadLine();  //// check number
             }
         }
+
         private void getSupportedVehicles(out int vehicleChoice)
         {
             vehicleChoice = 0;
@@ -320,9 +322,10 @@ namespace Ex03.ConsoleUI
                 int.TryParse(Console.ReadLine(), out vehicleChoice);
             }
         }
+
         private void addInfo (int io_Choice)
         {   
-            Dictionary<eQuestions, object> infoDicToFill = r_MyGarage.GetExtraInfo2(io_Choice);
+            Dictionary<eQuestions, object> infoDicToFill = r_MyGarage.GetExtraInfo(io_Choice);
 
             if (infoDicToFill.ContainsKey(eQuestions.ModelName))
             {
@@ -382,7 +385,9 @@ namespace Ex03.ConsoleUI
             }
 
 
-
+            r_MyGarage.UpdateInfo(infoDicToFill);
         }
+
+        
     }
 }
