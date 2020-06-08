@@ -25,7 +25,17 @@ namespace Ex03.GarageLogic
         internal float CargoVolume
         {
             get { return m_CargoVolume; }
-            set { m_CargoVolume = value; }
+            set
+            {
+                if (value >= 0)
+                {
+                    m_CargoVolume = value;
+                }
+                else
+                {
+                    throw new ArgumentException("Cargo volume's input is invalid");
+                }
+            }
         }
 
         public override string ToString()

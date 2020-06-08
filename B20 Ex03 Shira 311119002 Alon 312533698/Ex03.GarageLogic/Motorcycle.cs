@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Schema;
 
 namespace Ex03.GarageLogic
 {
@@ -27,13 +28,34 @@ namespace Ex03.GarageLogic
         internal eLicenseType LicenseType
         {
             get { return m_LicenseType; }
-            set { m_LicenseType = value; }
+            set
+            {
+                if (Enum.IsDefined(typeof(eLicenseType), value))
+                {
+                    m_LicenseType = value;
+                }
+                else
+                {
+                    Exception ex = new Exception("License type's input is invalid");
+                    throw new ValueOutOfRangeException(ex ,3f, 0f);                    
+                }
+            }
         }
 
         internal int EngineCapacityInCC
         {
             get { return m_EngineCapacityInCC; }
-            set { m_EngineCapacityInCC = value; }
+            set
+            {
+                if (value >= 0)
+                {
+                    m_EngineCapacityInCC = value;
+                }
+                else
+                {
+                    throw new ArgumentException("Engine capacity's input is invalid");
+                }
+            }            
         }
 
         public override string ToString()
@@ -45,7 +67,7 @@ namespace Ex03.GarageLogic
                 EngineCapacityInCC,
                 Environment.NewLine);
 
-            return motorcycle;
+            return motorcycle;            
         }
     }
 }

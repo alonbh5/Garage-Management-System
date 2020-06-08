@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net.Configuration;
 using System.Text;
@@ -42,7 +43,18 @@ namespace Ex03.GarageLogic
         public eServiceStatus VehicleStatus
         {
             get { return m_VehicleStatus; }
-            set { m_VehicleStatus = value; }
+            set 
+            {
+                if (Enum.IsDefined(typeof(eServiceStatus), value))
+                {
+                    m_VehicleStatus = value;
+                }
+                else
+                {                    
+                    Exception ex = new Exception("Vehicle status's input is invalid");
+                    throw new ValueOutOfRangeException(ex, 3f, 1f);
+                }
+            }
         }
 
         public Vehicle Vehicle
@@ -53,7 +65,7 @@ namespace Ex03.GarageLogic
         public override string ToString()
         {
             string customer = string.Format(
-                "The owner is {0} and his phone number is {1}{2}{3}{4}",
+                "The owner is {0} and his phone number is {1}{2}{3}Vehicle Status is: {4}",
                 Name,
                 PhoneNumber,
                 Environment.NewLine,

@@ -1,4 +1,5 @@
 using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -35,13 +36,35 @@ namespace Ex03.GarageLogic
         internal eColor Color
         {
             get { return m_Color; }
-            set { m_Color = value; }
+            set
+            {
+                if (Enum.IsDefined(typeof(eColor), value))
+                {
+                    m_Color = value;
+                }
+                else
+                {
+                    Exception ex = new Exception("Color input is invalid");
+                    throw new ValueOutOfRangeException(ex, 3f, 0f);
+                }
+            }
         }
 
         internal eDoors Doors
         {
             get { return m_Doors; }
-            set { m_Doors = value; }
+            set
+            {
+                if (Enum.IsDefined(typeof(eDoors), value))
+                {
+                    m_Doors = value;
+                }
+                else
+                {
+                    Exception ex = new Exception("Doors number's input is invalid");
+                    throw new ValueOutOfRangeException(ex, 5f, 2f);
+                }
+            }
         }
 
         public override string ToString()

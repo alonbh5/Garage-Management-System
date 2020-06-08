@@ -53,11 +53,12 @@ namespace Ex03.ConsoleUI
                     Console.WriteLine(ex.Message);
                 }
 
-                //Console.Clear();
+                System.Threading.Thread.Sleep(3000);
+                Console.Clear();
                 PrintOptions(out choice);
             }
         }      
-
+        
         public void PrintOptions(out int io_Choice)
         {                    
             io_Choice = 0;            
@@ -174,8 +175,6 @@ namespace Ex03.ConsoleUI
             {
                 Console.WriteLine("Lincense does not exsit in THE BEST GARAGE IN TOWN");
             }
-
-
         }
 
         private void inflateToMax ()
@@ -326,66 +325,88 @@ namespace Ex03.ConsoleUI
         private void addInfo (int io_Choice, string io_LicenseNumber)
         {   
             Dictionary<eQuestions, object> infoDicToFill = r_MyGarage.GetExtraInfo(io_Choice);
+            bool flag = true;
 
-            if (infoDicToFill.ContainsKey(eQuestions.ModelName))
+            while (flag)
             {
-                Console.WriteLine("Please enter Model Name");
-                infoDicToFill[eQuestions.ModelName] = Console.ReadLine();
-            }
-            if (infoDicToFill.ContainsKey(eQuestions.CurrentFuel))
-            {
-                Console.WriteLine("Please enter Current Fuel");
-                infoDicToFill[eQuestions.CurrentFuel] = Console.ReadLine();
-            }
-            if (infoDicToFill.ContainsKey(eQuestions.CurrentHours))
-            {
-                Console.WriteLine("Please enter Current Hours in battery");
-                infoDicToFill[eQuestions.CurrentHours] = Console.ReadLine();
-            }
-            if (infoDicToFill.ContainsKey(eQuestions.CurentWheelAirPressure))
-            {
-                Console.WriteLine("Please enter Current Wheels Air Pressure");
-                infoDicToFill[eQuestions.CurentWheelAirPressure] = Console.ReadLine();
-            }
-            if (infoDicToFill.ContainsKey(eQuestions.WheelManufacturer))
-            {
-                Console.WriteLine("Please enter Wheels Manufacturer");
-                infoDicToFill[eQuestions.WheelManufacturer] = Console.ReadLine();
-            }
-            if (infoDicToFill.ContainsKey(eQuestions.Doors))
-            {
-                Console.WriteLine("Please enter Number of Car Doors");
-                infoDicToFill[eQuestions.Doors] = Console.ReadLine();
-            }
-            if (infoDicToFill.ContainsKey(eQuestions.LicenseType))
-            {
-                Console.WriteLine("Please enter License Type of Bike");
-                infoDicToFill[eQuestions.LicenseType] = Console.ReadLine();
-            }
-            if (infoDicToFill.ContainsKey(eQuestions.Color))
-            {
-                Console.WriteLine("Please enter Car Color");
-                infoDicToFill[eQuestions.Color] = Console.ReadLine();
-            }
-            if (infoDicToFill.ContainsKey(eQuestions.HazardousMaterials))
-            {
-                Console.WriteLine("Does the Truck Contain Hazardous Materials (Y/N)");
-                getYesOrNO(out bool answer);
-                infoDicToFill[eQuestions.HazardousMaterials] = answer;
-            }
-            if (infoDicToFill.ContainsKey(eQuestions.CargoCpacity))
-            {
-                Console.WriteLine("What is the Truck Cargo Cpacity?");                
-                infoDicToFill[eQuestions.CargoCpacity] = Console.ReadLine();
-            }
-            if (infoDicToFill.ContainsKey(eQuestions.EngineCC))
-            {
-                Console.WriteLine("Please enter Engine in CC");
-                infoDicToFill[eQuestions.EngineCC] = Console.ReadLine();
+                if (infoDicToFill.ContainsKey(eQuestions.ModelName))
+                {
+                    Console.WriteLine("Please enter Model Name");
+                    infoDicToFill[eQuestions.ModelName] = Console.ReadLine();
+                }
+
+                if (infoDicToFill.ContainsKey(eQuestions.CurrentFuel))
+                {
+                    Console.WriteLine("Please enter Current Fuel");
+                    infoDicToFill[eQuestions.CurrentFuel] = Console.ReadLine();
+                }
+
+                if (infoDicToFill.ContainsKey(eQuestions.CurrentHours))
+                {
+                    Console.WriteLine("Please enter Current Hours in battery");
+                    infoDicToFill[eQuestions.CurrentHours] = Console.ReadLine();
+                }
+                if (infoDicToFill.ContainsKey(eQuestions.CurentWheelAirPressure))
+                {
+                    Console.WriteLine("Please enter Current Wheels Air Pressure");
+                    infoDicToFill[eQuestions.CurentWheelAirPressure] = Console.ReadLine();
+                }
+                if (infoDicToFill.ContainsKey(eQuestions.WheelManufacturer))
+                {
+                    Console.WriteLine("Please enter Wheels Manufacturer");
+                    infoDicToFill[eQuestions.WheelManufacturer] = Console.ReadLine();
+                }
+                if (infoDicToFill.ContainsKey(eQuestions.Doors))
+                {
+                    Console.WriteLine("Please enter Number of Car Doors");
+                    infoDicToFill[eQuestions.Doors] = Console.ReadLine();
+                }
+                if (infoDicToFill.ContainsKey(eQuestions.LicenseType))
+                {
+                    Console.WriteLine("Please enter License Type of Bike");
+                    infoDicToFill[eQuestions.LicenseType] = Console.ReadLine();
+                }
+                if (infoDicToFill.ContainsKey(eQuestions.Color))
+                {
+                    Console.WriteLine("Please enter Car Color");
+                    infoDicToFill[eQuestions.Color] = Console.ReadLine();
+                }
+                if (infoDicToFill.ContainsKey(eQuestions.HazardousMaterials))
+                {
+                    Console.WriteLine("Does the Truck Contain Hazardous Materials (Y/N)");
+                    getYesOrNO(out bool answer);
+                    infoDicToFill[eQuestions.HazardousMaterials] = answer;
+                }
+                if (infoDicToFill.ContainsKey(eQuestions.CargoCpacity))
+                {
+                    Console.WriteLine("What is the Truck Cargo Cpacity?");
+                    infoDicToFill[eQuestions.CargoCpacity] = Console.ReadLine();
+                }
+                if (infoDicToFill.ContainsKey(eQuestions.EngineCC))
+                {
+                    Console.WriteLine("Please enter Engine in CC");
+                    infoDicToFill[eQuestions.EngineCC] = Console.ReadLine();
+                }
+
+                try
+                {
+                    r_MyGarage.UpdateInfo(infoDicToFill, io_LicenseNumber);
+                    flag = false;
+                }
+                catch (ValueOutOfRangeException ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    Console.WriteLine(ex.InnerException.Message);
+                    Console.WriteLine("Enter again:");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);                    
+                    Console.WriteLine("Enter again:");
+                }
+
             }
 
-
-            r_MyGarage.UpdateInfo(infoDicToFill, io_LicenseNumber);
         }
 
         
