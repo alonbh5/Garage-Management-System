@@ -1,8 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Ex03.GarageLogic
 {
@@ -39,7 +35,7 @@ namespace Ex03.GarageLogic
             }
         }
 
-        public bool ChargeBattery(float io_HoursToAdd)
+        internal bool ChargeBattery(float io_HoursToAdd)
         {
             bool charged = false;
 
@@ -50,7 +46,7 @@ namespace Ex03.GarageLogic
             }
             else
             {
-                Exception ex = new Exception("Amount of hours to charge is invalud");
+                Exception ex = new Exception("Amount of hours to charge is invalid");
                 throw new ValueOutOfRangeException(ex, (MaxHoursInBattery - HoursLeftInBattery) * 60f, 0f);
             }
 

@@ -9,15 +9,15 @@ namespace Ex03.ConsoleUI
 {
     public class ConsoleUI
     {
-        private const int k_LicenseLength = 9; //// check valid by guy
- 
+        private const int k_LicenseLength = 9;
+        
         private readonly Garage r_MyGarage = new Garage();
 
         internal ConsoleUI()
         {
             int choice = 0;
 
-            PrintOptions(out choice);
+            printOptions(out choice);
 
             while (choice != 8)
             {
@@ -55,14 +55,14 @@ namespace Ex03.ConsoleUI
 
                 System.Threading.Thread.Sleep(3000);
                 Console.Clear();
-                PrintOptions(out choice);
+                printOptions(out choice);
             }
         }      
         
-        public void PrintOptions(out int io_Choice)
+        private void printOptions(out int io_Choice)
         {                    
-            io_Choice = 0;            
-            string error = "Invalid input.\nThe input must be an option between 1-8.\n";
+            io_Choice = 0;
+            string error = string.Format("Invalid input.{0}The input must be an option between 1-8.{0}", Environment.NewLine);
             string menu = string.Format(@"Welcome to THE BEST GARAGE IN TOWN
 1. Enter new vehicle to the garage.
 2. Show license number of vehicles by filter.
@@ -90,9 +90,7 @@ namespace Ex03.ConsoleUI
             int vehicleChoice;
 
             getNameAndPhone(out name, out phoneNumber);
-
             getSupportedVehicles(out vehicleChoice);
-
             getLicenseNumber(out licenseNumber);
 
             if (r_MyGarage.AddNewVehicle(name, phoneNumber, vehicleChoice, licenseNumber))
@@ -102,7 +100,7 @@ namespace Ex03.ConsoleUI
             }
             else
             {
-                Console.WriteLine("This vehicle is already in THE BEST GARAGE IN TOWN! BIATCH");
+                Console.WriteLine("This vehicle is already in THE BEST GARAGE IN TOWN!");
             }        
         }
 
@@ -247,7 +245,7 @@ namespace Ex03.ConsoleUI
                 float.TryParse(Console.ReadLine(), out amountToAdd);
             }
 
-            if (r_MyGarage.FillCharge(licenseNumber, amountToAdd)) 
+            if (r_MyGarage.ChargeElectricBattery(licenseNumber, amountToAdd)) 
             {
                 Console.WriteLine("Battery Charged!");
             }
@@ -276,47 +274,47 @@ namespace Ex03.ConsoleUI
         private void getLicenseNumber(out string io_LicenseNumber)
         {            
             Console.WriteLine("Enter your license number");
-            string input = Console.ReadLine();
+            io_LicenseNumber = Console.ReadLine();
 
-            while (input.Length != k_LicenseLength ) 
+            while (io_LicenseNumber.Length != k_LicenseLength ) 
             {
                 Console.WriteLine(string.Format("Invalid input.{0}License number should be {0} digits", Environment.NewLine, k_LicenseLength));
-                input = Console.ReadLine();
+                io_LicenseNumber = Console.ReadLine();
             }
-
-            io_LicenseNumber = input;
         }
 
         private void getNameAndPhone(out string io_Name, out string io_Phone)
         {
             Console.WriteLine("Please enter customer name");
-            io_Name = Console.ReadLine();  //// check name
+            io_Name = Console.ReadLine();
 
             while (io_Name.Length < 3) 
             {
-                Console.WriteLine("Name Should be at least 3 letters, Try agian:");
-                io_Phone = Console.ReadLine();  //// check number
+                Console.WriteLine("Name should be at least 3 letters, try agian:");
+                io_Phone = Console.ReadLine();
             }
 
             Console.WriteLine("Please enter customer phone number");
-            io_Phone = Console.ReadLine();  //// check number
+            io_Phone = Console.ReadLine();
 
             while (!int.TryParse(io_Phone, out int check) || io_Phone.Length != 10 || io_Phone[0] != '0' || io_Phone[1] != '5') 
             {
-                Console.WriteLine("Phone number Invalid (10 digit's in the form 05xxxxxxxx)");
-                io_Phone = Console.ReadLine();  //// check number
+                Console.WriteLine("Phone number invalid (10 digit's in the form 05xxxxxxxx)");
+                io_Phone = Console.ReadLine();
             }
         }
 
         private void getSupportedVehicles(out int vehicleChoice)
         {
+            int maxChoice = r_MyGarage.NumOfSupportedVehicles();
             vehicleChoice = 0;
+
             Console.Write("Choose one of our supported vehicles:{0}{1}", Environment.NewLine, r_MyGarage.ShowSupportedVehicles());
             int.TryParse(Console.ReadLine(), out vehicleChoice);
 
-            while (vehicleChoice < 1 || vehicleChoice > r_MyGarage.NumOfSupportedVehicles())
+            while (vehicleChoice < 1 || vehicleChoice > maxChoice)
             {
-                Console.WriteLine(string.Format("Wrong input.{0}Must be one of these options (1-{1})", Environment.NewLine, r_MyGarage.NumOfSupportedVehicles()));
+                Console.WriteLine(string.Format("Wrong input.{0}Must be one of these options (1-{1})", Environment.NewLine, maxChoice));
                 int.TryParse(Console.ReadLine(), out vehicleChoice);
             }
         }
@@ -324,9 +322,9 @@ namespace Ex03.ConsoleUI
         private void addInfo(int io_Choice, string io_LicenseNumber)
         {   
             Dictionary<eQuestions, object> infoDicToFill = r_MyGarage.GetExtraInfo(io_Choice);
-            bool flag = true;
+            bool invalidInput = true;
 
-            while (flag)
+            while (invalidInput)
             {
                 if (infoDicToFill.ContainsKey(eQuestions.ModelName))
                 {
@@ -336,13 +334,13 @@ namespace Ex03.ConsoleUI
 
                 if (infoDicToFill.ContainsKey(eQuestions.CurrentFuel))
                 {
-                    Console.WriteLine("Please enter Current Fuel");
+                    Console.WriteLine("Please enter Current Fuel Amount");
                     infoDicToFill[eQuestions.CurrentFuel] = Console.ReadLine();
                 }
 
                 if (infoDicToFill.ContainsKey(eQuestions.CurrentHours))
                 {
-                    Console.WriteLine("Please enter Current Hours in battery");
+                    Console.WriteLine("Please enter Current Hours in Battery");
                     infoDicToFill[eQuestions.CurrentHours] = Console.ReadLine();
                 }
 
@@ -360,19 +358,22 @@ namespace Ex03.ConsoleUI
 
                 if (infoDicToFill.ContainsKey(eQuestions.Doors))
                 {
-                    Console.WriteLine("Please enter Number of Car Doors");
+                    string question = string.Format("Please enter Number of Car Doors{0}{1}", Environment.NewLine, r_MyGarage.GetCarDoors());
+                    Console.WriteLine(question);
                     infoDicToFill[eQuestions.Doors] = Console.ReadLine();
                 }
 
                 if (infoDicToFill.ContainsKey(eQuestions.LicenseType))
                 {
-                    Console.WriteLine("Please enter License Type of Bike");
+                    string question = string.Format("Please enter License Type of Motorcycle{0}{1}", Environment.NewLine, r_MyGarage.GetMotorcycleLicenseTypes());
+                    Console.WriteLine(question);
                     infoDicToFill[eQuestions.LicenseType] = Console.ReadLine();
                 }
 
                 if (infoDicToFill.ContainsKey(eQuestions.Color))
                 {
-                    Console.WriteLine("Please enter Car Color");
+                    string question = string.Format("Please enter Car Color{0}{1}", Environment.NewLine, r_MyGarage.GetCarColors());
+                    Console.WriteLine(question);
                     infoDicToFill[eQuestions.Color] = Console.ReadLine();
                 }
 
@@ -398,7 +399,7 @@ namespace Ex03.ConsoleUI
                 try
                 {
                     r_MyGarage.UpdateInfo(infoDicToFill, io_LicenseNumber);
-                    flag = false;
+                    invalidInput = false;
                 }
                 //catch (ValueOutOfRangeException ex)
                 //{

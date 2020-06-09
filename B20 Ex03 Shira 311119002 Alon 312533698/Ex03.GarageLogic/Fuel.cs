@@ -1,12 +1,9 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Ex03.GarageLogic
 {
-    public enum eFuelType
+    public enum eFuelTypes
     {
         Octan95 = 1,
         Octan96,
@@ -16,18 +13,18 @@ namespace Ex03.GarageLogic
 
     internal class Fuel
     {
-        private readonly eFuelType r_FuelType;
+        private readonly eFuelTypes r_FuelType;
         private readonly float r_MaxFuelTank;
         private float m_CurrentFuelTank;
 
-        internal Fuel(eFuelType i_FuelType, float i_MaxFuel)
+        internal Fuel(eFuelTypes i_FuelType, float i_MaxFuel)
         {
             r_FuelType = i_FuelType;
             r_MaxFuelTank = i_MaxFuel;
             m_CurrentFuelTank = 0f;
         }
 
-        internal eFuelType FuelType
+        internal eFuelTypes FuelType
         {
             get { return r_FuelType; }
         }
@@ -54,20 +51,7 @@ namespace Ex03.GarageLogic
             }
         }
 
-        public static string GetFuelTypes()
-        {
-           // int index = 1;
-            StringBuilder fuelTypes = new StringBuilder();
-
-            foreach (eFuelType fuelType in Enum.GetValues(typeof(eFuelType)))
-            {
-                fuelTypes.Append(string.Format("{0}. {1}{2}", (int)fuelType, fuelType.ToString(), Environment.NewLine));
-            }
-
-            return fuelTypes.ToString();
-        }
-
-        public bool FillTank(float i_AmountToAdd, eFuelType i_FuelType)
+        internal bool FillTank(float i_AmountToAdd, eFuelTypes i_FuelType)
         {
             bool filled = false;
 
@@ -80,7 +64,7 @@ namespace Ex03.GarageLogic
                 }
                 else
                 {
-                    Exception ex = new Exception("Fuel amount Invalid");
+                    Exception ex = new Exception("Fuel amount to add is invalid");
                     throw new ValueOutOfRangeException(ex, MaxTank - CurrentFuelTank, 0f);
                 }
             }
@@ -90,7 +74,20 @@ namespace Ex03.GarageLogic
             }            
 
             return filled;
-        }       
+        }
+
+        public static string GetFuelTypes()
+        {
+            // int index = 1;
+            StringBuilder fuelTypes = new StringBuilder();
+
+            foreach (eFuelTypes fuelType in Enum.GetValues(typeof(eFuelTypes)))
+            {
+                fuelTypes.Append(string.Format("{0}. {1}{2}", (int)fuelType, fuelType.ToString(), Environment.NewLine));
+            }
+
+            return fuelTypes.ToString();
+        }
 
         public override string ToString()
         {

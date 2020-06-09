@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 
 namespace Ex03.GarageLogic
 {
@@ -53,9 +54,22 @@ namespace Ex03.GarageLogic
             }            
         }
 
-        public int NumOfLicenseTypes()
+        internal int NumOfLicenseTypes()
         {
             return Enum.GetValues(typeof(eLicenseTypes)).Length;
+        }
+
+        internal static string GetLicenseTypes()
+        {
+            // int index = 1;
+            StringBuilder licenseTypes = new StringBuilder();
+
+            foreach (eLicenseTypes licenseType in Enum.GetValues(typeof(eLicenseTypes)))
+            {
+                licenseTypes.Append(string.Format("{0}. {1}{2}", (int)licenseType, licenseType.ToString(), Environment.NewLine));
+            }
+
+            return licenseTypes.ToString();
         }
 
         public override string ToString()

@@ -1,14 +1,9 @@
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Net.Configuration;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Ex03.GarageLogic
 {
-    public enum eServiceStatus
+    public enum eServiceStatuses
     {
         InRepair = 1,
         Fixed,
@@ -20,9 +15,9 @@ namespace Ex03.GarageLogic
         private readonly string r_Name;
         private readonly string r_PhoneNumber;
         private readonly Vehicle r_Vehicle;
-        private eServiceStatus m_VehicleStatus;
+        private eServiceStatuses m_VehicleStatus;
 
-        internal Customer(string i_Name, string i_PhoneNumber, eServiceStatus i_VehicleStatus, Vehicle i_Vehicle)
+        internal Customer(string i_Name, string i_PhoneNumber, eServiceStatuses i_VehicleStatus, Vehicle i_Vehicle)
         {
             r_Name = i_Name;
             r_PhoneNumber = i_PhoneNumber;
@@ -30,22 +25,22 @@ namespace Ex03.GarageLogic
             r_Vehicle = i_Vehicle;
         }
 
-        public string Name
+        internal string Name
         {
             get { return r_Name; }
         }
 
-        public string PhoneNumber
+        internal string PhoneNumber
         {
             get { return r_PhoneNumber; }
         }
 
-        public eServiceStatus VehicleStatus
+        internal eServiceStatuses VehicleStatus
         {
             get { return m_VehicleStatus; }
             set 
             {
-                if (Enum.IsDefined(typeof(eServiceStatus), value))
+                if (Enum.IsDefined(typeof(eServiceStatuses), value))
                 {
                     m_VehicleStatus = value;
                 }
@@ -60,6 +55,19 @@ namespace Ex03.GarageLogic
         public Vehicle Vehicle
         {
             get { return r_Vehicle; }
+        }
+
+        public static string GetServiceStatuses()
+        {
+            // int index = 1;
+            StringBuilder serviceStatuses = new StringBuilder();
+
+            foreach (eServiceStatuses serviceStatus in Enum.GetValues(typeof(eServiceStatuses)))
+            {
+                serviceStatuses.Append(string.Format("{0}. {1}{2}", (int)serviceStatus, serviceStatus.ToString(), Environment.NewLine));
+            }
+
+            return serviceStatuses.ToString();
         }
 
         public override string ToString()

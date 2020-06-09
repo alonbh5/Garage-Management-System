@@ -1,15 +1,11 @@
 using System;
-using System.CodeDom;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Ex03.GarageLogic
 {
-    public enum eColor
+    public enum eColors
     {
-        Black,
+        Black = 1,
         White,
         Gray,
         Silver
@@ -17,7 +13,7 @@ namespace Ex03.GarageLogic
 
     public enum eDoors
     {
-        Two = 2,
+        Two = 1,
         Three,
         Four,
         Five
@@ -25,20 +21,20 @@ namespace Ex03.GarageLogic
 
     internal class Car : Vehicle
     {
-        private eColor m_Color;
+        private eColors m_Color;
         private eDoors m_Doors;
-
+        
         internal Car(string i_LicenseNumber, uint i_NumOfWheels, float io_MaxAirPressure, object i_EnergyType) :
         base(i_LicenseNumber, i_NumOfWheels, io_MaxAirPressure, i_EnergyType)
         {
         }
 
-        internal eColor Color
+        internal eColors Color
         {
             get { return m_Color; }
             set
             {
-                if (Enum.IsDefined(typeof(eColor), value))
+                if (Enum.IsDefined(typeof(eColors), value))
                 {
                     m_Color = value;
                 }
@@ -65,6 +61,33 @@ namespace Ex03.GarageLogic
                     throw new ValueOutOfRangeException(ex, 5f, 2f);
                 }
             }
+        }
+
+        internal static string GetDoorsOptions()
+        {
+            // int index = 1;
+            StringBuilder doors = new StringBuilder();
+
+            foreach (eDoors door in Enum.GetValues(typeof(eDoors)))
+            {
+                doors.Append(string.Format("{0}. {1}{2}", (int)door, door.ToString(), Environment.NewLine));
+            }
+
+            return doors.ToString();
+        }
+
+
+        internal static string GetColorsOptions()
+        {
+            // int index = 1;
+            StringBuilder colors = new StringBuilder();
+
+            foreach (eColors color in Enum.GetValues(typeof(eColors)))
+            {
+                colors.Append(string.Format("{0}. {1}{2}", (int)color, color.ToString(), Environment.NewLine));
+            }
+
+            return colors.ToString();
         }
 
         public override string ToString()
