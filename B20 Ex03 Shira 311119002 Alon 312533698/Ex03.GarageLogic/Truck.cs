@@ -1,8 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Ex03.GarageLogic
 {
@@ -12,7 +8,7 @@ namespace Ex03.GarageLogic
         private float m_CargoVolume;
 
         internal Truck(string i_LicenseNumber, uint i_NumOfWheels, float io_MaxAirPressure, object i_EnergyType) :
-        base(i_LicenseNumber, i_NumOfWheels, io_MaxAirPressure, i_EnergyType)
+            base(i_LicenseNumber, i_NumOfWheels, io_MaxAirPressure, i_EnergyType)
         {
         }
 
