@@ -5,11 +5,11 @@ namespace Ex03.GarageLogic
 {
     internal class Vehicle
     {
-        private readonly string r_LicenseNumber;
-        private readonly Wheel[] r_Wheels;
-        private readonly object r_EnergyType;
-        private string m_ModelName;
-        private float m_PercentagesOfEnergyRemaining;
+        private protected readonly string r_LicenseNumber;
+        private protected readonly Wheel[] r_Wheels;
+        private protected readonly object r_EnergyType;
+        private protected string m_ModelName;
+        private protected float m_PercentagesOfEnergyRemaining;
 
         protected Vehicle(string i_LicenseNumber, uint i_NumOfWheels, float io_MaxAirPressure, object i_EnergyType) 
         {

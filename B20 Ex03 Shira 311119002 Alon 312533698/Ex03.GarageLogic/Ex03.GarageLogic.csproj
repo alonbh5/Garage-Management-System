@@ -54,5 +54,8 @@
     <Compile Include="SupportedVehicles.cs" />
     <Compile Include="Wheel.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="B20 Ex03 Shira 311119002 Alon 312533698.cd" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
