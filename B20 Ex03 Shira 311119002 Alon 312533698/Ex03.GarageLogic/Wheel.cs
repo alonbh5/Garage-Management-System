@@ -45,7 +45,7 @@ namespace Ex03.GarageLogic
                 }
                 else
                 {
-                    Exception ex = new Exception("Amount of air pressure's input is invalid.");
+                    Exception ex = new Exception("Amount of wheel's air pressure is invalid input.");
                     throw new ValueOutOfRangeException(ex, MaxAirPressure, 0f);
                 }
             }
@@ -67,7 +67,7 @@ namespace Ex03.GarageLogic
         public override string ToString()
         {
             string wheel = string.Format(
-                "Manufacturer is {0}, current air pressure is {1} out of {2}{3}",
+                "Manufacturer is {0}, current air pressure is {1} out of {2}.{3}",
                 Manufacturer,
                 CurrentAirPressure,
                 MaxAirPressure,

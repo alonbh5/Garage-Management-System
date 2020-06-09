@@ -291,7 +291,7 @@ namespace Ex03.ConsoleUI
             while (io_Name.Length < 3) 
             {
                 Console.WriteLine("Name should be at least 3 letters, try agian:");
-                io_Phone = Console.ReadLine();
+                io_Name = Console.ReadLine();
             }
 
             Console.WriteLine("Please enter customer phone number");
@@ -366,7 +366,7 @@ namespace Ex03.ConsoleUI
                 if (infoDicToFill.ContainsKey(eQuestions.LicenseType))
                 {
                     string question = string.Format("Choose License Type of your Motorcycle{0}{1}", Environment.NewLine, r_MyGarage.GetMotorcycleLicenseTypes());
-                    Console.WriteLine(question);
+                    Console.Write(question);
                     infoDicToFill[eQuestions.LicenseType] = Console.ReadLine();
                 }
 
