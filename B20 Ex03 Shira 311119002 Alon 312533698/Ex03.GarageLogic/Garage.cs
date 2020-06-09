@@ -52,7 +52,8 @@ namespace Ex03.GarageLogic
                 }
                 else
                 {
-                    throw new ValueOutOfRangeException((float)NumOfSupportedVehicles(), 1f);
+                    Exception ex = new Exception("Choice of supported vehicle is invalid");
+                    throw new ValueOutOfRangeException(ex, (float)NumOfSupportedVehicles(), 1f);
                 }
             }
 
@@ -105,7 +106,8 @@ namespace Ex03.GarageLogic
                 }
                 else
                 {
-                    throw new ValueOutOfRangeException((float)NumOfSupportedVehicles(), 1f);
+                    Exception ex = new Exception("Choice of vehicle status is invalid");
+                    throw new ValueOutOfRangeException(ex, 3f, 1f);
                 }
             }
 
@@ -159,28 +161,24 @@ namespace Ex03.GarageLogic
                     {
                         if (r_Vehicles[i_LicenseNumber].Vehicle.EnergyType is Fuel)
                         {
-                            isFilled = (r_Vehicles[i_LicenseNumber].Vehicle.EnergyType as Fuel).FillTank(io_AmountToAdd, (eFuelType)io_FuelType);
+                            Fuel currEngine = r_Vehicles[i_LicenseNumber].Vehicle.EnergyType as Fuel;
+                            isFilled = currEngine.FillTank(io_AmountToAdd, (eFuelType)io_FuelType);
+
                             if (isFilled)
                             {
-                                try
-                                {
-                                    float percent = (r_Vehicles[i_LicenseNumber].Vehicle.EnergyType as Fuel).CurrentFuelTank / (r_Vehicles[i_LicenseNumber].Vehicle.EnergyType as Fuel).MaxTank;
-                                    r_Vehicles[i_LicenseNumber].Vehicle.PercentagesOfEnergyRemaining = percent * 100f;
-                                }
-                                catch (Exception ex)
-                                {
-                                    throw new Exception(string.Format("License Number {0} is not in the system", i_LicenseNumber), ex);
-                                }
+                                float percent = currEngine.CurrentFuelTank / currEngine.MaxTank;
+                                r_Vehicles[i_LicenseNumber].Vehicle.PercentagesOfEnergyRemaining = percent * 100f;
                             }
                         }
                         else
                         {
-                            throw new FormatException("The vehicle engien is not runnig on fuel!");
+                            throw new FormatException("The vehicle engien is not runnig on fuel.");
                         }
                     }
                     else
                     {
-                        throw new ValueOutOfRangeException((float)NumOfFuelType(), 1f);
+                        Exception ex = new Exception("Choice of fuel type is invalid");
+                        throw new ValueOutOfRangeException(ex, (float)NumOfFuelType(), 1f);
                     }
                 }
                 else
