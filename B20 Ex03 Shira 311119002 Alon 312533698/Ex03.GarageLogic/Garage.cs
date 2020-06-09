@@ -171,7 +171,7 @@ namespace Ex03.GarageLogic
                     else
                     {
                         Exception ex = new Exception("Choice of fuel type is invalid");
-                        throw new ValueOutOfRangeException(ex, (float)Fuel.NumOfFuelTypes(), 1f);
+                        throw new ValueOutOfRangeException(ex, (float)NumOfFuelTypes(), 1f);
                     }
                 }
                 else
@@ -193,12 +193,12 @@ namespace Ex03.GarageLogic
                 {
                     if (r_Vehicles[i_LicenseNumber].Vehicle.EnergyType is Electric)
                     {
-                        Electric engine = r_Vehicles[i_LicenseNumber].Vehicle.EnergyType as Electric;
-                        isFilled = engine.ChargeBattery(io_MinutesToAdd / 60f);
+                        Electric currEngine = r_Vehicles[i_LicenseNumber].Vehicle.EnergyType as Electric;
+                        isFilled = currEngine.ChargeBattery(io_MinutesToAdd / 60f);
 
                         if (isFilled)
                         {
-                            float percent = engine.HoursLeftInBattery / engine.MaxHoursInBattery;
+                            float percent = currEngine.HoursLeftInBattery / currEngine.MaxHoursInBattery;
                             r_Vehicles[i_LicenseNumber].Vehicle.PercentagesOfEnergyRemaining = percent * 100f;
                         }
                     }
@@ -253,6 +253,16 @@ namespace Ex03.GarageLogic
             return SupportedVehicles.ArrOfSupportedVehicles.Length;
         }
 
+        public int NumOfServiceStatuses()
+        {
+            return Enum.GetValues(typeof(eServiceStatuses)).Length;
+        }
+
+        public int NumOfFuelTypes()
+        {
+            return Enum.GetValues(typeof(eFuelTypes)).Length;
+        }
+
         public string ShowSupportedVehicles()
         {
             return SupportedVehicles.ShowSupportedVehiclesTypes();
@@ -276,6 +286,11 @@ namespace Ex03.GarageLogic
         public string ShowMotorcycleLicenseTypes()
         {
             return Motorcycle.ShowLicenseTypes();
+        }
+
+        public string ShowOptionsOfServiceStatuses()
+        {
+            return Customer.ShowServiceStatuses();
         }
     }
 }

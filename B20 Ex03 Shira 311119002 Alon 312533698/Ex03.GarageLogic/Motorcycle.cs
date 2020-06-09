@@ -13,8 +13,8 @@ namespace Ex03.GarageLogic
 
     internal class Motorcycle : Vehicle
     {
-         private eLicenseTypes m_LicenseType;
-         private int m_EngineCapacityInCC;
+        private eLicenseTypes m_LicenseType;
+        private int m_EngineCapacityInCC;
 
         internal Motorcycle(string i_LicenseNumber, uint i_NumOfWheels, float io_MaxAirPressure, object i_EnergyType) :
         base(i_LicenseNumber, i_NumOfWheels, io_MaxAirPressure, i_EnergyType)
@@ -33,7 +33,7 @@ namespace Ex03.GarageLogic
                 else
                 {
                     Exception ex = new Exception("License type's input is invalid");
-                    throw new ValueOutOfRangeException(ex, NumOfLicenseTypes(), 1f);                 
+                    throw new ValueOutOfRangeException(ex, Enum.GetValues(typeof(eLicenseTypes)).Length, 1f);
                 }
             }
         }
@@ -52,11 +52,6 @@ namespace Ex03.GarageLogic
                     throw new ArgumentException("Engine capacity's input is invalid");
                 }
             }            
-        }
-
-        internal int NumOfLicenseTypes()
-        {
-            return Enum.GetValues(typeof(eLicenseTypes)).Length;
         }
 
         internal static string ShowLicenseTypes()

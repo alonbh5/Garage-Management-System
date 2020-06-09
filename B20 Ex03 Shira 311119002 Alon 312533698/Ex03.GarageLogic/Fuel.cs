@@ -88,11 +88,6 @@ namespace Ex03.GarageLogic
             return fuelTypes.ToString();
         }
 
-        public static int NumOfFuelTypes()
-        {
-            return Enum.GetValues(typeof(eFuelTypes)).Length;
-        }
-
         public override string ToString()
         {
             string fuel = string.Format(
