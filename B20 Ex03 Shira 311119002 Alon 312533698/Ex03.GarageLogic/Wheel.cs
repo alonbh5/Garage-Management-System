@@ -25,13 +25,34 @@ namespace Ex03.GarageLogic
         public string Manufacturer
         {
             get { return m_Manufacturer; }
-            set { m_Manufacturer = value; }
+            set
+            {
+                if (value != string.Empty)
+                {
+                    m_Manufacturer = value;
+                }
+                else
+                {
+                    throw new FormatException("Manufacturer's name input is not valid.");
+                }
+            }
         }
 
         public float CurrentAirPressure
         {
             get { return m_CurrentAirPressure; }
-            set { m_CurrentAirPressure = value; }
+            set
+            {
+                if (value >= 0 && value <= MaxAirPressure)
+                {
+                    m_CurrentAirPressure = value;
+                }
+                else
+                {
+                    Exception ex = new Exception ("Amount of air pressure's input is not valid.");
+                    throw new ValueOutOfRangeException(ex, MaxAirPressure, 0f);
+                }
+            }
         }
 
         public void InflatingAirPressure(float io_AddPressure)
@@ -42,7 +63,8 @@ namespace Ex03.GarageLogic
             }
             else
             {
-                throw new ValueOutOfRangeException((MaxAirPressure - CurrentAirPressure), 0f);
+                Exception ex = new Exception("Amount of air pressure's input is not valid.");
+                throw new ValueOutOfRangeException(ex, (MaxAirPressure - CurrentAirPressure), 0f);
             }
         }
 

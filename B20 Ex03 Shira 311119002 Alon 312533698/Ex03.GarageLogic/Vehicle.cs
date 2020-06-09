@@ -46,13 +46,33 @@ namespace Ex03.GarageLogic
         internal string ModelName
         {
             get { return m_ModelName; }
-            set { m_ModelName = value; }
+            set
+            {
+                if (value != string.Empty)
+                {
+                    m_ModelName = value;
+                }
+                else
+                {
+                    throw new FormatException("Model name's input is not valid.");
+                }
+            }
         }
 
         internal float PercentagesOfEnergyRemaining
         {
             get { return m_PercentagesOfEnergyRemaining; }
-            set { m_PercentagesOfEnergyRemaining = value; }
+            set
+            {
+                if (value >= 0)
+                {
+                    m_PercentagesOfEnergyRemaining = value;
+                }
+                else
+                {
+                    throw new FormatException("Percentages of energy remaining's input is not valid.");
+                }
+            }
         }
 
         

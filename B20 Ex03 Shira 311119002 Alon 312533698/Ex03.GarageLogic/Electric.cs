@@ -25,7 +25,18 @@ namespace Ex03.GarageLogic
         internal float HoursLeftInBattery
         {
             get { return m_HoursLeftInBattery; }
-            set { m_HoursLeftInBattery = value; }
+            set
+            {
+                if (value >= 0 && value <= MaxHoursInBattery)
+                {
+                    m_HoursLeftInBattery = value;
+                }
+                else
+                {
+                    Exception ex = new Exception("Amount of hours's input is invalid");
+                    throw new ValueOutOfRangeException(ex, MaxHoursInBattery, 0f);
+                }
+            }
         }
 
         public bool ChargeBattery(float io_HoursToAdd)
@@ -39,7 +50,8 @@ namespace Ex03.GarageLogic
             }
             else
             {
-                throw new ValueOutOfRangeException((MaxHoursInBattery - HoursLeftInBattery) * 60f, 0f);
+                Exception ex = new Exception("Amount of hours to charge is invalud");
+                throw new ValueOutOfRangeException(ex, (MaxHoursInBattery - HoursLeftInBattery) * 60f, 0f);
             }
 
             return charged;

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Ex03.GarageLogic
@@ -19,24 +20,7 @@ namespace Ex03.GarageLogic
         CurentWheelAirPressure,
         LicenseType,
         EngineCC
-    }
-
-    public struct Info<T>
-    {
-        private eQuestions m_NumOfInfo;
-        private T m_InfoVehicle;
-
-        public Info(eQuestions i_NumOfInfo, T i_Info)
-        {
-            m_NumOfInfo = i_NumOfInfo;
-            m_InfoVehicle = i_Info;
-        }
-
-        public T InfoVehicle
-        {
-            set { m_InfoVehicle = value; }
-        }
-    }
+    }    
 
     public class Garage
     {
@@ -325,18 +309,29 @@ namespace Ex03.GarageLogic
 
             if (i_FilledDictionary.ContainsKey(eQuestions.CurrentFuel))
             {
-                if (float.TryParse(i_FilledDictionary[eQuestions.CurrentFuel].ToString(), out float curFuel))
+                if (float.TryParse(i_FilledDictionary[eQuestions.CurrentFuel].ToString(), out float currFuel))
+                {                    
+                    (r_Vehicles[io_LicenseNumber].Vehicle.EnergyType as Fuel).CurrentFuelTank = currFuel;
+                    float percent = (r_Vehicles[io_LicenseNumber].Vehicle.EnergyType as Fuel).CurrentFuelTank / (r_Vehicles[io_LicenseNumber].Vehicle.EnergyType as Fuel).MaxTank;
+                    r_Vehicles[io_LicenseNumber].Vehicle.PercentagesOfEnergyRemaining = percent * 100f;
+                }
+                else
                 {
-                    int send = (int)(r_Vehicles[io_LicenseNumber].Vehicle.EnergyType as Fuel).FuelType;
-                    FillGasTank(io_LicenseNumber, send, curFuel);
+                    throw new FormatException("Amount of fuel is not a valid input");
                 }
             }
 
             if (i_FilledDictionary.ContainsKey(eQuestions.CurrentHours))
             {
                 if (float.TryParse(i_FilledDictionary[eQuestions.CurrentHours].ToString(), out float curMin))
+                { 
+                    (r_Vehicles[io_LicenseNumber].Vehicle.EnergyType as Electric).HoursLeftInBattery = curMin/60f;
+                    float percent = (r_Vehicles[io_LicenseNumber].Vehicle.EnergyType as Electric).HoursLeftInBattery / (r_Vehicles[io_LicenseNumber].Vehicle.EnergyType as Electric).MaxHoursInBattery;
+                    r_Vehicles[io_LicenseNumber].Vehicle.PercentagesOfEnergyRemaining = percent * 100f;
+                }
+                else
                 {
-                    FillCharge(io_LicenseNumber, curMin);
+                    throw new FormatException("Amount of hours is not a valid input");
                 }
             }
 
@@ -344,11 +339,15 @@ namespace Ex03.GarageLogic
             {
                 if (float.TryParse(i_FilledDictionary[eQuestions.CurentWheelAirPressure].ToString(), out float curAirPressure))
                 {
-                    for (int i=0; i< r_Vehicles[io_LicenseNumber].Vehicle.Wheels.Length;i++)
+                    for (int i = 0; i < r_Vehicles[io_LicenseNumber].Vehicle.Wheels.Length; i++) 
                     {
                         r_Vehicles[io_LicenseNumber].Vehicle.Wheels[i].CurrentAirPressure = curAirPressure;
                     }
-                }                
+                }
+                else
+                {
+                    throw new FormatException("Wheel pressure's input is invalid");
+                }
             }
 
             if (i_FilledDictionary.ContainsKey(eQuestions.WheelManufacturer))
@@ -361,17 +360,38 @@ namespace Ex03.GarageLogic
 
             if (i_FilledDictionary.ContainsKey(eQuestions.Doors))
             {
-                (r_Vehicles[io_LicenseNumber].Vehicle as Car).Doors = (eDoors)i_FilledDictionary[eQuestions.Doors];
+                if (int.TryParse(i_FilledDictionary[eQuestions.Doors].ToString(), out int doors))
+                {
+                    (r_Vehicles[io_LicenseNumber].Vehicle as Car).Doors = (eDoors)doors;
+                }
+                else
+                {
+                    throw new FormatException("Number of doors's input is invalid");
+                }
             }
 
             if (i_FilledDictionary.ContainsKey(eQuestions.LicenseType))
             {
-                (r_Vehicles[io_LicenseNumber].Vehicle as Motorcycle).LicenseType = (eLicenseType)i_FilledDictionary[eQuestions.LicenseType];
+                if (int.TryParse(i_FilledDictionary[eQuestions.LicenseType].ToString(), out int licenseType))
+                {
+                    (r_Vehicles[io_LicenseNumber].Vehicle as Motorcycle).LicenseType = (eLicenseType)licenseType;
+                }
+                else
+                {
+                    throw new FormatException("Choice of license type is invalid");
+                }
             }
 
             if (i_FilledDictionary.ContainsKey(eQuestions.Color))
             {
-                (r_Vehicles[io_LicenseNumber].Vehicle as Car).Color = (eColor)i_FilledDictionary[eQuestions.Color];
+                if (int.TryParse(i_FilledDictionary[eQuestions.Color].ToString(), out int color))
+                {
+                    (r_Vehicles[io_LicenseNumber].Vehicle as Car).Color = (eColor)color;
+                }
+                else
+                {
+                    throw new FormatException("Choice of color is invalid");
+                }
             }
 
             if (i_FilledDictionary.ContainsKey(eQuestions.HazardousMaterials))
@@ -385,6 +405,10 @@ namespace Ex03.GarageLogic
                 {
                     (r_Vehicles[io_LicenseNumber].Vehicle as Truck).CargoVolume = cargo;
                 }
+                else
+                {
+                    throw new FormatException("Cargo capacity's input is invalid");
+                }
             }
 
             if (i_FilledDictionary.ContainsKey(eQuestions.EngineCC))
@@ -393,50 +417,12 @@ namespace Ex03.GarageLogic
                 {
                     (r_Vehicles[io_LicenseNumber].Vehicle as Motorcycle).EngineCapacityInCC = engienCC;
                 }
+                else
+                {
+                    throw new FormatException("Engine CC's input is invalid");
+                }
             }
-        }
-
-        /* public List<object> GetExtraInfo(int io_Choice)
-         {
-             List<object> listToFill = new List<object>();            
-
-             if (io_Choice > 0 && io_Choice < NumOfSupportedVehicles())
-             {
-                 eSupportVehicles currentVehicle = (eSupportVehicles)io_Choice;
-
-                 listToFill.Add(new Info<string>(eQuestions.WheelManufacturer, string.Empty));
-                 listToFill.Add(new Info<float>(eQuestions.CurentWheelAirPressure, 0f));
-                 listToFill.Add(new Info<string>(eQuestions.ModelName, string.Empty));
-
-                 if (currentVehicle.Equals(eSupportVehicles.ElectricMotorcycle) || currentVehicle.Equals(eSupportVehicles.ElectricCar))
-                 { // Hours left in elecrtic engien
-                     listToFill.Add(new Info<float>(eQuestions.CurrentHours, 0f));
-                 }
-                 else
-                 { // Fuel left
-                     listToFill.Add(new Info<float>(eQuestions.CurrentFuel, 0f));
-                 }
-
-                 if (currentVehicle.Equals(eSupportVehicles.RegularMotorcycle) || currentVehicle.Equals(eSupportVehicles.ElectricMotorcycle))
-                 { // Case of motorcycle
-                     listToFill.Add(new Info<int>(eQuestions.LicenseType, 0));
-                     listToFill.Add(new Info<int>(eQuestions.EngineCC, 0));
-                 }
-
-                 if (currentVehicle.Equals(eSupportVehicles.ElectricCar) || currentVehicle.Equals(eSupportVehicles.RegularCar))
-                 { // Case of car  
-                     listToFill.Add(new Info<int>(eQuestions.Color, 0));
-                     listToFill.Add(new Info<int>(eQuestions.Doors, 0));
-                 }
-
-                 if (currentVehicle.Equals(eSupportVehicles.Truck))
-                 { // Case of truck  
-                     listToFill.Add(new Info<bool>(eQuestions.HazardousMaterials, false));
-                     listToFill.Add(new Info<float>(eQuestions.CargoCpacity, 0f));
-                 }
-             }
-
-         }*/
+        }        
 
         internal bool UpdateVehicleInfo(string i_LicenseNumber)
         {

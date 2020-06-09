@@ -40,7 +40,19 @@ namespace Ex03.GarageLogic
         internal float CurrentFuelTank
         {
             get { return m_CurrentFuelTank; }
-            set { m_CurrentFuelTank = value; }
+            set
+            {
+                if (value >= 0 && value <= MaxTank)
+                {
+                    m_CurrentFuelTank = value;
+                }
+                else
+                {
+                    Exception ex = new Exception("Amount of fuel's input is invalid");
+                    throw new ValueOutOfRangeException(ex, MaxTank, 0f);
+                }
+            }
+
         }
 
         public bool FillTank(float i_AmountToAdd, eFuelType i_FuelType)
@@ -57,7 +69,8 @@ namespace Ex03.GarageLogic
                 }
                 else
                 {
-                    throw new ValueOutOfRangeException((MaxTank - CurrentFuelTank), 0f);
+                    Exception ex = new Exception("Fuel amount Invalid");
+                    throw new ValueOutOfRangeException(ex, (MaxTank - CurrentFuelTank), 0f);                   
                 }
             }
             else
