@@ -15,7 +15,12 @@ namespace Ex03.GarageLogic
         }
 
         public bool AddNewVehicle(string io_CustomerName, string io_CustomerPhoneNumber, int io_Choice, string io_LicenseNumber)
-        { // function 1
+        {
+            //// Gets new customer (name, phone number and license plate number) and choice out of 
+            //// the garage supported vehicle
+            /// 1. New license plate number - add it to the garage 
+            /// 2. old license plate number - change state of car to - "In-Repair"
+            /// return T/F if insertion succeed 
             bool isAdded = false;
 
             if (isExist(io_LicenseNumber))
@@ -26,7 +31,7 @@ namespace Ex03.GarageLogic
                 }
                 catch (Exception ex)
                 {
-                    throw new Exception(string.Format("License bumber {0} is not the system.", io_LicenseNumber), ex);
+                    throw new Exception(string.Format("License number {0} is not the system.", io_LicenseNumber), ex);
                 }
             }
             else
@@ -48,24 +53,25 @@ namespace Ex03.GarageLogic
             return isAdded;
         }
 
-        public string VehicleStringByFilter(bool i_InRepair, bool i_Fixed, bool i_Paid)
-        { // function 2
+        public string VehicleStringByFilter(bool i_ShowInRepair, bool i_ShowFixed, bool i_ShowPaid)
+        {
+            //// return a string of all vehicle number in garage by filter  
             int index = 1;
             StringBuilder vehicleList = new StringBuilder();
 
             foreach (KeyValuePair<string, Customer> entry in r_Vehicles)
             {
-                if (i_InRepair && entry.Value.VehicleStatus.Equals(eServiceStatuses.InRepair))
+                if (i_ShowInRepair && entry.Value.VehicleStatus.Equals(eServiceStatuses.InRepair))
                 {
                     vehicleList.Append(string.Format("{0}. {1}{2}", index++, entry.Key, Environment.NewLine));
                 }
 
-                if (i_Fixed && entry.Value.VehicleStatus.Equals(eServiceStatuses.Fixed))
+                if (i_ShowFixed && entry.Value.VehicleStatus.Equals(eServiceStatuses.Fixed))
                 {                
                     vehicleList.Append(string.Format("{0}. {1}{2}", index++, entry.Key, Environment.NewLine));
                 }
 
-                if (i_Paid && entry.Value.VehicleStatus.Equals(eServiceStatuses.Paid))
+                if (i_ShowPaid && entry.Value.VehicleStatus.Equals(eServiceStatuses.Paid))
                 {
                     vehicleList.Append(string.Format("{0}. {1}{2}", index++, entry.Key, Environment.NewLine));
                 }
@@ -80,7 +86,9 @@ namespace Ex03.GarageLogic
         }
 
         public bool ChangeServiceStatus(string i_LicenseNumber, int i_NewStatus)
-        { // function 3             
+        {
+            //// gets license number and new status and change the state of the car in the system
+            /// return T/F if change succeed
             bool isChanged = false;
 
             if (isExist(i_LicenseNumber))
@@ -108,7 +116,9 @@ namespace Ex03.GarageLogic
         }
 
         public bool InflateWheels(string i_LicenseNumber)
-        { // function 4
+        {
+            //// Gets car's license number and infalte all of the car's tires to max
+            //// Return T/F if ionfaltion succeed
             bool isInflated = false;
             float amountToAdd = 0f;
 
@@ -143,7 +153,10 @@ namespace Ex03.GarageLogic
         }
 
         public bool FillGasTank(string i_LicenseNumber, int io_FuelType, float io_AmountToAdd)
-        { // function 5
+        {
+            //// Gets car's license number , fuel type and amount of fuel to add
+            //// filled the tank if fuel type match and amount is not too much
+            //// Return T/F if filling succeed
             bool isFilled = false;
 
             if (isExist(i_LicenseNumber))
@@ -184,7 +197,10 @@ namespace Ex03.GarageLogic
         }
 
         public bool ChargeElectricBattery(string i_LicenseNumber, float io_MinutesToAdd)
-        { // function 6
+        {
+            //// Gets car's license number , and minutes of electricity to add
+            //// charge the car if minutes is not too much
+            //// Return T/F if charge succeed
             bool isFilled = false;
 
             if (isExist(i_LicenseNumber))
@@ -217,7 +233,10 @@ namespace Ex03.GarageLogic
         }
 
         public bool VehicleInfo(string i_LicenseNumber, out string io_VehicleInfo)
-        { // function 7
+        {
+            //// Gets car's license number , and out string 
+            //// store in out string all the information about said car
+            //// Return T/F if car is found in garage
             bool found = false;
 
             StringBuilder vehicleInfo = new StringBuilder();
@@ -232,14 +251,21 @@ namespace Ex03.GarageLogic
             return found;
         }
 
-        public Dictionary<eQuestions, object> GetExtraInfo(int io_Choice)
+        public Dictionary<eQuestions, object> GetExtraInfo(int io_VehicleChoice)
         {
-            SupportedVehicles.GetInfo(out Dictionary<eQuestions, object> DicToFill, io_Choice);
+            //// For UI - gets vehicle choice out of supported vehicles
+            //// return a dictionary where key is Enum of eQusetion and data is object for the UI to insert
+            //// eQusetion helps UI to know what information is needed from user
+            //// Enum of eQusetion can be found in SupportedVehicles Class 
+            SupportedVehicles.GetInfo(out Dictionary<eQuestions, object> DicToFill, io_VehicleChoice);
             return DicToFill;
         }
 
         public void InsertInfo(Dictionary<eQuestions, object> i_FilledDictionary, string io_LicenseNumber)
         {
+            //// for UI - Gets FILLED dictionary that was given to UI by Garage::GetExtraInfo
+            //// and license number  of car needed for updating information
+            //// if value is invalid - an excetion will be thrown
             SupportedVehicles.FillVehicleInfo(r_Vehicles[io_LicenseNumber].Vehicle, i_FilledDictionary);
         }        
 

@@ -17,15 +17,16 @@ namespace Ex03.ConsoleUI
 
         internal ConsoleUI()
         {
-            int choice = 0;
+            //// run garge manu
+            int userChoice = 0;
             
-            printOptions(out choice);
+            printOptions(out userChoice);
 
-            while (choice != k_NumberOfOptions)
+            while (userChoice != k_NumberOfOptions)
             {
                 try
                 {
-                    switch (choice)
+                    switch (userChoice)
                     {
                         case 1:
                             AddNewVehicleInput();
@@ -61,7 +62,7 @@ namespace Ex03.ConsoleUI
 
                 System.Threading.Thread.Sleep(2000);
                 Console.Clear();
-                printOptions(out choice);
+                printOptions(out userChoice);
             }
         }      
         

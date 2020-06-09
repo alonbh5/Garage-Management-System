@@ -28,20 +28,30 @@ namespace Ex03.GarageLogic
         EngineCC
     }
 
+    /// <summary>
+    /// This class is the only one that will be updated in case of added garge infromation
+    /// It conatine dynamic infromation about :
+    ///     1. Vehicles the garage is currently supports
+    ///     2. sort of infromation needed fpr the supported vehicles  (in the from of enum "eQuestions")
+    /// </summary>
     public class SupportedVehicles
     {
-        private static readonly string[] sr_ArrOfSupportedVehicles = new string[] { "Regular Motorycle", "Electric Motorcycle", "Regular Car", "Electric Car", "Truck" };
+        
+        private static readonly string[] sr_ArrOfSupportedVehicles = new string[] { "Regular Motorycle", "Electric Motorcycle", "Regular Car", "Electric Car", "Truck" }; 
 
         internal static string[] ArrOfSupportedVehicles
         {
+            //// returns a string of Supported Vehicles by enum index
             get { return sr_ArrOfSupportedVehicles; }
         }
 
-        internal static Vehicle CreateVehicle(eSupportVehicles i_Choice, string io_LicenseNumber)
+        internal static Vehicle CreateVehicle(eSupportVehicles i_VehiclesChoice, string io_LicenseNumber)
         {
+            //// gets License Number of Vehicle and Choice of Vehicles type out of supported Vehicles
+            //// create and return new Vehicle acording to supported Vehicles fixed criterias
             Vehicle newVehicle = null;
 
-            switch (i_Choice)
+            switch (i_VehiclesChoice)
             {
                 case eSupportVehicles.ElectricMotorcycle:
                     {
@@ -109,6 +119,9 @@ namespace Ex03.GarageLogic
 
         internal static void GetInfo(out Dictionary<eQuestions, object> io_DicToFill, int i_Choice)
         {
+            //// gets vehicle choice out of supported vehicles and a dictionary
+            //// flll the dictionary keys with all the eQusetion (Enum) needed for this vehicle choice
+            
             io_DicToFill = new Dictionary<eQuestions, object>();
 
             if (i_Choice > 0 && i_Choice <= ArrOfSupportedVehicles.Length)
@@ -150,6 +163,9 @@ namespace Ex03.GarageLogic
 
         internal static void FillVehicleInfo(Vehicle io_Vehicle, Dictionary<eQuestions, object> i_FilledDictionary)
         {
+            ////gets a Vehicle X, filled dictionary and filled and vehicle choice out of supported vehicles
+            //// fill the blanks in Vehicle X info by the infromation filled 
+            //// throw exeptions with infromation about each mismatch between infromation needed and infromation given
             if (i_FilledDictionary.ContainsKey(eQuestions.ModelName))
             {
                 io_Vehicle.ModelName = i_FilledDictionary[eQuestions.ModelName].ToString();
