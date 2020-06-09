@@ -1,15 +1,10 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Schema;
 
 namespace Ex03.GarageLogic
 {
-    public enum eLicenseType
+    public enum eLicenseTypes
     {
-        A,
+        A = 1,
         A1,
         Aa,
         B
@@ -17,7 +12,7 @@ namespace Ex03.GarageLogic
 
     internal class Motorcycle : Vehicle
     {
-         private eLicenseType m_LicenseType;
+         private eLicenseTypes m_LicenseType;
          private int m_EngineCapacityInCC;
 
         internal Motorcycle(string i_LicenseNumber, uint i_NumOfWheels, float io_MaxAirPressure, object i_EnergyType) :
@@ -25,19 +20,19 @@ namespace Ex03.GarageLogic
         {           
         }
 
-        internal eLicenseType LicenseType
+        internal eLicenseTypes LicenseType
         {
             get { return m_LicenseType; }
             set
             {
-                if (Enum.IsDefined(typeof(eLicenseType), value))
+                if (Enum.IsDefined(typeof(eLicenseTypes), value))
                 {
                     m_LicenseType = value;
                 }
                 else
                 {
                     Exception ex = new Exception("License type's input is invalid");
-                    throw new ValueOutOfRangeException(ex, 3f, 0f);                 
+                    throw new ValueOutOfRangeException(ex, NumOfLicenseTypes(), 1f);                 
                 }
             }
         }
@@ -56,6 +51,11 @@ namespace Ex03.GarageLogic
                     throw new ArgumentException("Engine capacity's input is invalid");
                 }
             }            
+        }
+
+        public int NumOfLicenseTypes()
+        {
+            return Enum.GetValues(typeof(eLicenseTypes)).Length;
         }
 
         public override string ToString()

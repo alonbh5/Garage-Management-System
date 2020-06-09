@@ -1,9 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace Ex03.GarageLogic
 {
     public enum eSupportVehicles
@@ -21,42 +15,42 @@ namespace Ex03.GarageLogic
 
         internal static Vehicle CreateVehicle(eSupportVehicles i_Choice, string io_LicenseNumber)
         {
-            Vehicle res = null;
+            Vehicle newVehicle = null;
 
             switch (i_Choice)
             {
                 case eSupportVehicles.ElectricMotorcycle:
                     {
-                        res = CreateElectricMotorcycle(io_LicenseNumber);
+                        newVehicle = CreateElectricMotorcycle(io_LicenseNumber);
                         break;
                     }
 
                 case eSupportVehicles.ElectricCar:
                     {
-                        res = CreateElectricCar(io_LicenseNumber);
+                        newVehicle = CreateElectricCar(io_LicenseNumber);
                         break;
                     }
 
                 case eSupportVehicles.Truck:
                     {
-                        res = CreateTruck(io_LicenseNumber);
+                        newVehicle = CreateTruck(io_LicenseNumber);
                         break;
                     }
 
                 case eSupportVehicles.RegularMotorcycle:
                     {
-                        res = CreateRrgularMotorcycle(io_LicenseNumber);
+                        newVehicle = CreateRrgularMotorcycle(io_LicenseNumber);
                         break;
                     }
 
                 case eSupportVehicles.RegularCar:
                     {
-                        res = CreateRrgularCar(io_LicenseNumber);
+                        newVehicle = CreateRrgularCar(io_LicenseNumber);
                         break;
                     }
             }
 
-            return res;
+            return newVehicle;
         }
 
         private static Vehicle CreateElectricMotorcycle(string io_LicenseNumber)
@@ -67,7 +61,7 @@ namespace Ex03.GarageLogic
 
         private static Vehicle CreateRrgularMotorcycle(string io_LicenseNumber)
         {
-            Fuel engine = new Fuel(eFuelType.Octan95, 7);
+            Fuel engine = new Fuel(eFuelType.Octan95, 7f);
             return new Motorcycle(io_LicenseNumber, 2, 30, engine);
         }
 
@@ -79,13 +73,13 @@ namespace Ex03.GarageLogic
 
         private static Vehicle CreateRrgularCar(string io_LicenseNumber)
         {
-            Fuel engine = new Fuel(eFuelType.Octan96, 60);
+            Fuel engine = new Fuel(eFuelType.Octan96, 60f);
             return new Car(io_LicenseNumber, 4, 32, engine);
         }
 
         private static Vehicle CreateTruck(string io_LicenseNumber)
         {
-            Fuel engine = new Fuel(eFuelType.Soler, 120);
+            Fuel engine = new Fuel(eFuelType.Soler, 120f);
             return new Truck(io_LicenseNumber, 16, 28, engine);
         }
     }

@@ -56,12 +56,12 @@ namespace Ex03.GarageLogic
 
         public static string GetFuelTypes()
         {
-            int index = 1;
+           // int index = 1;
             StringBuilder fuelTypes = new StringBuilder();
 
             foreach (eFuelType fuelType in Enum.GetValues(typeof(eFuelType)))
             {
-                fuelTypes.Append(string.Format("{0}. {1}{2}", index++, fuelType.ToString(), Environment.NewLine));
+                fuelTypes.Append(string.Format("{0}. {1}{2}", (int)fuelType, fuelType.ToString(), Environment.NewLine));
             }
 
             return fuelTypes.ToString();
