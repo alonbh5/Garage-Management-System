@@ -1,8 +1,5 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Ex03.GarageLogic
 {
@@ -54,7 +51,7 @@ namespace Ex03.GarageLogic
                 }
                 else
                 {
-                    throw new FormatException("Model name's input is not valid.");
+                    throw new FormatException("Model name's input is invalid.");
                 }
             }
         }
@@ -64,13 +61,14 @@ namespace Ex03.GarageLogic
             get { return m_PercentagesOfEnergyRemaining; }
             set
             {
-                if (value >= 0)
+                if (value >= 0 && value <= 100)
                 {
                     m_PercentagesOfEnergyRemaining = value;
                 }
                 else
                 {
-                    throw new FormatException("Percentages of energy remaining's input is not valid.");
+                    Exception ex = new Exception("Percentages of energy remaining's input is invalid.");
+                    throw new ValueOutOfRangeException(ex, 100f, 0f);
                 }
             }
         }
