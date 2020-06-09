@@ -103,13 +103,12 @@ namespace Ex03.ConsoleUI
             else
             {
                 Console.WriteLine("This vehicle is already in THE BEST GARAGE IN TOWN! BIATCH");
-            }
-        
+            }        
         }
 
-        private void printByFilter ()
+        private void printByFilter()
         {
-            bool seeInReapir, seePaid, seePrepared,seeAll;
+            bool seeInReapir, seePaid, seePrepared, seeAll;
 
             Console.WriteLine("Do you want to see all vehicle (without filter) (Y/N)?");
             getYesOrNO(out seeAll);
@@ -132,7 +131,7 @@ namespace Ex03.ConsoleUI
             Console.WriteLine(r_MyGarage.VehicleStringByFilter(seeInReapir, seePrepared, seePaid));
         }
 
-        private void getYesOrNO (out bool io_Choice)
+        private void getYesOrNO(out bool io_Choice)
         {
             string input = Console.ReadLine();
 
@@ -152,22 +151,22 @@ namespace Ex03.ConsoleUI
             }
         }
 
-        private void changeState ()
+        private void changeState()
         {
-            string  lincenseInput;
+            string lincenseInput;
             int input;
             getLicenseNumber(out lincenseInput);
 
             Console.WriteLine("Enter new state : 1 - In Repair 2 - Fixed 3 - Paid");
-            int.TryParse(Console.ReadLine(),out input);
+            int.TryParse(Console.ReadLine(), out input);
 
-            while (input != 1 && input != 2 && input !=3)
+            while (input != 1 && input != 2 && input != 3) 
             {
                 Console.WriteLine("Wrong Input!  1 - In Repair | 2 - Fixed | 3 - Paid");
                 int.TryParse(Console.ReadLine(), out input);
             }
 
-            if(r_MyGarage.ChangeServiceStatus(lincenseInput,input))
+            if (r_MyGarage.ChangeServiceStatus(lincenseInput, input)) 
             {
                 Console.WriteLine("Status Updated!");
             }
@@ -177,7 +176,7 @@ namespace Ex03.ConsoleUI
             }
         }
 
-        private void inflateToMax ()
+        private void inflateToMax()
         {
             string licensenumber;
 
@@ -198,8 +197,8 @@ namespace Ex03.ConsoleUI
             string licensenumber;
 
             getLicenseNumber(out licensenumber);
-            int gasType=-1;
-            float amountToadd=-1f;
+            int gasType = -1;
+            float amountToadd = -1f;
 
             Console.WriteLine("Which type of gas to you wish to add?");
             Console.WriteLine(r_MyGarage.GetFuelTypes());
@@ -222,7 +221,7 @@ namespace Ex03.ConsoleUI
                 float.TryParse(Console.ReadLine(), out amountToadd);
             }
 
-            if (r_MyGarage.FillGasTank(licensenumber,gasType,amountToadd))
+            if (r_MyGarage.FillGasTank(licensenumber, gasType, amountToadd)) 
             {
                 Console.WriteLine("Tank Filled");
             }
@@ -230,25 +229,25 @@ namespace Ex03.ConsoleUI
             {
                 Console.WriteLine("Tank did NOT filled"); //exeption !@#!@$!@!@%!@%!@%!@%!@%!@%!@%!@
             }
-
         }
 
         private void chargeBattery()
         {
             string licenseNumber;
-            float amountToAdd=-1f;
+            float amountToAdd = -1f;
 
             getLicenseNumber(out licenseNumber);
 
             Console.WriteLine("how many minutes do you want to add?");
             float.TryParse(Console.ReadLine(), out amountToAdd);
+
             while (amountToAdd <= 0)
             {
                 Console.WriteLine("Wrong input! enter postive number");
                 float.TryParse(Console.ReadLine(), out amountToAdd);
             }
 
-            if (r_MyGarage.FillCharge(licenseNumber,amountToAdd))
+            if (r_MyGarage.FillCharge(licenseNumber, amountToAdd)) 
             {
                 Console.WriteLine("Battery Charged!");
             }
@@ -256,7 +255,6 @@ namespace Ex03.ConsoleUI
             {
                 Console.WriteLine("Fail"); // exepetion !31311313^#$#$%#$%#$%#$%
             }
-
         }
 
         private void printByLicense()
@@ -294,7 +292,7 @@ namespace Ex03.ConsoleUI
             Console.WriteLine("Please enter customer name");
             io_Name = Console.ReadLine();  //// check name
 
-            while (io_Name.Length<3)  
+            while (io_Name.Length < 3) 
             {
                 Console.WriteLine("Name Should be at least 3 letters, Try agian:");
                 io_Phone = Console.ReadLine();  //// check number
@@ -303,7 +301,7 @@ namespace Ex03.ConsoleUI
             Console.WriteLine("Please enter customer phone number");
             io_Phone = Console.ReadLine();  //// check number
 
-            while (!int.TryParse(io_Phone,out int check) || io_Phone.Length != 10 || io_Phone[0] != '0' || io_Phone[1]!='5')
+            while (!int.TryParse(io_Phone, out int check) || io_Phone.Length != 10 || io_Phone[0] != '0' || io_Phone[1] != '5') 
             {
                 Console.WriteLine("Phone number Invalid (10 digit's in the form 05xxxxxxxx)");
                 io_Phone = Console.ReadLine();  //// check number
@@ -315,6 +313,7 @@ namespace Ex03.ConsoleUI
             vehicleChoice = 0;
             Console.Write("Choose one of our supported vehicles:{0}{1}", Environment.NewLine, r_MyGarage.ShowSupportedVehicles());
             int.TryParse(Console.ReadLine(), out vehicleChoice);
+
             while (vehicleChoice < 1 || vehicleChoice > r_MyGarage.NumOfSupportedVehicles())
             {
                 Console.WriteLine(string.Format("Wrong input.{0}Must be one of these options (1-{1})", Environment.NewLine, r_MyGarage.NumOfSupportedVehicles()));
@@ -322,7 +321,7 @@ namespace Ex03.ConsoleUI
             }
         }
 
-        private void addInfo (int io_Choice, string io_LicenseNumber)
+        private void addInfo(int io_Choice, string io_LicenseNumber)
         {   
             Dictionary<eQuestions, object> infoDicToFill = r_MyGarage.GetExtraInfo(io_Choice);
             bool flag = true;
@@ -346,42 +345,50 @@ namespace Ex03.ConsoleUI
                     Console.WriteLine("Please enter Current Hours in battery");
                     infoDicToFill[eQuestions.CurrentHours] = Console.ReadLine();
                 }
-                if (infoDicToFill.ContainsKey(eQuestions.CurentWheelAirPressure))
+
+                if (infoDicToFill.ContainsKey(eQuestions.CurentWheelAirPressure)) 
                 {
                     Console.WriteLine("Please enter Current Wheels Air Pressure");
                     infoDicToFill[eQuestions.CurentWheelAirPressure] = Console.ReadLine();
                 }
+
                 if (infoDicToFill.ContainsKey(eQuestions.WheelManufacturer))
                 {
                     Console.WriteLine("Please enter Wheels Manufacturer");
                     infoDicToFill[eQuestions.WheelManufacturer] = Console.ReadLine();
                 }
+
                 if (infoDicToFill.ContainsKey(eQuestions.Doors))
                 {
                     Console.WriteLine("Please enter Number of Car Doors");
                     infoDicToFill[eQuestions.Doors] = Console.ReadLine();
                 }
+
                 if (infoDicToFill.ContainsKey(eQuestions.LicenseType))
                 {
                     Console.WriteLine("Please enter License Type of Bike");
                     infoDicToFill[eQuestions.LicenseType] = Console.ReadLine();
                 }
+
                 if (infoDicToFill.ContainsKey(eQuestions.Color))
                 {
                     Console.WriteLine("Please enter Car Color");
                     infoDicToFill[eQuestions.Color] = Console.ReadLine();
                 }
+
                 if (infoDicToFill.ContainsKey(eQuestions.HazardousMaterials))
                 {
                     Console.WriteLine("Does the Truck Contain Hazardous Materials (Y/N)");
                     getYesOrNO(out bool answer);
                     infoDicToFill[eQuestions.HazardousMaterials] = answer;
                 }
+
                 if (infoDicToFill.ContainsKey(eQuestions.CargoCpacity))
                 {
                     Console.WriteLine("What is the Truck Cargo Cpacity?");
                     infoDicToFill[eQuestions.CargoCpacity] = Console.ReadLine();
                 }
+
                 if (infoDicToFill.ContainsKey(eQuestions.EngineCC))
                 {
                     Console.WriteLine("Please enter Engine in CC");
@@ -393,22 +400,24 @@ namespace Ex03.ConsoleUI
                     r_MyGarage.UpdateInfo(infoDicToFill, io_LicenseNumber);
                     flag = false;
                 }
-                catch (ValueOutOfRangeException ex)
-                {
-                    Console.WriteLine(ex.Message);
-                    Console.WriteLine(ex.InnerException.Message);
-                    Console.WriteLine("Enter again:");
-                }
+                //catch (ValueOutOfRangeException ex)
+                //{
+                //    Console.WriteLine(ex.Message);
+                //    Console.WriteLine(ex.InnerException.Message);
+                //    Console.WriteLine("Enter again:");
+                //}
                 catch (Exception ex)
                 {
-                    Console.WriteLine(ex.Message);                    
+                    Console.WriteLine(ex.Message);  
+
+                    if (ex is ValueOutOfRangeException)
+                    {
+                        Console.WriteLine((ex as ValueOutOfRangeException).InnerException.Message);
+                    }
+
                     Console.WriteLine("Enter again:");
                 }
-
             }
-
-        }
-
-        
+        }        
     }
 }

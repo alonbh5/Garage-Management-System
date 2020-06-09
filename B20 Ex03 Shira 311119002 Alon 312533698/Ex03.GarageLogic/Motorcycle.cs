@@ -37,7 +37,7 @@ namespace Ex03.GarageLogic
                 else
                 {
                     Exception ex = new Exception("License type's input is invalid");
-                    throw new ValueOutOfRangeException(ex ,3f, 0f);                    
+                    throw new ValueOutOfRangeException(ex, 3f, 0f);                 
                 }
             }
         }

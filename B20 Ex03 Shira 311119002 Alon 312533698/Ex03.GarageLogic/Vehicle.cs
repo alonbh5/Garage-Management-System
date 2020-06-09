@@ -75,8 +75,6 @@ namespace Ex03.GarageLogic
             }
         }
 
-        
-
         public override string ToString()
         {
             StringBuilder vehicle = new StringBuilder();

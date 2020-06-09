@@ -15,8 +15,6 @@ namespace Ex03.GarageLogic
         Truck
     }
 
-
-
     public class SupportedVehicles
     {
         public static readonly string[] sr_SupportedVehicles = new string[] { "Regular Motorycle", "Electric Motorcycle", "Regular Car", "Electric Car", "Truck" };

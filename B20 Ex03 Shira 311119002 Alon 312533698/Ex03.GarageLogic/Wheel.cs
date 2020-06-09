@@ -1,8 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Ex03.GarageLogic
 {
@@ -33,7 +29,7 @@ namespace Ex03.GarageLogic
                 }
                 else
                 {
-                    throw new FormatException("Manufacturer's name input is not valid.");
+                    throw new FormatException("Manufacturer's name input is invalid.");
                 }
             }
         }
@@ -49,7 +45,7 @@ namespace Ex03.GarageLogic
                 }
                 else
                 {
-                    Exception ex = new Exception ("Amount of air pressure's input is not valid.");
+                    Exception ex = new Exception("Amount of air pressure's input is invalid.");
                     throw new ValueOutOfRangeException(ex, MaxAirPressure, 0f);
                 }
             }
@@ -63,8 +59,8 @@ namespace Ex03.GarageLogic
             }
             else
             {
-                Exception ex = new Exception("Amount of air pressure's input is not valid.");
-                throw new ValueOutOfRangeException(ex, (MaxAirPressure - CurrentAirPressure), 0f);
+                Exception ex = new Exception("Amount of air pressure's input is invalid.");
+                throw new ValueOutOfRangeException(ex, MaxAirPressure - CurrentAirPressure, 0f);
             }
         }
 

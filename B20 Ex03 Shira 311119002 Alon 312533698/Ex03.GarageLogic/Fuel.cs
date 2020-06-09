@@ -52,33 +52,6 @@ namespace Ex03.GarageLogic
                     throw new ValueOutOfRangeException(ex, MaxTank, 0f);
                 }
             }
-
-        }
-
-        public bool FillTank(float i_AmountToAdd, eFuelType i_FuelType)
-        {
-            bool filled = false;
-
-            if (i_FuelType.Equals(FuelType))
-            {
-
-                if (i_AmountToAdd + CurrentFuelTank <= MaxTank)
-                {
-                    CurrentFuelTank += i_AmountToAdd;
-                    filled = true;
-                }
-                else
-                {
-                    Exception ex = new Exception("Fuel amount Invalid");
-                    throw new ValueOutOfRangeException(ex, (MaxTank - CurrentFuelTank), 0f);                   
-                }
-            }
-            else
-            {
-                throw new ArgumentException("Fuel Type does not match");
-            }            
-
-            return filled;
         }
 
         public static string GetFuelTypes()
@@ -93,6 +66,31 @@ namespace Ex03.GarageLogic
 
             return fuelTypes.ToString();
         }
+
+        public bool FillTank(float i_AmountToAdd, eFuelType i_FuelType)
+        {
+            bool filled = false;
+
+            if (i_FuelType.Equals(FuelType))
+            {
+                if (i_AmountToAdd + CurrentFuelTank <= MaxTank)
+                {
+                    CurrentFuelTank += i_AmountToAdd;
+                    filled = true;
+                }
+                else
+                {
+                    Exception ex = new Exception("Fuel amount Invalid");
+                    throw new ValueOutOfRangeException(ex, MaxTank - CurrentFuelTank, 0f);
+                }
+            }
+            else
+            {
+                throw new ArgumentException("Fuel Type does not match");
+            }            
+
+            return filled;
+        }       
 
         public override string ToString()
         {
