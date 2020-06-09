@@ -53,7 +53,7 @@ namespace Ex03.ConsoleUI
                     Console.WriteLine(ex.Message);
                 }
 
-                System.Threading.Thread.Sleep(3000);
+                System.Threading.Thread.Sleep(2000);
                 Console.Clear();
                 printOptions(out choice);
             }
@@ -95,7 +95,7 @@ namespace Ex03.ConsoleUI
 
             if (r_MyGarage.AddNewVehicle(name, phoneNumber, vehicleChoice, licenseNumber))
             {
-                addInfo(vehicleChoice, licenseNumber);
+                getExtraInfo(vehicleChoice, licenseNumber);
                 Console.WriteLine("This vehicle added successfuly to THE BEST GARAGE IN TOWN! HAVE FUN");
             }
             else
@@ -278,7 +278,7 @@ namespace Ex03.ConsoleUI
 
             while (io_LicenseNumber.Length != k_LicenseLength ) 
             {
-                Console.WriteLine(string.Format("Invalid input.{0}License number should be {0} digits", Environment.NewLine, k_LicenseLength));
+                Console.WriteLine(string.Format("Invalid input.{0}License number should be {1} digits", Environment.NewLine, k_LicenseLength));
                 io_LicenseNumber = Console.ReadLine();
             }
         }
@@ -319,7 +319,7 @@ namespace Ex03.ConsoleUI
             }
         }
 
-        private void addInfo(int io_Choice, string io_LicenseNumber)
+        private void getExtraInfo(int io_Choice, string io_LicenseNumber)
         {   
             Dictionary<eQuestions, object> infoDicToFill = r_MyGarage.GetExtraInfo(io_Choice);
             bool invalidInput = true;
@@ -358,22 +358,22 @@ namespace Ex03.ConsoleUI
 
                 if (infoDicToFill.ContainsKey(eQuestions.Doors))
                 {
-                    string question = string.Format("Please enter Number of Car Doors{0}{1}", Environment.NewLine, r_MyGarage.GetCarDoors());
-                    Console.WriteLine(question);
+                    string question = string.Format("Choose Number of Doors:{0}{1}", Environment.NewLine, r_MyGarage.GetCarDoors());
+                    Console.Write(question);
                     infoDicToFill[eQuestions.Doors] = Console.ReadLine();
                 }
 
                 if (infoDicToFill.ContainsKey(eQuestions.LicenseType))
                 {
-                    string question = string.Format("Please enter License Type of Motorcycle{0}{1}", Environment.NewLine, r_MyGarage.GetMotorcycleLicenseTypes());
+                    string question = string.Format("Choose License Type of your Motorcycle{0}{1}", Environment.NewLine, r_MyGarage.GetMotorcycleLicenseTypes());
                     Console.WriteLine(question);
                     infoDicToFill[eQuestions.LicenseType] = Console.ReadLine();
                 }
 
                 if (infoDicToFill.ContainsKey(eQuestions.Color))
                 {
-                    string question = string.Format("Please enter Car Color{0}{1}", Environment.NewLine, r_MyGarage.GetCarColors());
-                    Console.WriteLine(question);
+                    string question = string.Format("Choose car's Color:{0}{1}", Environment.NewLine, r_MyGarage.GetCarColors());
+                    Console.Write(question);
                     infoDicToFill[eQuestions.Color] = Console.ReadLine();
                 }
 
@@ -398,25 +398,18 @@ namespace Ex03.ConsoleUI
 
                 try
                 {
-                    r_MyGarage.UpdateInfo(infoDicToFill, io_LicenseNumber);
+                    r_MyGarage.InsertInfo(infoDicToFill, io_LicenseNumber);
                     invalidInput = false;
                 }
-                //catch (ValueOutOfRangeException ex)
-                //{
-                //    Console.WriteLine(ex.Message);
-                //    Console.WriteLine(ex.InnerException.Message);
-                //    Console.WriteLine("Enter again:");
-                //}
                 catch (Exception ex)
                 {
-                    Console.WriteLine(ex.Message);  
-
                     if (ex is ValueOutOfRangeException)
                     {
                         Console.WriteLine((ex as ValueOutOfRangeException).InnerException.Message);
                     }
 
-                    Console.WriteLine("Enter again:");
+                    Console.WriteLine(ex.Message);
+                    Console.WriteLine("Enter info again:");
                 }
             }
         }        

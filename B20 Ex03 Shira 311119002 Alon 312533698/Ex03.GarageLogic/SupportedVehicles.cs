@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Ex03.GarageLogic
 {
-    public enum eSupportVehicles
+    internal enum eSupportVehicles
     {
         RegularMotorcycle = 1,
         ElectricMotorcycle,
@@ -12,9 +12,24 @@ namespace Ex03.GarageLogic
         Truck
     }
 
+    public enum eQuestions
+    {
+        Doors,
+        Color,
+        ModelName,
+        CurrentFuel,
+        CurrentHours,
+        HazardousMaterials,
+        CargoCpacity,
+        WheelManufacturer,
+        CurentWheelAirPressure,
+        LicenseType,
+        EngineCC
+    }
+
     public class SupportedVehicles
     {
-        public static readonly string[] sr_SupportedVehicles = new string[] { "Regular Motorycle", "Electric Motorcycle", "Regular Car", "Electric Car", "Truck" };
+        internal static readonly string[] sr_SupportedVehicles = new string[] { "Regular Motorycle", "Electric Motorcycle", "Regular Car", "Electric Car", "Truck" };
 
         internal static Vehicle CreateVehicle(eSupportVehicles i_Choice, string io_LicenseNumber)
         {
@@ -86,9 +101,45 @@ namespace Ex03.GarageLogic
             return new Truck(io_LicenseNumber, 16, 28, engine);
         }
 
-        internal static void GetInfo(out Dictionary<eQuestions, object> io_FilledDictionary)
+        internal static void GetInfo(out Dictionary<eQuestions, object> io_DicToFill, int i_Choice)
         {
-            io_FilledDictionary = null;
+            io_DicToFill = new Dictionary<eQuestions, object>();
+
+            if (i_Choice > 0 && i_Choice <= sr_SupportedVehicles.Length)
+            {
+                eSupportVehicles currentVehicle = (eSupportVehicles)i_Choice;
+
+                io_DicToFill.Add(eQuestions.WheelManufacturer, string.Empty);
+                io_DicToFill.Add(eQuestions.CurentWheelAirPressure, string.Empty);
+                io_DicToFill.Add(eQuestions.ModelName, string.Empty);
+
+                if (currentVehicle.Equals(eSupportVehicles.ElectricMotorcycle) || currentVehicle.Equals(eSupportVehicles.ElectricCar))
+                { // Hours left in elecrtic engine
+                    io_DicToFill.Add(eQuestions.CurrentHours, string.Empty);
+                }
+                else
+                { // Fuel left
+                    io_DicToFill.Add(eQuestions.CurrentFuel, string.Empty);
+                }
+
+                if (currentVehicle.Equals(eSupportVehicles.RegularMotorcycle) || currentVehicle.Equals(eSupportVehicles.ElectricMotorcycle))
+                { // Case of motorcycle
+                    io_DicToFill.Add(eQuestions.LicenseType, string.Empty);
+                    io_DicToFill.Add(eQuestions.EngineCC, string.Empty);
+                }
+
+                if (currentVehicle.Equals(eSupportVehicles.ElectricCar) || currentVehicle.Equals(eSupportVehicles.RegularCar))
+                { // Case of car  
+                    io_DicToFill.Add(eQuestions.Color, string.Empty);
+                    io_DicToFill.Add(eQuestions.Doors, string.Empty);
+                }
+
+                if (currentVehicle.Equals(eSupportVehicles.Truck))
+                { // Case of truck  
+                    io_DicToFill.Add(eQuestions.HazardousMaterials, false);
+                    io_DicToFill.Add(eQuestions.CargoCpacity, string.Empty);
+                }
+            }
         }
 
         internal static void FillVehicleInfo(Vehicle io_Vehicle, Dictionary<eQuestions, object> i_FilledDictionary)

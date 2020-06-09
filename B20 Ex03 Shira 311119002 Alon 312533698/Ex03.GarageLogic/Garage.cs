@@ -4,21 +4,6 @@ using System.Text;
 
 namespace Ex03.GarageLogic
 {
-    public enum eQuestions
-    {
-        Doors,
-        Color,
-        ModelName,
-        CurrentFuel,
-        CurrentHours,
-        HazardousMaterials,
-        CargoCpacity,
-        WheelManufacturer,
-        CurentWheelAirPressure,
-        LicenseType,
-        EngineCC
-    }    
-
     public class Garage
     {
         private readonly Dictionary<string, Customer> r_Vehicles = new Dictionary<string, Customer>();           
@@ -256,48 +241,11 @@ namespace Ex03.GarageLogic
 
         public Dictionary<eQuestions, object> GetExtraInfo(int io_Choice)
         {
-            Dictionary<eQuestions, object> DicToFill = new Dictionary<eQuestions, object>();
-
-            if (io_Choice > 0 && io_Choice <= NumOfSupportedVehicles())
-            {
-                eSupportVehicles currentVehicle = (eSupportVehicles)io_Choice;
-
-                DicToFill.Add(eQuestions.WheelManufacturer, string.Empty);
-                DicToFill.Add(eQuestions.CurentWheelAirPressure, string.Empty);
-                DicToFill.Add(eQuestions.ModelName, string.Empty);                               
-
-                if (currentVehicle.Equals(eSupportVehicles.ElectricMotorcycle) || currentVehicle.Equals(eSupportVehicles.ElectricCar))
-                { // Hours left in elecrtic engine
-                    DicToFill.Add(eQuestions.CurrentHours, string.Empty);                    
-                }
-                else
-                { // Fuel left
-                    DicToFill.Add(eQuestions.CurrentFuel, string.Empty); 
-                }
-
-                if (currentVehicle.Equals(eSupportVehicles.RegularMotorcycle) || currentVehicle.Equals(eSupportVehicles.ElectricMotorcycle))
-                { // Case of motorcycle
-                    DicToFill.Add(eQuestions.LicenseType, string.Empty);
-                    DicToFill.Add(eQuestions.EngineCC, string.Empty);                    
-                }
-
-                if (currentVehicle.Equals(eSupportVehicles.ElectricCar) || currentVehicle.Equals(eSupportVehicles.RegularCar))
-                { // Case of car  
-                    DicToFill.Add(eQuestions.Color, string.Empty);
-                    DicToFill.Add(eQuestions.Doors, string.Empty);                    
-                }
-
-                if (currentVehicle.Equals(eSupportVehicles.Truck))
-                { // Case of truck  
-                    DicToFill.Add(eQuestions.HazardousMaterials, false);
-                    DicToFill.Add(eQuestions.CargoCpacity, string.Empty);                    
-                }
-            }
-
+            SupportedVehicles.GetInfo(out Dictionary<eQuestions, object> DicToFill, io_Choice);
             return DicToFill;
         }
 
-        public void UpdateInfo(Dictionary<eQuestions, object> i_FilledDictionary, string io_LicenseNumber)
+        public void InsertInfo(Dictionary<eQuestions, object> i_FilledDictionary, string io_LicenseNumber)
         {
             SupportedVehicles.FillVehicleInfo(r_Vehicles[io_LicenseNumber].Vehicle, i_FilledDictionary);
         }        

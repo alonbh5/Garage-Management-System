@@ -41,7 +41,7 @@ namespace Ex03.GarageLogic
                 else
                 {
                     Exception ex = new Exception("Color input is invalid");
-                    throw new ValueOutOfRangeException(ex, 3f, 0f);
+                    throw new ValueOutOfRangeException(ex, (float)Enum.GetValues(typeof(eColors)).Length, 1f);
                 }
             }
         }
@@ -58,14 +58,13 @@ namespace Ex03.GarageLogic
                 else
                 {
                     Exception ex = new Exception("Doors number's input is invalid");
-                    throw new ValueOutOfRangeException(ex, 5f, 2f);
+                    throw new ValueOutOfRangeException(ex, (float)Enum.GetValues(typeof(eDoors)).Length, 1f);
                 }
             }
         }
 
         internal static string GetDoorsOptions()
         {
-            // int index = 1;
             StringBuilder doors = new StringBuilder();
 
             foreach (eDoors door in Enum.GetValues(typeof(eDoors)))
@@ -76,10 +75,8 @@ namespace Ex03.GarageLogic
             return doors.ToString();
         }
 
-
         internal static string GetColorsOptions()
         {
-            // int index = 1;
             StringBuilder colors = new StringBuilder();
 
             foreach (eColors color in Enum.GetValues(typeof(eColors)))
