@@ -18,7 +18,7 @@ namespace Ex03.ConsoleUI
         internal ConsoleUI()
         {
             int choice = 0;
-
+            
             printOptions(out choice);
 
             while (choice != k_NumberOfOptions)
@@ -49,9 +49,13 @@ namespace Ex03.ConsoleUI
                             printByLicense();
                             break;
                     }
-                }
+                }                
                 catch (Exception ex)
                 {
+                    if (ex is ValueOutOfRangeException)
+                    {
+                        Console.WriteLine((ex as ValueOutOfRangeException).InnerException.Message);
+                    }
                     Console.WriteLine(ex.Message);
                 }
 
@@ -333,7 +337,7 @@ r_MyGarage.Name);
 
                 if (infoDicToFill.ContainsKey(eQuestions.CurrentHours))
                 {
-                    Console.WriteLine("Please enter Current Hours in Battery:");
+                    Console.WriteLine("Please enter Current Minutes in Battery:");
                     infoDicToFill[eQuestions.CurrentHours] = Console.ReadLine();
                 }
 

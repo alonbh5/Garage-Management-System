@@ -172,10 +172,10 @@ namespace Ex03.GarageLogic
 
             if (i_FilledDictionary.ContainsKey(eQuestions.CurrentHours))
             {
-                if (float.TryParse(i_FilledDictionary[eQuestions.CurrentHours].ToString(), out float currHours))
+                if (float.TryParse(i_FilledDictionary[eQuestions.CurrentHours].ToString(), out float currMinutes))
                 {
                     Electric engine = io_Vehicle.EnergyType as Electric;
-                    engine.HoursLeftInBattery = currHours;
+                    engine.HoursLeftInBattery = currMinutes / 60f;
                     float percent = engine.HoursLeftInBattery / engine.MaxHoursInBattery;
                     io_Vehicle.PercentagesOfEnergyRemaining = percent * 100f;
                 }
