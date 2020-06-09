@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 using System.Collections.Generic;
 
 namespace Ex03.GarageLogic
@@ -29,7 +30,12 @@ namespace Ex03.GarageLogic
 
     public class SupportedVehicles
     {
-        internal static readonly string[] sr_SupportedVehicles = new string[] { "Regular Motorycle", "Electric Motorcycle", "Regular Car", "Electric Car", "Truck" };
+        private static readonly string[] sr_ArrOfSupportedVehicles = new string[] { "Regular Motorycle", "Electric Motorcycle", "Regular Car", "Electric Car", "Truck" };
+
+        internal static string[] ArrOfSupportedVehicles
+        {
+            get { return sr_ArrOfSupportedVehicles; }
+        }
 
         internal static Vehicle CreateVehicle(eSupportVehicles i_Choice, string io_LicenseNumber)
         {
@@ -105,7 +111,7 @@ namespace Ex03.GarageLogic
         {
             io_DicToFill = new Dictionary<eQuestions, object>();
 
-            if (i_Choice > 0 && i_Choice <= sr_SupportedVehicles.Length)
+            if (i_Choice > 0 && i_Choice <= ArrOfSupportedVehicles.Length)
             {
                 eSupportVehicles currentVehicle = (eSupportVehicles)i_Choice;
 
@@ -166,10 +172,10 @@ namespace Ex03.GarageLogic
 
             if (i_FilledDictionary.ContainsKey(eQuestions.CurrentHours))
             {
-                if (float.TryParse(i_FilledDictionary[eQuestions.CurrentHours].ToString(), out float curMin))
+                if (float.TryParse(i_FilledDictionary[eQuestions.CurrentHours].ToString(), out float currHours))
                 {
                     Electric engine = io_Vehicle.EnergyType as Electric;
-                    engine.HoursLeftInBattery = curMin / 60f;
+                    engine.HoursLeftInBattery = currHours;
                     float percent = engine.HoursLeftInBattery / engine.MaxHoursInBattery;
                     io_Vehicle.PercentagesOfEnergyRemaining = percent * 100f;
                 }
@@ -266,6 +272,19 @@ namespace Ex03.GarageLogic
                     throw new FormatException("Engine CC's input is invalid");
                 }
             }
+        }
+
+        internal static string ShowSupportedVehiclesTypes()
+        {
+            int index = 1;
+            StringBuilder supportedVehicles = new StringBuilder();
+
+            foreach (string currentVehicle in ArrOfSupportedVehicles)
+            {
+                supportedVehicles.Append(string.Format("{0}. {1}{2}", index++, currentVehicle, Environment.NewLine));
+            }
+
+            return supportedVehicles.ToString();
         }
     }
 }

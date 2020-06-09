@@ -63,7 +63,7 @@ namespace Ex03.GarageLogic
             }
         }
 
-        internal static string GetDoorsOptions()
+        internal static string ShowDoorsOptions()
         {
             StringBuilder doors = new StringBuilder();
 
@@ -75,7 +75,7 @@ namespace Ex03.GarageLogic
             return doors.ToString();
         }
 
-        internal static string GetColorsOptions()
+        internal static string ShowColorsOptions()
         {
             StringBuilder colors = new StringBuilder();
 

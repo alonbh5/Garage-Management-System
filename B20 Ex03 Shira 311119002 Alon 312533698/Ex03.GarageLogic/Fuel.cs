@@ -76,9 +76,8 @@ namespace Ex03.GarageLogic
             return filled;
         }
 
-        public static string GetFuelTypes()
+        public static string ShowFuelTypes()
         {
-            // int index = 1;
             StringBuilder fuelTypes = new StringBuilder();
 
             foreach (eFuelTypes fuelType in Enum.GetValues(typeof(eFuelTypes)))
@@ -87,6 +86,11 @@ namespace Ex03.GarageLogic
             }
 
             return fuelTypes.ToString();
+        }
+
+        public static int NumOfFuelTypes()
+        {
+            return Enum.GetValues(typeof(eFuelTypes)).Length;
         }
 
         public override string ToString()

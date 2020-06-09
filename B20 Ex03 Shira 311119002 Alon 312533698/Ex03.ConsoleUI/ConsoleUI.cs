@@ -10,6 +10,7 @@ namespace Ex03.ConsoleUI
     public class ConsoleUI
     {
         private const int k_LicenseLength = 9;
+        private const int k_NumberOfOptions = 8;
         
         private readonly Garage r_MyGarage = new Garage();
 
@@ -19,7 +20,7 @@ namespace Ex03.ConsoleUI
 
             printOptions(out choice);
 
-            while (choice != 8)
+            while (choice != k_NumberOfOptions)
             {
                 try
                 {
@@ -32,7 +33,7 @@ namespace Ex03.ConsoleUI
                             printByFilter();
                             break;
                         case 3:
-                            changeState();
+                            changeVehicleStatus();
                             break;
                         case 4:
                             inflateToMax();
@@ -63,7 +64,9 @@ namespace Ex03.ConsoleUI
         {                    
             io_Choice = 0;
             string error = string.Format("Invalid input.{0}The input must be an option between 1-8.{0}", Environment.NewLine);
-            string menu = string.Format(@"Welcome to THE BEST GARAGE IN TOWN
+            string menu = string.Format(@"Welcome to {0}
+
+What whould you like to do?
 1. Enter new vehicle to the garage.
 2. Show license number of vehicles by filter.
 3. Change status of vehicle.
@@ -71,13 +74,14 @@ namespace Ex03.ConsoleUI
 5. Fill gas tank.
 6. Charge battery.
 7. Show vehicle details.
-8. Exit THE BEST GARAGE IN TOWN");
-            
+8. Exit {0}",
+r_MyGarage.Name);
+
             Console.WriteLine(menu);
 
             int.TryParse(Console.ReadLine(), out io_Choice);            
 
-            while (io_Choice < 1 || io_Choice > 8)
+            while (io_Choice < 1 || io_Choice > k_NumberOfOptions)
             {                
                 Console.WriteLine(error);
                 int.TryParse(Console.ReadLine(), out io_Choice);
@@ -86,36 +90,36 @@ namespace Ex03.ConsoleUI
 
         public void AddNewVehicleInput()
         {
-            string name, phoneNumber, licenseNumber;
-            int vehicleChoice;
-
-            getNameAndPhone(out name, out phoneNumber);
-            getSupportedVehicles(out vehicleChoice);
-            getLicenseNumber(out licenseNumber);
+            getNameAndPhone(out string name, out string phoneNumber);
+            getVehicle(out int vehicleChoice);
+            getLicenseNumber(out string licenseNumber);
 
             if (r_MyGarage.AddNewVehicle(name, phoneNumber, vehicleChoice, licenseNumber))
             {
                 getExtraInfo(vehicleChoice, licenseNumber);
-                Console.WriteLine("This vehicle added successfuly to THE BEST GARAGE IN TOWN! HAVE FUN");
+                Console.WriteLine("This vehicle added successfuly to {0}", r_MyGarage.Name);
             }
             else
             {
-                Console.WriteLine("This vehicle is already in THE BEST GARAGE IN TOWN!");
+                Console.WriteLine("This vehicle is already in {0}", r_MyGarage.Name);
             }        
         }
 
         private void printByFilter()
         {
-            bool seeInReapir, seePaid, seePrepared, seeAll;
+            bool seeInReapir, seePaid, seePrepared;
 
             Console.WriteLine("Do you want to see all vehicle (without filter) (Y/N)?");
-            getYesOrNO(out seeAll);
+            getYesOrNO(out bool seeAll);
+
             if (!seeAll)
             {
                 Console.WriteLine("Do you want to see vehicle in-reapir? (Y/N)");
                 getYesOrNO(out seeInReapir);
+
                 Console.WriteLine("Do you want to see vehicle prepared? (Y/N)");
                 getYesOrNO(out seePrepared);
+
                 Console.WriteLine("Do you want to see vehicle paid? (Y/N)");
                 getYesOrNO(out seePaid);
             }
@@ -149,14 +153,12 @@ namespace Ex03.ConsoleUI
             }
         }
 
-        private void changeState()
+        private void changeVehicleStatus()
         {
-            string lincenseInput;
-            int input;
-            getLicenseNumber(out lincenseInput);
+            getLicenseNumber(out string licenseInput);
 
             Console.WriteLine("Enter new state : 1 - In Repair 2 - Fixed 3 - Paid");
-            int.TryParse(Console.ReadLine(), out input);
+            int.TryParse(Console.ReadLine(), out int input);
 
             while (input != 1 && input != 2 && input != 3) 
             {
@@ -164,13 +166,13 @@ namespace Ex03.ConsoleUI
                 int.TryParse(Console.ReadLine(), out input);
             }
 
-            if (r_MyGarage.ChangeServiceStatus(lincenseInput, input)) 
+            if (r_MyGarage.ChangeServiceStatus(licenseInput, input)) 
             {
                 Console.WriteLine("Status Updated!");
             }
             else
             {
-                Console.WriteLine("Lincense does not exsit in THE BEST GARAGE IN TOWN");
+                Console.WriteLine("License does not exsit in {0}", r_MyGarage.Name);
             }
         }
 
@@ -186,7 +188,7 @@ namespace Ex03.ConsoleUI
             }
             else
             {
-                Console.WriteLine("Lincense does not exsit in THE BEST GARAGE IN TOWN");
+                Console.WriteLine("License does not exsit in {0}", r_MyGarage.Name);
             }
         }
 
@@ -199,7 +201,7 @@ namespace Ex03.ConsoleUI
             float amountToadd = -1f;
 
             Console.WriteLine("Which type of gas to you wish to add?");
-            Console.WriteLine(r_MyGarage.GetFuelTypes());
+            Console.WriteLine(r_MyGarage.ShowFuelTypes());
 
             int.TryParse(Console.ReadLine(), out gasType);
 
@@ -236,18 +238,18 @@ namespace Ex03.ConsoleUI
 
             getLicenseNumber(out licenseNumber);
 
-            Console.WriteLine("how many minutes do you want to add?");
+            Console.WriteLine("How much minutes do you want to add?");
             float.TryParse(Console.ReadLine(), out amountToAdd);
 
             while (amountToAdd <= 0)
             {
-                Console.WriteLine("Wrong input! enter postive number");
+                Console.WriteLine(string.Format("Wrong input.{0}Please enter postive number.", Environment.NewLine));
                 float.TryParse(Console.ReadLine(), out amountToAdd);
             }
 
             if (r_MyGarage.ChargeElectricBattery(licenseNumber, amountToAdd)) 
             {
-                Console.WriteLine("Battery Charged!");
+                Console.WriteLine("Battery charged.");
             }
             else
             {
@@ -263,7 +265,8 @@ namespace Ex03.ConsoleUI
 
             if (r_MyGarage.VehicleInfo(licenseNumber, out msg)) 
             {
-                Console.WriteLine(msg);
+                Console.WriteLine(string.Format("{1}{0}{1}Press any key to go back to menu.", msg, Environment.NewLine));
+                Console.ReadLine();
             }
             else 
             {
@@ -299,12 +302,12 @@ namespace Ex03.ConsoleUI
 
             while (!int.TryParse(io_Phone, out int check) || io_Phone.Length != 10 || io_Phone[0] != '0' || io_Phone[1] != '5') 
             {
-                Console.WriteLine("Phone number invalid (10 digit's in the form 05xxxxxxxx)");
+                Console.WriteLine("Phone number invalid (should be 10 digit's in the form 05xxxxxxxx)");
                 io_Phone = Console.ReadLine();
             }
         }
 
-        private void getSupportedVehicles(out int vehicleChoice)
+        private void getVehicle(out int vehicleChoice)
         {
             int maxChoice = r_MyGarage.NumOfSupportedVehicles();
             vehicleChoice = 0;
@@ -323,7 +326,7 @@ namespace Ex03.ConsoleUI
         {   
             Dictionary<eQuestions, object> infoDicToFill = r_MyGarage.GetExtraInfo(io_Choice);
             bool invalidInput = true;
-
+            
             while (invalidInput)
             {
                 if (infoDicToFill.ContainsKey(eQuestions.ModelName))
@@ -358,28 +361,28 @@ namespace Ex03.ConsoleUI
 
                 if (infoDicToFill.ContainsKey(eQuestions.Doors))
                 {
-                    string question = string.Format("Choose Number of Doors:{0}{1}", Environment.NewLine, r_MyGarage.GetCarDoors());
+                    string question = string.Format("Choose Number of Doors:{0}{1}", Environment.NewLine, r_MyGarage.ShowCarDoors());
                     Console.Write(question);
                     infoDicToFill[eQuestions.Doors] = Console.ReadLine();
                 }
 
                 if (infoDicToFill.ContainsKey(eQuestions.LicenseType))
                 {
-                    string question = string.Format("Choose License Type of your Motorcycle{0}{1}", Environment.NewLine, r_MyGarage.GetMotorcycleLicenseTypes());
+                    string question = string.Format("Choose License Type of your Motorcycle:{0}{1}", Environment.NewLine, r_MyGarage.ShowMotorcycleLicenseTypes());
                     Console.Write(question);
                     infoDicToFill[eQuestions.LicenseType] = Console.ReadLine();
                 }
 
                 if (infoDicToFill.ContainsKey(eQuestions.Color))
                 {
-                    string question = string.Format("Choose car's Color:{0}{1}", Environment.NewLine, r_MyGarage.GetCarColors());
+                    string question = string.Format("Choose car's Color:{0}{1}", Environment.NewLine, r_MyGarage.ShowCarColors());
                     Console.Write(question);
                     infoDicToFill[eQuestions.Color] = Console.ReadLine();
                 }
 
                 if (infoDicToFill.ContainsKey(eQuestions.HazardousMaterials))
                 {
-                    Console.WriteLine("Does the Truck Contain Hazardous Materials (Y/N)");
+                    Console.WriteLine("Does the Truck Contains Hazardous Materials (Y/N)");
                     getYesOrNO(out bool answer);
                     infoDicToFill[eQuestions.HazardousMaterials] = answer;
                 }
@@ -409,7 +412,7 @@ namespace Ex03.ConsoleUI
                     }
 
                     Console.WriteLine(ex.Message);
-                    Console.WriteLine("Enter info again:");
+                    Console.WriteLine("Please enter extra info again:");
                 }
             }
         }        

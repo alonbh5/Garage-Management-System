@@ -6,7 +6,13 @@ namespace Ex03.GarageLogic
 {
     public class Garage
     {
+        private readonly string r_Name = "THE BEST GARAGE IN TOWN!";
         private readonly Dictionary<string, Customer> r_Vehicles = new Dictionary<string, Customer>();           
+
+        public string Name
+        {
+            get { return r_Name; }
+        }
 
         public bool AddNewVehicle(string io_CustomerName, string io_CustomerPhoneNumber, int io_Choice, string io_LicenseNumber)
         { // function 1
@@ -63,6 +69,11 @@ namespace Ex03.GarageLogic
                 {
                     vehicleList.Append(string.Format("{0}. {1}{2}", index++, entry.Key, Environment.NewLine));
                 }
+            }
+
+            if (vehicleList.ToString().Equals(string.Empty))
+            {
+                vehicleList.Append("No vehicles in the garage.");
             }
 
             return vehicleList.ToString();
@@ -160,7 +171,7 @@ namespace Ex03.GarageLogic
                     else
                     {
                         Exception ex = new Exception("Choice of fuel type is invalid");
-                        throw new ValueOutOfRangeException(ex, (float)numOfFuelTypes(), 1f);
+                        throw new ValueOutOfRangeException(ex, (float)Fuel.NumOfFuelTypes(), 1f);
                     }
                 }
                 else
@@ -221,24 +232,6 @@ namespace Ex03.GarageLogic
             return found;
         }
 
-        public string ShowSupportedVehicles()
-        {
-            int index = 1;
-            StringBuilder supportedVehicle = new StringBuilder();
-
-            foreach (string currentVehicle in SupportedVehicles.sr_SupportedVehicles)
-            {
-                supportedVehicle.Append(string.Format("{0}. {1}{2}", index++, currentVehicle, Environment.NewLine));
-            }
-
-            return supportedVehicle.ToString();
-        }
-
-        public string GetFuelTypes()
-        {
-            return Fuel.GetFuelTypes();
-        }
-
         public Dictionary<eQuestions, object> GetExtraInfo(int io_Choice)
         {
             SupportedVehicles.GetInfo(out Dictionary<eQuestions, object> DicToFill, io_Choice);
@@ -257,27 +250,32 @@ namespace Ex03.GarageLogic
 
         public int NumOfSupportedVehicles()
         {
-            return SupportedVehicles.sr_SupportedVehicles.Length;
+            return SupportedVehicles.ArrOfSupportedVehicles.Length;
         }
 
-        private int numOfFuelTypes()
+        public string ShowSupportedVehicles()
         {
-            return Enum.GetValues(typeof(eFuelTypes)).Length;
+            return SupportedVehicles.ShowSupportedVehiclesTypes();
         }
 
-        public string GetCarDoors()
+        public string ShowFuelTypes()
         {
-            return Car.GetDoorsOptions();
+            return Fuel.ShowFuelTypes();
         }
 
-        public string GetCarColors()
+        public string ShowCarDoors()
         {
-            return Car.GetColorsOptions();
+            return Car.ShowDoorsOptions();
         }
 
-        public string GetMotorcycleLicenseTypes()
+        public string ShowCarColors()
         {
-            return Motorcycle.GetLicenseTypes();
+            return Car.ShowColorsOptions();
+        }
+
+        public string ShowMotorcycleLicenseTypes()
+        {
+            return Motorcycle.ShowLicenseTypes();
         }
     }
 }

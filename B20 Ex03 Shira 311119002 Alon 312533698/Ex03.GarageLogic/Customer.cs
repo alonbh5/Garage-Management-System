@@ -57,9 +57,8 @@ namespace Ex03.GarageLogic
             get { return r_Vehicle; }
         }
 
-        public static string GetServiceStatuses()
+        public static string ShowServiceStatuses()
         {
-            // int index = 1;
             StringBuilder serviceStatuses = new StringBuilder();
 
             foreach (eServiceStatuses serviceStatus in Enum.GetValues(typeof(eServiceStatuses)))

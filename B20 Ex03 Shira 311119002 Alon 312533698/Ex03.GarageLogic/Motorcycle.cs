@@ -7,7 +7,7 @@ namespace Ex03.GarageLogic
     {
         A = 1,
         A1,
-        Aa,
+        AA,
         B
     }
 
@@ -59,9 +59,8 @@ namespace Ex03.GarageLogic
             return Enum.GetValues(typeof(eLicenseTypes)).Length;
         }
 
-        internal static string GetLicenseTypes()
+        internal static string ShowLicenseTypes()
         {
-            // int index = 1;
             StringBuilder licenseTypes = new StringBuilder();
 
             foreach (eLicenseTypes licenseType in Enum.GetValues(typeof(eLicenseTypes)))
