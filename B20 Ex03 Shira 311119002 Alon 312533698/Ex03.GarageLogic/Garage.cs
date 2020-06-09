@@ -283,8 +283,7 @@ namespace Ex03.GarageLogic
 
                 DicToFill.Add(eQuestions.WheelManufacturer, string.Empty);
                 DicToFill.Add(eQuestions.CurentWheelAirPressure, string.Empty);
-                DicToFill.Add(eQuestions.ModelName, string.Empty);
-                               
+                DicToFill.Add(eQuestions.ModelName, string.Empty);                               
 
                 if (currentVehicle.Equals(eSupportVehicles.ElectricMotorcycle) || currentVehicle.Equals(eSupportVehicles.ElectricCar))
                 { // Hours left in elecrtic engien
@@ -323,6 +322,7 @@ namespace Ex03.GarageLogic
             {
                 r_Vehicles[io_LicenseNumber].Vehicle.ModelName = i_FilledDictionary[eQuestions.ModelName].ToString();
             }
+
             if (i_FilledDictionary.ContainsKey(eQuestions.CurrentFuel))
             {
                 if (float.TryParse(i_FilledDictionary[eQuestions.CurrentFuel].ToString(), out float curFuel))
@@ -331,6 +331,7 @@ namespace Ex03.GarageLogic
                     FillGasTank(io_LicenseNumber, send, curFuel);
                 }
             }
+
             if (i_FilledDictionary.ContainsKey(eQuestions.CurrentHours))
             {
                 if (float.TryParse(i_FilledDictionary[eQuestions.CurrentHours].ToString(), out float curMin))
@@ -338,6 +339,7 @@ namespace Ex03.GarageLogic
                     FillCharge(io_LicenseNumber, curMin);
                 }
             }
+
             if (i_FilledDictionary.ContainsKey(eQuestions.CurentWheelAirPressure))
             {
                 if (float.TryParse(i_FilledDictionary[eQuestions.CurentWheelAirPressure].ToString(), out float curAirPressure))
@@ -348,6 +350,7 @@ namespace Ex03.GarageLogic
                     }
                 }                
             }
+
             if (i_FilledDictionary.ContainsKey(eQuestions.WheelManufacturer))
             {
                 for (int i = 0; i < r_Vehicles[io_LicenseNumber].Vehicle.Wheels.Length; i++)
@@ -355,22 +358,27 @@ namespace Ex03.GarageLogic
                     r_Vehicles[io_LicenseNumber].Vehicle.Wheels[i].Manufacturer = i_FilledDictionary[eQuestions.WheelManufacturer].ToString();
                 }
             }
+
             if (i_FilledDictionary.ContainsKey(eQuestions.Doors))
             {
                 (r_Vehicles[io_LicenseNumber].Vehicle as Car).Doors = (eDoors)i_FilledDictionary[eQuestions.Doors];
             }
+
             if (i_FilledDictionary.ContainsKey(eQuestions.LicenseType))
             {
                 (r_Vehicles[io_LicenseNumber].Vehicle as Motorcycle).LicenseType = (eLicenseType)i_FilledDictionary[eQuestions.LicenseType];
             }
+
             if (i_FilledDictionary.ContainsKey(eQuestions.Color))
             {
                 (r_Vehicles[io_LicenseNumber].Vehicle as Car).Color = (eColor)i_FilledDictionary[eQuestions.Color];
             }
+
             if (i_FilledDictionary.ContainsKey(eQuestions.HazardousMaterials))
             {
                 (r_Vehicles[io_LicenseNumber].Vehicle as Truck ).HazardousMaterials = (bool)i_FilledDictionary[eQuestions.HazardousMaterials];
             }
+
             if (i_FilledDictionary.ContainsKey(eQuestions.CargoCpacity))
             {
                 if(float.TryParse(i_FilledDictionary[eQuestions.CargoCpacity].ToString(), out float cargo))
@@ -378,6 +386,7 @@ namespace Ex03.GarageLogic
                     (r_Vehicles[io_LicenseNumber].Vehicle as Truck).CargoVolume = cargo;
                 }
             }
+
             if (i_FilledDictionary.ContainsKey(eQuestions.EngineCC))
             {
                 if (int.TryParse(i_FilledDictionary[eQuestions.EngineCC].ToString(), out int engienCC))
