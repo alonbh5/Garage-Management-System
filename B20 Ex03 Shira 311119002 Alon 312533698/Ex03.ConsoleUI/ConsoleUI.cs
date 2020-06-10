@@ -1,8 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Ex03.GarageLogic;
 
 namespace Ex03.ConsoleUI
@@ -11,13 +8,13 @@ namespace Ex03.ConsoleUI
     {
         private const int k_LicenseLength = 9;
         private const int k_NumberOfOptions = 8;
-        private readonly string r_ErrorMsg = "Ivalid input, please try again.";
 
+        private readonly string r_ErrorMsg = "Ivalid input, please try again.";
         private readonly Garage r_MyGarage = new Garage();
 
         internal ConsoleUI()
         {
-            //// run garge manu
+            //// Run garage menu
             int userChoice = 0;
             
             printOptions(out userChoice);
@@ -29,7 +26,7 @@ namespace Ex03.ConsoleUI
                     switch (userChoice)
                     {
                         case 1:
-                            AddNewVehicleInput();
+                            addNewVehicleInput();
                             break;
                         case 2:
                             printByFilter();
@@ -57,6 +54,7 @@ namespace Ex03.ConsoleUI
                     {
                         Console.WriteLine((ex as ValueOutOfRangeException).InnerException.Message);
                     }
+
                     Console.WriteLine(ex.Message);
                 }
 
@@ -86,16 +84,13 @@ r_MyGarage.Name);
 
             Console.WriteLine(menu);
 
-            int.TryParse(Console.ReadLine(), out io_Choice);            
-
-            while (io_Choice < 1 || io_Choice > k_NumberOfOptions)
+            while (!int.TryParse(Console.ReadLine(), out io_Choice) || io_Choice < 1 || io_Choice > k_NumberOfOptions)
             {                
                 Console.WriteLine(error);
-                int.TryParse(Console.ReadLine(), out io_Choice);
             }
         }
 
-        public void AddNewVehicleInput()
+        private void addNewVehicleInput()
         {
             getNameAndPhone(out string name, out string phoneNumber);
             getVehicle(out int vehicleChoice);
@@ -255,7 +250,7 @@ r_MyGarage.Name);
         }
 
         private void printByLicense()
-        { // function 7
+        { 
             getLicenseNumber(out string licenseNumber);
 
             if (r_MyGarage.VehicleInfo(licenseNumber, out string msg)) 

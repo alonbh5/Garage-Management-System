@@ -13,12 +13,12 @@ namespace Ex03.GarageLogic
             r_MaxAirPressure = i_MaxAirPressure;
         }
 
-        public float MaxAirPressure
+        internal float MaxAirPressure
         {
             get { return r_MaxAirPressure; }
         }
 
-        public string Manufacturer
+        internal string Manufacturer
         {
             get { return m_Manufacturer; }
             set
@@ -34,7 +34,7 @@ namespace Ex03.GarageLogic
             }
         }
 
-        public float CurrentAirPressure
+        internal float CurrentAirPressure
         {
             get { return m_CurrentAirPressure; }
             set
@@ -51,7 +51,7 @@ namespace Ex03.GarageLogic
             }
         }
 
-        public void InflatingAirPressure(float io_AddPressure)
+        internal void InflatingAirPressure(float io_AddPressure)
         {
             if (io_AddPressure + CurrentAirPressure <= MaxAirPressure)
             {

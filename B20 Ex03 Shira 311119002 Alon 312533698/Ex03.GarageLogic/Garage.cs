@@ -17,10 +17,12 @@ namespace Ex03.GarageLogic
         public bool AddNewVehicle(string io_CustomerName, string io_CustomerPhoneNumber, int io_Choice, string io_LicenseNumber)
         {
             //// Gets new customer (name, phone number and license plate number) and choice out of 
-            //// the garage supported vehicle
-            /// 1. New license plate number - add it to the garage 
-            /// 2. old license plate number - change state of car to - "In-Repair"
-            /// return T/F if insertion succeed 
+            //// the garage supported vehicles.
+            //// Two possible cases:
+            //// 1. New license plate number - add it to the garage.
+            //// 2. Existing license plate number - change state of car to - "In-Repair"
+            //// Return T/F if insertion succeeded.
+           
             bool isAdded = false;
 
             if (isExist(io_LicenseNumber))
@@ -55,7 +57,8 @@ namespace Ex03.GarageLogic
 
         public string VehicleStringByFilter(bool i_ShowInRepair, bool i_ShowFixed, bool i_ShowPaid)
         {
-            //// return a string of all vehicle number in garage by filter  
+            //// Return a string of all vehicles license number in the garage by filter or unfilter.
+         
             int index = 1;
             StringBuilder vehicleList = new StringBuilder();
 
@@ -87,8 +90,9 @@ namespace Ex03.GarageLogic
 
         public bool ChangeServiceStatus(string i_LicenseNumber, int i_NewStatus)
         {
-            //// gets license number and new status and change the state of the car in the system
-            /// return T/F if change succeed
+            //// Gets license number and new status and change the state of the car in the system.
+            //// Return T/F if change succeeded.
+            
             bool isChanged = false;
 
             if (isExist(i_LicenseNumber))
@@ -108,7 +112,7 @@ namespace Ex03.GarageLogic
                 else
                 {
                     Exception ex = new Exception("Choice of vehicle status is invalid");
-                    throw new ValueOutOfRangeException(ex, 3f, 1f);
+                    throw new ValueOutOfRangeException(ex, (float)NumOfServiceStatuses(), 1f);
                 }
             }
 
@@ -117,8 +121,9 @@ namespace Ex03.GarageLogic
 
         public bool InflateWheels(string i_LicenseNumber)
         {
-            //// Gets car's license number and infalte all of the car's tires to max
-            //// Return T/F if ionfaltion succeed
+            //// Gets car's license number and infalte all of the car's tires to max.
+            //// Return T/F if inflation succeeded.
+            
             bool isInflated = false;
             float amountToAdd = 0f;
 
@@ -154,9 +159,10 @@ namespace Ex03.GarageLogic
 
         public bool FillGasTank(string i_LicenseNumber, int io_FuelType, float io_AmountToAdd)
         {
-            //// Gets car's license number , fuel type and amount of fuel to add
-            //// filled the tank if fuel type match and amount is not too much
-            //// Return T/F if filling succeed
+            //// Gets car's license number, fuel type and amount of fuel to add.
+            //// Filled the tank if fuel type match and amount is not above max.
+            //// Return T/F if filling succeeded.
+            
             bool isFilled = false;
 
             if (isExist(i_LicenseNumber))
@@ -198,9 +204,10 @@ namespace Ex03.GarageLogic
 
         public bool ChargeElectricBattery(string i_LicenseNumber, float io_MinutesToAdd)
         {
-            //// Gets car's license number , and minutes of electricity to add
-            //// charge the car if minutes is not too much
-            //// Return T/F if charge succeed
+            //// Gets car's license number and minutes of electricity to add.
+            //// Charge the car if minutes is not above max.
+            //// Return T/F if charge succeeded.
+            
             bool isFilled = false;
 
             if (isExist(i_LicenseNumber))
@@ -216,7 +223,7 @@ namespace Ex03.GarageLogic
                         {
                             float percent = currEngine.HoursLeftInBattery / currEngine.MaxHoursInBattery;
                             r_Vehicles[i_LicenseNumber].Vehicle.PercentagesOfEnergyRemaining = percent * 100f;
-                        }
+                        }                        
                     }
                     else
                     {
@@ -234,9 +241,10 @@ namespace Ex03.GarageLogic
 
         public bool VehicleInfo(string i_LicenseNumber, out string io_VehicleInfo)
         {
-            //// Gets car's license number , and out string 
-            //// store in out string all the information about said car
-            //// Return T/F if car is found in garage
+            //// Gets car's license number and out string.
+            //// Store in out string all the information about said car.
+            //// Return T/F if car is found in the garage.
+            
             bool found = false;
 
             StringBuilder vehicleInfo = new StringBuilder();
@@ -253,19 +261,21 @@ namespace Ex03.GarageLogic
 
         public Dictionary<eQuestions, object> GetExtraInfo(int io_VehicleChoice)
         {
-            //// For UI - gets vehicle choice out of supported vehicles
-            //// return a dictionary where key is Enum of eQusetion and data is object for the UI to insert
-            //// eQusetion helps UI to know what information is needed from user
-            //// Enum of eQusetion can be found in SupportedVehicles Class 
+            //// For UI - gets vehicle choice out of supported vehicles.
+            //// Return a dictionary where key is Enum of eQusetion and data is object for the UI to insert.
+            //// eQusetion helps UI to know what information is needed from user.
+            //// Enum of eQusetion can be found in SupportedVehicles Class.
+            
             SupportedVehicles.GetInfo(out Dictionary<eQuestions, object> DicToFill, io_VehicleChoice);
             return DicToFill;
         }
 
         public void InsertInfo(Dictionary<eQuestions, object> i_FilledDictionary, string io_LicenseNumber)
         {
-            //// for UI - Gets FILLED dictionary that was given to UI by Garage::GetExtraInfo
-            //// and license number  of car needed for updating information
-            //// if value is invalid - an excetion will be thrown
+            //// For UI - gets FILLED dictionary that was given to UI by Garage::GetExtraInfo
+            //// and license number of car needed for extra information.
+            //// If value is invalid - an exception will be thrown.
+            
             SupportedVehicles.FillVehicleInfo(r_Vehicles[io_LicenseNumber].Vehicle, i_FilledDictionary);
         }        
 

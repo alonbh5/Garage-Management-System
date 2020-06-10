@@ -33,7 +33,7 @@ namespace Ex03.GarageLogic
                 else
                 {
                     Exception ex = new Exception("License type's input is invalid");
-                    throw new ValueOutOfRangeException(ex, Enum.GetValues(typeof(eLicenseTypes)).Length, 1f);
+                    throw new ValueOutOfRangeException(ex, (float)Enum.GetValues(typeof(eLicenseTypes)).Length, 1f);
                 }
             }
         }

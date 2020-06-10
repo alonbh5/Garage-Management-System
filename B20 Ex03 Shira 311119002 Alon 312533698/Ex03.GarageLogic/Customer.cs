@@ -47,17 +47,17 @@ namespace Ex03.GarageLogic
                 else
                 {                    
                     Exception ex = new Exception("Vehicle status's input is invalid");
-                    throw new ValueOutOfRangeException(ex, 3f, 1f);
+                    throw new ValueOutOfRangeException(ex, (float)Enum.GetValues(typeof(eServiceStatuses)).Length, 1f);
                 }
             }
         }
 
-        public Vehicle Vehicle
+        internal Vehicle Vehicle
         {
             get { return r_Vehicle; }
         }
 
-        public static string ShowServiceStatuses()
+        internal static string ShowServiceStatuses()
         {
             StringBuilder serviceStatuses = new StringBuilder();
 

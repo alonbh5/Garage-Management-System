@@ -6,6 +6,5 @@ Delivery Date.........: 10 - June - 2020
 Delivered In Delay....: No
 Delay Reason..........: -
 Visual Studio Version.: 2019
-Comments..............: -
+Comments..............: - 
 ========================End Exercise Checking Report========================
-
