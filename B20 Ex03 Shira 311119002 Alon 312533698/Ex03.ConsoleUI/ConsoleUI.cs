@@ -173,7 +173,7 @@ r_MyGarage.Name);
             }
             else
             {
-                Console.WriteLine("License does not exsit in {0}", r_MyGarage.Name);
+                Console.WriteLine("License does not exists in {0}", r_MyGarage.Name);
             }
         }
 
@@ -187,7 +187,7 @@ r_MyGarage.Name);
             }
             else
             {
-                Console.WriteLine("License does not exsit in {0}", r_MyGarage.Name);
+                Console.WriteLine("License does not exists in {0}", r_MyGarage.Name);
             }
         }
 
